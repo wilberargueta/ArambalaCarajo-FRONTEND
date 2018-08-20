@@ -1,0 +1,41 @@
+import { Proveedor } from './../_model/proveedor';
+import { Message } from './../_model/message';
+import { Observable } from 'rxjs';
+import { Backend } from './../_constantes/backend';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Compra } from '../_model/compra';
+
+@Injectable()
+export class CompraService {
+  private backend: Backend;
+  private URL_API = `${this.backend.URL_BACKEND}/api/compras`;
+  constructor(private client: HttpClient) {}
+
+  addCompra(compra: Compra): Observable<Message> {
+    return this.client.post<Message>(this.URL_API, compra);
+  }
+
+  updateCompra(compra: Compra): Observable<Message> {
+    return this.client.put<Message>(this.URL_API, compra);
+  }
+  deleteCompra(compra: Compra): Observable<Message> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: compra
+    };
+    return this.client.delete<Message>(this.URL_API, httpOptions);
+  }
+  getCompras(): Observable<Compra[]> {
+    return this.client.get<Compra[]>(this.URL_API);
+  }
+  getCompraByProveedor(proveedor: Proveedor): Observable<Compra[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      body: proveedor
+    };
+
+    return this.client.get<Compra[]>(`${this.URL_API}/proveedor`, httpOptions);
+  }
+}
+

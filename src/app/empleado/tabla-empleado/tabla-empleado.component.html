@@ -1,0 +1,34 @@
+<div class="ui-g-12">
+  <p-toolbar>
+    <div class="ui-toolbar-group-left">
+      <div class="ui-inputgroup">
+      <button [routerLink]="'nuevo'" pButton type="button" label="Nuevo" icon="pi pi-plus"></button>
+      </div>
+    </div>
+
+  </p-toolbar>
+</div>
+<div class="ui-g-12">
+  <p-table [columns]="cols" #dt [paginator]="true" [rows]="10" [value]="empleados" [responsive]="true" selectionMode="single" [(selection)]="empleadoSelec"
+    dataKey="codEmpleado">
+    <ng-template pTemplate="caption">
+      <div style="text-align: center">
+          <button pButton icon="pi pi-search"></button>
+          <input type="text" pInputText size="30" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
+  </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+            {{col.header}}
+        </th>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-empleado let-columns="columns">
+      <tr [pSelectableRow]="rowData" [routerLink]="rowData.codEmpleado">
+
+        <td  *ngFor="let col of columns" class="ui-p-1">{{rowData[col.field]}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

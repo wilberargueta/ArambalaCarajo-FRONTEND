@@ -1,0 +1,16 @@
+<div (scroll)="shot($event)">
+  <header [class]="header+headerFloat">
+    <h1>Arambala Carajo</h1>
+  </header>
+  <menu [class]="responsive+float">
+    <a href="#" routerLink='empleados'>Empleados</a>
+    <a href="#">Caja</a>
+    <a href="#">Recetas</a>
+    <a href="javascript:void(0);" (blur)="click($event)" class="icon" (click)="click($event)">
+      <i class="pi pi-align-justify"></i>
+    </a>
+  </menu>
+  <main class="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

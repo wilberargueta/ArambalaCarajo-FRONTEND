@@ -1,0 +1,94 @@
+<div class="ui-g-12">
+  <form>
+    <div class="ui-g-12">
+      <p-toolbar>
+        <div class="ui-toolbar-group-left">
+          <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-secondary" (click)="regresar($event)" label="Regresar"
+            style="margin-right: .25em;"></button>
+          <button *ngIf="tipoPerfil" (click)="update($event)" pButton type="button" icon="pi pi-align-center" label="Editar" class="ui-button-success"
+            style="margin-right: .25em;"></button>
+          <button *ngIf="tipoPerfil" (click)="confirm($event)" pButton type="button"  icon="pi pi-trash" label="Eliminar" class="ui-button-danger"></button>
+        </div>
+
+      </p-toolbar>
+
+    </div>
+
+    <div class="ui-g-12 ui-lg-8 ui-md-5">
+     <p-panel>
+      <h3 class="first">Edicion De Proveedor</h3>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-12 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Codigo"></button>
+            <p-inputMask [disabled]="tipoPerfil"   mask="P-9999"  type="text" pInputText [(ngModel)]="proveedor.codProveedor"
+             placeholder="Codigo.." name="cod">
+              </p-inputMask>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Razon Social"></button>
+            <input class="ui-g-12  ui-lg-6 ui-md-12" [disabled]="disable" type="text" pInputText [(ngModel)]="proveedor.razonSocial"
+             name="razon-social" placeholder="Razon Social">
+          </div>
+        </div>
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Correo"></button>
+            <input class="ui-g-12  ui-lg-6 ui-md-12" [disabled]="disable" type="email" pInputText [(ngModel)]="proveedor.correo"
+            name="correo" placeholder="correo@electronico.com">
+          </div>
+        </div>
+      </div>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="NIT"></button>
+            <p-inputMask mask="9999-999999-999-9" [disabled]="disable" [(ngModel)]="proveedor.nit" placeholder="9999-999999-999-9" name="nit">
+            </p-inputMask>
+
+          </div>
+        </div>
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Direccion"></button>
+            <input [disabled]="disable" pInputText type="text" [(ngModel)]="proveedor.direccion" name="direccion">
+          </div>
+        </div>
+      </div>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Telefono"></button>
+            <p-inputMask mask="9999-9999" [disabled]="disable" [(ngModel)]="proveedor.telefono" placeholder="999-9999" name="telefono"></p-inputMask>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-fluid" *ngIf="!disable">
+          <p-toolbar>
+            <div class="ui-toolbar-group-left">
+              <div class="ui-g-6 ui-lg-6 ui-md-6">
+
+                  <button (click)="confirm2($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
+
+              </div>
+              <div class="ui-g-6 ui-lg-6 ui-md-6">
+
+                  <button (click)="cancel($event)" pButton type="button" class="ui-button-danger" label="Cancelar"></button>
+
+              </div>
+            </div>
+          </p-toolbar>
+        </div>
+      </div>
+
+      </p-panel>
+    </div>
+
+  </form>
+
+</div>
+<p-confirmDialog></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>
