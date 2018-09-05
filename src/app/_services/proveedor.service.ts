@@ -31,4 +31,7 @@ export class ProveedorService {
   getProveedorByCod(cod: string): Observable<Proveedor> {
     return this.client.get<Proveedor>(`${this.URL_API}/${cod}`);
   }
+  getProveedoresByPrefix(cod: string): Observable<Proveedor[]> {
+    return this.client.get<Proveedor[]>(`${this.URL_API}/prefix/${cod}`);
+  }
 }

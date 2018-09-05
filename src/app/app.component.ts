@@ -15,22 +15,44 @@ export class AppComponent implements OnInit {
   show = false;
 
   ngOnInit() {
-    console.log(window.screen.width.toString());
     if (window.screen.width <= 600) {
       this.items = [
-        {  icon: 'pi pi-bars', items: [
-          { label: 'Home', icon: 'fa fa-refresh', routerLink: [''] },
-          { label: 'Empleado', icon: 'fa fa-refresh', routerLink: ['empleados'] },
-          { label: 'Proveedores', icon: 'fa fa-close', routerLink: ['proveedores'] },
-          { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] }
-        ] }
+        {
+          icon: 'pi pi-bars',
+          items: [
+            { label: 'Home', icon: 'fa fa-refresh', routerLink: [''] },
+            {
+              label: 'Empleado',
+              icon: 'fa fa-refresh',
+              routerLink: ['empleados']
+            },
+            {
+              label: 'Proveedores',
+              icon: 'fa fa-close',
+              routerLink: ['proveedores']
+            },
+            { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
+            { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
+            {
+              label: 'Productos',
+              icon: 'fa fa-close',
+              routerLink: ['productos']
+            }
+          ]
+        }
       ];
     } else {
       this.items = [
         { label: 'Empleado', icon: 'fa fa-refresh', routerLink: ['empleados'] },
         { label: 'Home', icon: 'fa fa-close', routerLink: [''] },
-        { label: 'Proveedores', icon: 'fa fa-close', routerLink: ['proveedores'] },
-        { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] }
+        {
+          label: 'Proveedores',
+          icon: 'fa fa-close',
+          routerLink: ['proveedores']
+        },
+        { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
+        { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
+        { label: 'Productos', icon: 'fa fa-close', routerLink: ['productos'] }
       ];
     }
   }

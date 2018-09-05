@@ -1,3 +1,7 @@
+import { PerfilProductoComponent } from './producto/perfil-producto/perfil-producto.component';
+import { TablaProductoComponent } from './producto/tabla-producto/tabla-producto.component';
+import { ProductoComponent } from './producto/producto.component';
+import { CompraComponent } from './compra/compra.component';
 import { PerfilCabanaComponent } from './cabana/perfil-cabana/perfil-cabana.component';
 import { TablaCabanaComponent } from './cabana/tabla-cabana/tabla-cabana.component';
 import { CabanaComponent } from './cabana/cabana.component';
@@ -9,6 +13,8 @@ import { EmpleadoComponent } from './empleado/empleado.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmpleadoPerfilComponent } from './empleado/empleado-perfil/empleado-perfil.component';
+import { TablaCompraComponent } from './compra/tabla-compra/tabla-compra.component';
+import { PerfilCompraComponent } from './compra/perfil-compra/perfil-compra.component';
 
 const routes: Routes = [
   {
@@ -36,6 +42,24 @@ const routes: Routes = [
       { path: '', component: TablaCabanaComponent },
       { path: ':id', component: PerfilCabanaComponent },
       { path: 'nuevo', component: PerfilCabanaComponent }
+    ]
+  },
+  {
+    path: 'compras',
+    component: CompraComponent,
+    children: [
+      { path: '', component: TablaCompraComponent },
+      { path: ':id', component: PerfilCompraComponent },
+      { path: 'nuevo', component: PerfilCompraComponent }
+    ]
+  },
+  {
+    path: 'productos',
+    component: ProductoComponent,
+    children: [
+      { path: '', component: TablaProductoComponent },
+      { path: ':id', component: PerfilProductoComponent },
+      { path: 'nuevo', component: PerfilProductoComponent }
     ]
   }
 ];

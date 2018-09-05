@@ -1,8 +1,8 @@
 export class Producto {
   constructor(
-    private codProducto: string,
-    private nombre: string,
-    private medida: string
+    public codProducto: string,
+    public nombre: string,
+    public medida: string
   ) {}
 
   getCodProducto() {

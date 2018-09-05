@@ -2,10 +2,10 @@ import { Compra } from './compra';
 import { Producto } from './producto';
 export class CompraProducto {
   constructor(
-    private idCompraProducto: string,
-    private compras: Compra,
-    private productos: Producto,
-    private cantidad: number
+    public idCompraProducto: string,
+    public compras: Compra,
+    public productos: Producto,
+    public cantidad: number
   ) {}
 
   getIdCompraProducto() {

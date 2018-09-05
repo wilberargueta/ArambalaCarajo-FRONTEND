@@ -7,7 +7,7 @@ import { Producto } from '../_model/producto';
 
 @Injectable()
 export class ProductoService {
-  private backend: Backend;
+  private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/productos`;
 
   constructor(private client: HttpClient) {}
@@ -30,5 +30,8 @@ export class ProductoService {
   }
   getProductoByCod(cod: string): Observable<Producto> {
     return this.client.get<Producto>(`${this.URL_API}/${cod}`);
+  }
+  getProductoByNombre(nombre: string): Observable<Producto[]> {
+    return this.client.get<Producto[]>(`${this.URL_API}/nombre/${nombre}`);
   }
 }

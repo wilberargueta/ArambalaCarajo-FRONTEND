@@ -8,7 +8,7 @@ import { Compra } from '../_model/compra';
 
 @Injectable()
 export class CompraProductoService {
-  private backend: Backend;
+  private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/compraProducto`;
   constructor(private client: HttpClient) {}
   addCompraProducto(cp: CompraProducto): Observable<Message> {
@@ -18,8 +18,12 @@ export class CompraProductoService {
     return this.client.put<Message>(this.URL_API, cp);
   }
   deleteCompraProducto(cp: CompraProducto): Observable<Message> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Conten-Type': 'application/json' }),
+      body: cp
+    };
     return this.client.delete<Message>(
-      `${this.URL_API}/${cp.getIdCompraProducto()}`
+      `${this.URL_API}/delete`, httpOptions
     );
   }
   getCompraProducto(): Observable<CompraProducto[]> {
@@ -29,13 +33,9 @@ export class CompraProductoService {
     return this.client.get<CompraProducto>(`${this.URL_API}/${id}`);
   }
   getCompraProductoByCompra(compra: Compra): Observable<CompraProducto[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: compra
-    };
-    return this.client.get<CompraProducto[]>(
+    return this.client.post<CompraProducto[]>(
       `${this.URL_API}/compras`,
-      httpOptions
+      compra
     );
   }
 }

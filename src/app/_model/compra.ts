@@ -1,11 +1,11 @@
 import { Proveedor } from './proveedor';
 export class Compra {
   constructor(
-    private idCompra: number,
-    private registroCompra: string,
-    private fechaCompra: Date,
-    private detalle: string,
-    private proveedor: Proveedor
+    public idCompra: number,
+    public registroCompra: string,
+    public fechaCompra: string,
+    public detalle: string,
+    public proveedor: Proveedor
   ) {}
 
 getIdCompra() {
@@ -23,13 +23,6 @@ getRegistroCompra() {
     this.registroCompra = registroCompra;
   }
 
-  getFechaCompra(): Date {
-    return this.fechaCompra;
-  }
-
- setFechaCompra( fechaCompra: Date) {
-    this.fechaCompra = fechaCompra;
-  }
 
 getDetalle() {
     return this.detalle;

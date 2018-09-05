@@ -11,6 +11,8 @@ import { EmpleadoService } from './_services/empleado.service';
 import {SplitButtonModule} from 'primeng/splitbutton';
 import {MenubarModule} from 'primeng/menubar';
 import { CabanaModule } from './cabana/cabana.module';
+import { CompraModule } from './compra/compra.module';
+import { ProductoModule } from './producto/producto.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { CabanaModule } from './cabana/cabana.module';
     ProveedorModule,
     SplitButtonModule,
     MenubarModule,
-    CabanaModule
+    CabanaModule,
+    CompraModule,
+    ProductoModule
   ],
   providers: [EmpleadoService],
   bootstrap: [AppComponent]
