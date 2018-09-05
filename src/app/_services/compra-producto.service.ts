@@ -23,6 +23,15 @@ export class CompraProductoService {
       body: cp
     };
     return this.client.delete<Message>(
+      `${this.URL_API}`, httpOptions
+    );
+  }
+  deleteCompraProductoByCompra(cp: Compra): Observable<Message> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Conten-Type': 'application/json' }),
+      body: cp
+    };
+    return this.client.delete<Message>(
       `${this.URL_API}/delete`, httpOptions
     );
   }

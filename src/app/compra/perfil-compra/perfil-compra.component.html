@@ -4,10 +4,12 @@
       <p-toolbar>
         <div class="ui-toolbar-group-left">
           <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-secondary" (click)="regresar($event)" label="Regresar"
-            style="margin-right: .25em;"></button>
+            style="margin-right: .35em; margin-bottom: 0.35em;"></button>
           <button *ngIf="tipoPerfil" (click)="update($event)" pButton type="button" icon="pi pi-pencil" label="Editar" class="ui-button-success"
-            style="margin-right: .25em;"></button>
-          <button *ngIf="tipoPerfil" (click)="confirmEliminar($event)" pButton type="button" icon="pi pi-trash" label="Eliminar" class="ui-button-danger"></button>
+            style="margin-right: .35em;margin-bottom: 0.35em;"></button>
+          <button *ngIf="tipoPerfil" (click)="confirmEliminar($event)" pButton type="button" icon="pi pi-trash" label="Eliminar" class="ui-button-danger"
+            style="margin-right: .35em;margin-bottom: 0.35em;"></button>
+          <button  style="margin-right: .35em;margin-bottom: 0.35em;" *ngIf="tipoPerfil" pButton type="button" icon="pi pi-plus" label="Agregar Factura" class="ui-button-info"></button>
 
         </div>
 
@@ -60,22 +62,12 @@
           </div>
 
         </div>
-        <div class="ui-g-12 ui-fluid" *ngIf="!disable">
-          <p-toolbar>
-            <div class="ui-toolbar-group-left">
-              <div class="ui-g-6 ui-lg-6 ui-md-6">
+        <p-footer *ngIf="!disable" >
+          <button style="margin-right: .35em; float: left" (click)="confirmActualizar($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
+          <button (click)="cancel($event)" pButton type="button" class="ui-button-danger" label="Cancelar"></button>
 
-                <button (click)="confirmActualizar($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
+        </p-footer>
 
-              </div>
-              <div class="ui-g-6 ui-lg-6 ui-md-6">
-
-                <button (click)="cancel($event)" pButton type="button" class="ui-button-danger" label="Cancelar"></button>
-
-              </div>
-            </div>
-          </p-toolbar>
-        </div>
       </p-panel>
     </div>
 
@@ -107,9 +99,7 @@
 <p-confirmDialog></p-confirmDialog>
 <p-growl [value]="msgs"></p-growl>
 <p-dialog header="Agregar producto a la compra" [(visible)]="addProducto">
-  <p-header>
 
-  </p-header>
   <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-lg-12 ui-md-12">
       <div class="ui-inputgroup">
@@ -129,11 +119,9 @@
     </div>
   </div>
   <p-footer>
-    <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-success" type="button" pButton
-     icon="pi pi-pencil" (click)="editarCompraProducto(compraProductoTemporal)"
+    <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-success" type="button" pButton icon="pi pi-pencil" (click)="editarCompraProducto(compraProductoTemporal)"
       label="Modificar"></button>
-    <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-warning" type="button" pButton
-     icon="pi pi-trash" (click)="eliminarCompraProducto(compraProductoTemporal)"
+    <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-warning" type="button" pButton icon="pi pi-trash" (click)="eliminarCompraProducto(compraProductoTemporal)"
       label="Eliminar"></button>
     <button *ngIf="!tipoDeEdicionDeProducto" type="button" pButton icon="pi pi-check" (click)="addProductoToCompra($event)" label="Agregar"></button>
     <button class="ui-button-danger" type="button" pButton icon="pi pi-close" (click)="addProducto=false" label="Cancelar"></button>

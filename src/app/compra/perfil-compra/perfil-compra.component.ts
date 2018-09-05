@@ -152,6 +152,13 @@ export class PerfilCompraComponent implements OnInit {
     });
   }
   deleteCompra() {
+    if (this.compraProductoLista.length > 0) {
+      this.compraProductoServicio
+        .deleteCompraProductoByCompra(this.compra)
+        .subscribe(eli => {
+          console.log(eli);
+        });
+    }
     this.compraServicio.deleteCompra(this.compra).subscribe(data => {
       this.msgs = [
         {
@@ -176,12 +183,16 @@ export class PerfilCompraComponent implements OnInit {
   openModalProducto(event) {
     // Abriendo Modal para agregar productos a la compra.
     if (event !== undefined) {
+      // Modificar producto existente
       this.compraProductoTemporal = event;
       this.producto = event.productos;
       this.addProducto = true;
       this.tipoDeEdicionDeProducto = true;
     } else {
+      // Agregando Nuevo producto
       this.tipoDeEdicionDeProducto = false;
+      this.compraProductoTemporal = new CompraProducto('', null, null, 0);
+      this.producto = new Producto('', '', '');
       this.compraServicio
         .getComprasByRC(this.compra.registroCompra)
         .subscribe(data => {
@@ -235,7 +246,10 @@ export class PerfilCompraComponent implements OnInit {
         }
       ];
     });
-    window.localStorage.setItem('Hola', 'Mundo');
+    console.log(this.compraProductoLista);
+    const index = this.compraProductoLista.indexOf(event);
+    this.compraProductoLista.splice(index, 1);
+    console.log(this.compraProductoLista);
     this.addProducto = false;
   }
   editarCompraProducto(event) {
