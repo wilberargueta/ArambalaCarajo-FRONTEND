@@ -1,3 +1,4 @@
+import { Receta } from './../_model/receta';
 import { Message } from './../_model/message';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -18,8 +19,8 @@ export class ServicioService {
   getServicioById(id: number): Observable<Servicio> {
     return this.client.get<Servicio>(`${this.URL_API}/${id}`);
   }
-  addServicio(servicio: Servicio): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, servicio);
+  addServicio(servicio: Servicio): Observable<Receta> {
+    return this.client.post<Receta>(this.URL_API, servicio);
   }
   updateServicio(servicio: Servicio): Observable<Message> {
     return this.client.put<Message>(this.URL_API, servicio);

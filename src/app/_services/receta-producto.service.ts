@@ -8,13 +8,13 @@ import { Receta } from '../_model/receta';
 
 @Injectable()
 export class RecetaProductoService {
-  private backend: Backend;
+  private backend: Backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/recetaProductos`;
 
   constructor(private client: HttpClient) {}
 
-  addRecetaProducto(rp: RecetaProducto): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, rp);
+  addRecetaProducto(rp: RecetaProducto): Observable<RecetaProducto> {
+    return this.client.post<RecetaProducto>(this.URL_API, rp);
   }
   updateRecetaProducto(rp: RecetaProducto): Observable<Message> {
     return this.client.put<Message>(this.URL_API, rp);
@@ -26,6 +26,13 @@ export class RecetaProductoService {
     };
     return this.client.delete<Message>(this.URL_API, httpOptions);
   }
+  deleteRecetaProductoByReceta(rp: Receta): Observable<Message> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: rp
+    };
+    return this.client.delete<Message>(`${this.URL_API}/delete`, httpOptions);
+  }
   getRecetaProducto(): Observable<RecetaProducto[]> {
     return this.client.get<RecetaProducto[]>(this.URL_API);
   }
@@ -33,13 +40,7 @@ export class RecetaProductoService {
     return this.client.get<RecetaProducto>(`${this.URL_API}/${id}`);
   }
   getRecetaProductoByReceta(receta: Receta): Observable<RecetaProducto[]> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: receta
-    };
-    return this.client.get<RecetaProducto[]>(
-      `${this.URL_API}/receta`,
-      httpOptions
-    );
+    return this.client.post<RecetaProducto[]>(
+      `${this.URL_API}/receta`, receta);
   }
 }

@@ -1,3 +1,6 @@
+import { PerfilRecetaComponent } from './receta/perfil-receta/perfil-receta.component';
+import { TablaRecetaComponent } from './receta/tabla-receta/tabla-receta.component';
+import { RecetaComponent } from './receta/receta.component';
 import { PerfilProductoComponent } from './producto/perfil-producto/perfil-producto.component';
 import { TablaProductoComponent } from './producto/tabla-producto/tabla-producto.component';
 import { ProductoComponent } from './producto/producto.component';
@@ -60,6 +63,15 @@ const routes: Routes = [
       { path: '', component: TablaProductoComponent },
       { path: ':id', component: PerfilProductoComponent },
       { path: 'nuevo', component: PerfilProductoComponent }
+    ]
+  },
+  {
+    path: 'recetas',
+    component: RecetaComponent,
+    children: [
+      { path: '', component: TablaRecetaComponent },
+      { path: ':id', component: PerfilRecetaComponent },
+      { path: 'nuevo', component: PerfilRecetaComponent }
     ]
   }
 ];

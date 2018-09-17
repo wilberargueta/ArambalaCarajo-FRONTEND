@@ -13,6 +13,7 @@ import {MenubarModule} from 'primeng/menubar';
 import { CabanaModule } from './cabana/cabana.module';
 import { CompraModule } from './compra/compra.module';
 import { ProductoModule } from './producto/producto.module';
+import { RecetaModule } from './receta/receta.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProductoModule } from './producto/producto.module';
     MenubarModule,
     CabanaModule,
     CompraModule,
-    ProductoModule
+    ProductoModule,
+    RecetaModule
   ],
   providers: [EmpleadoService],
   bootstrap: [AppComponent]

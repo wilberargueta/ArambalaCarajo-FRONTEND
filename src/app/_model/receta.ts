@@ -1,8 +1,8 @@
 export class Receta {
   constructor(
-    private idReceta: number,
-    private nombre: string,
-    private detalle: string
+    public idReceta: number,
+    public nombre: string,
+    public detalle: string
   ) {}
 
   getIdReceta(): number {

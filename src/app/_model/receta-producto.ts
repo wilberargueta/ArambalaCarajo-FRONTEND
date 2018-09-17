@@ -3,10 +3,10 @@ import { Receta } from './receta';
 export class RecetaProducto {
 
   constructor(
-    private idRecetaProducto: number,
-    private receta: Receta,
-    private producto: Producto,
-    private cantidad: number
+    public idRecetaProducto: number,
+    public receta: Receta,
+    public producto: Producto,
+    public cantidad: number
   ) {}
 
   getIdRecetaProducto(): number {
