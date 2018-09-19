@@ -1,9 +1,9 @@
 export class Servicio {
   constructor(
-    private idServicio: number,
-    private nombre: string,
-    private precio: string,
-    private detalle: string
+    public idServicio: number,
+    public nombre: string,
+    public precio: string,
+    public detalle: string
   ) {}
 
   getIdServicio(): number {

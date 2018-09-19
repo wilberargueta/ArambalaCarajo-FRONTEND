@@ -223,11 +223,10 @@ export class PerfilCompraComponent implements OnInit {
       this.addProducto = false;
     } else {
       this.addProducto = false;
-      this.compraProductoLista.push(this.compraProductoTemporal);
       this.compraProductoServicio
         .addCompraProducto(this.compraProductoTemporal)
         .subscribe(data => {
-          console.log(data);
+          this.compraProductoLista.push(data);
         });
     }
   }
@@ -246,10 +245,8 @@ export class PerfilCompraComponent implements OnInit {
         }
       ];
     });
-    console.log(this.compraProductoLista);
     const index = this.compraProductoLista.indexOf(event);
     this.compraProductoLista.splice(index, 1);
-    console.log(this.compraProductoLista);
     this.addProducto = false;
   }
   editarCompraProducto(event) {

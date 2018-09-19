@@ -14,6 +14,9 @@ import { CabanaModule } from './cabana/cabana.module';
 import { CompraModule } from './compra/compra.module';
 import { ProductoModule } from './producto/producto.module';
 import { RecetaModule } from './receta/receta.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { MenuModule } from './menu/menu.module';
+import { ServicioModule } from './servicio/servicio.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { RecetaModule } from './receta/receta.module';
     CabanaModule,
     CompraModule,
     ProductoModule,
-    RecetaModule
+    RecetaModule,
+    CategoriaModule,
+    MenuModule,
+    ServicioModule
   ],
   providers: [EmpleadoService],
   bootstrap: [AppComponent]

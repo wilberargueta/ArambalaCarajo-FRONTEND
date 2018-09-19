@@ -1,3 +1,12 @@
+import { ServicioComponent } from './servicio/servicio.component';
+import { PerfilMenuComponent } from './menu/perfil-menu/perfil-menu.component';
+import { TablaMenuComponent } from './menu/tabla-menu/tabla-menu.component';
+import { MenuComponent } from './menu/menu.component';
+import { PerfilProductoCategoriaComponent } from './categoria/perfil-producto-categoria/perfil-producto-categoria.component';
+import { PerfilMenuCategoriaComponent } from './categoria/perfil-menu-categoria/perfil-menu-categoria.component';
+
+import { TablaCategoriaComponent } from './categoria/tabla-categoria/tabla-categoria.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 import { PerfilRecetaComponent } from './receta/perfil-receta/perfil-receta.component';
 import { TablaRecetaComponent } from './receta/tabla-receta/tabla-receta.component';
 import { RecetaComponent } from './receta/receta.component';
@@ -18,6 +27,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { EmpleadoPerfilComponent } from './empleado/empleado-perfil/empleado-perfil.component';
 import { TablaCompraComponent } from './compra/tabla-compra/tabla-compra.component';
 import { PerfilCompraComponent } from './compra/perfil-compra/perfil-compra.component';
+import { TablaServicioComponent } from './servicio/tabla-servicio/tabla-servicio.component';
+import { PerfilServicioComponent } from './servicio/perfil-servicio/perfil-servicio.component';
 
 const routes: Routes = [
   {
@@ -73,7 +84,37 @@ const routes: Routes = [
       { path: ':id', component: PerfilRecetaComponent },
       { path: 'nuevo', component: PerfilRecetaComponent }
     ]
-  }
+  },
+  {
+    path: 'categorias',
+    component: CategoriaComponent,
+    children: [
+      { path: '', component: TablaCategoriaComponent },
+      { path: 'menu/:id', component: PerfilMenuCategoriaComponent },
+      { path: 'menu/nuevo', component: PerfilMenuCategoriaComponent },
+      { path: 'producto/:id', component: PerfilProductoCategoriaComponent },
+      { path: 'producto/nuevo', component: PerfilProductoCategoriaComponent }
+    ]
+  },
+  {
+    path: 'menus',
+    component: MenuComponent,
+    children: [
+      { path: '', component: TablaMenuComponent },
+      { path: ':id', component: PerfilMenuComponent },
+      { path: 'nuevo', component: PerfilMenuComponent }
+    ]
+  },
+  {
+    path: 'servicios',
+    component: ServicioComponent,
+    children: [
+      { path: '', component: TablaServicioComponent },
+      { path: ':id', component: PerfilServicioComponent },
+      { path: 'nuevo', component: PerfilServicioComponent }
+    ]
+  },
+
 ];
 
 @NgModule({

@@ -7,7 +7,7 @@ import { Menu } from '../_model/menu';
 
 @Injectable()
 export class MenuService {
-  private backend: Backend;
+  private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/menus`;
 
   constructor(private client: HttpClient) {}

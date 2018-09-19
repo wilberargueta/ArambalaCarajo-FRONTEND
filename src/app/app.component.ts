@@ -33,11 +33,19 @@ export class AppComponent implements OnInit {
             },
             { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
             { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
-            { label: 'Productos',
+            {
+              label: 'Productos',
               icon: 'fa fa-close',
               routerLink: ['productos']
             },
             { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] },
+            {
+              label: 'Categorias',
+              icon: 'fa fa-close',
+              routerLink: ['categorias']
+            },
+            { label: 'Categorias', icon: 'fa fa-close', routerLink: ['categorias'] },
+            { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
           ]
         }
       ];
@@ -45,11 +53,18 @@ export class AppComponent implements OnInit {
       this.items = [
         { label: 'Empleado', icon: 'fa fa-refresh', routerLink: ['empleados'] },
         { label: 'Home', icon: 'fa fa-close', routerLink: [''] },
-        { label: 'Proveedores', icon: 'fa fa-close',routerLink: ['proveedores']},
+        {
+          label: 'Proveedores',
+          icon: 'fa fa-close',
+          routerLink: ['proveedores']
+        },
         { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
         { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
         { label: 'Productos', icon: 'fa fa-close', routerLink: ['productos'] },
-        { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] }
+        { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] },
+        { label: 'Categorias', icon: 'fa fa-close', routerLink: ['categorias'] },
+        { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
+        { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
       ];
     }
   }

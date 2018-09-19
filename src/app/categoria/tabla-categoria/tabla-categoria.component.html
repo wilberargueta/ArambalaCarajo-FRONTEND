@@ -1,0 +1,71 @@
+
+
+
+<div class="ui-g-6 ui-md-6 ui-sm-12">
+  <p-panel>
+    <p-header>
+      CATEGORIA MENU
+      <button style="margin-left: 1em;" pButton type="button" label="Agregar Categoria"
+      icon="pi pi-plus" [routerLink]="'menu/nuevo'"></button>
+    </p-header>
+    <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="menuCategorias" [responsive]="true"
+    selectionMode="single" [(selection)]="menuCategoriaSelec" dataKey="id">
+      <ng-template pTemplate="caption">
+        <div style="text-align: center">
+            <button pButton icon="pi pi-search"></button>
+            <input type="text" pInputText size="30" placeholder="Filtrado "
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+             style="width:auto">
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-menuCategorias let-columns="columns">
+        <tr [pSelectableRow]="rowData" [routerLink]="'menu/'+rowData.idCategoriaMenu">
+
+          <td  *ngFor="let col of columns" class="ui-p-1">{{rowData[col.field]}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+</div>
+<div class="ui-g-6 ui-md-6 ui-sm-12">
+  <p-panel>
+    <p-header>
+      CATEGORIA PRODUCTOS
+      <button style="margin-left: 1em;" pButton type="button" label="Agregar Categoria"
+      icon="pi pi-plus" [routerLink]="'producto/nuevo'"></button>
+    </p-header>
+    <p-table [columns]="colsProducto" #dt [paginator]="true" [rows]="10" [value]="productoCategorias"
+     [responsive]="true"
+    selectionMode="single" [(selection)]="productoCategoriaSelec" dataKey="id">
+      <ng-template pTemplate="caption">
+        <div style="text-align: center">
+            <button pButton icon="pi pi-search"></button>
+            <input type="text" pInputText size="30" placeholder="Filtrado "
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+             style="width:auto">
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-productoCategorias let-columns="columns">
+        <tr [pSelectableRow]="rowData" [routerLink]="'producto/'+rowData.idCategoriaProducto">
+
+          <td  *ngFor="let col of columns" class="ui-p-1">{{rowData[col.field]}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+</div>
+

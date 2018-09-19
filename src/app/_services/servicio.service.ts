@@ -8,7 +8,7 @@ import { Servicio } from '../_model/servicio';
 
 @Injectable()
 export class ServicioService {
-  private backend: Backend;
+  private backend =new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/servicios`;
 
   constructor(private client: HttpClient) {}
@@ -19,17 +19,13 @@ export class ServicioService {
   getServicioById(id: number): Observable<Servicio> {
     return this.client.get<Servicio>(`${this.URL_API}/${id}`);
   }
-  addServicio(servicio: Servicio): Observable<Receta> {
-    return this.client.post<Receta>(this.URL_API, servicio);
+  addServicio(servicio: Servicio): Observable<Servicio> {
+    return this.client.post<Servicio>(this.URL_API, servicio);
   }
   updateServicio(servicio: Servicio): Observable<Message> {
     return this.client.put<Message>(this.URL_API, servicio);
   }
   deleteServicio(servicio: Servicio): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: servicio
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+    return this.client.put<Message>(`${this.URL_API}/delete`, servicio);
   }
 }
