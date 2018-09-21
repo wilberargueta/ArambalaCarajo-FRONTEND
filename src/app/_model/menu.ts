@@ -1,9 +1,9 @@
 export class Menu {
   constructor(
-    private idMenu: number,
-    private nombre: string,
-    private detalles: string,
-    private precio: string
+    public idMenu: number,
+    public nombre: string,
+    public detalles: string,
+    public precio: string
   ) {}
 
   getIdMenu(): number {

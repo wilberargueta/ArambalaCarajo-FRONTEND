@@ -31,4 +31,7 @@ export class CategoriaMenuService {
   getCategoriaById(id: number): Observable<CategoriaMenu> {
     return this.client.get<CategoriaMenu>(`${this.URL_API}/${id}`);
   }
+  getCategoriaByBusqueda(busqueda: string): Observable<CategoriaMenu[]> {
+    return this.client.get<CategoriaMenu[]>(`${this.URL_API}/busqueda/${busqueda}`);
+  }
 }

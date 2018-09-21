@@ -12,18 +12,14 @@ export class MenuService {
 
   constructor(private client: HttpClient) {}
 
-  addMenu(menu: Menu): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, menu);
+  addMenu(menu: Menu): Observable<Menu> {
+    return this.client.post<Menu>(this.URL_API, menu);
   }
   updateMenu(menu: Menu): Observable<Message> {
     return this.client.put<Message>(this.URL_API, menu);
   }
   deleteMenu(menu: Menu): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: menu
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+    return this.client.put<Message>(`${this.URL_API}/delete`, menu);
   }
 
   getMenu(): Observable<Menu[]> {

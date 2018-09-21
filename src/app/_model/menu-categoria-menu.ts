@@ -3,7 +3,7 @@ import { CategoriaMenu } from './categoria-menu';
 export class MenuCategoriaMenu {
   constructor(
     public id: number,
-    public categoria: CategoriaMenu,
+    public categoriaMenu: CategoriaMenu,
     public menu: Menu
   ) {}
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
+import { Menu } from '../_model/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,7 @@ export class MenuCategoriaMenuService {
   ): Observable<MenuCategoriaMenu> {
     return this.client.put<MenuCategoriaMenu>(this.URL_API, categoria);
   }
-  deleteCategoria(
-    categoria: MenuCategoriaMenu
-  ): Observable<Message> {
+  deleteCategoria(categoria: MenuCategoriaMenu): Observable<Message> {
     return this.client.put<Message>(
       `${this.URL_API}/delete`,
       categoria
@@ -38,5 +37,8 @@ export class MenuCategoriaMenuService {
   }
   getCategoriaById(id: number): Observable<MenuCategoriaMenu> {
     return this.client.get<MenuCategoriaMenu>(`${this.URL_API}/${id}`);
+  }
+  getCategoriaByMenu(menu: Menu): Observable<MenuCategoriaMenu> {
+    return this.client.post<MenuCategoriaMenu>(`${this.URL_API}/menu`, menu);
   }
 }

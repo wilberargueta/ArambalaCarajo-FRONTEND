@@ -1,3 +1,4 @@
+import { MenuCategoriaMenuService } from './../_services/menu-categoria-menu.service';
 import { MenuRecetaService } from './../_services/menu-receta.service';
 import { MenuService } from './../_services/menu.service';
 import { DialogModule } from 'primeng/dialog';
@@ -49,6 +50,6 @@ import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
     DialogModule
   ],
   declarations: [MenuComponent, PerfilMenuComponent, TablaMenuComponent],
-  providers: [MenuService, MenuRecetaService]
+  providers: [MenuService, MenuRecetaService, MenuCategoriaMenuService]
 })
 export class MenuModule { }

@@ -1,3 +1,88 @@
-<p>
-  perfil-menu works!
-</p>
+<div class="ui-g-12">
+  <form>
+    <div class="ui-g-12">
+      <p-toolbar>
+        <div class="ui-toolbar-group-left">
+          <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-secondary" (click)="regresar($event)" label="Regresar"
+            style="margin-right: .35em; margin-bottom: 0.35em;"></button>
+          <button *ngIf="tipoPerfil" (click)="update($event)" pButton type="button" icon="pi pi-pencil" label="Editar" class="ui-button-success"
+            style="margin-right: .35em;margin-bottom: 0.35em;"></button>
+          <button *ngIf="tipoPerfil" (click)="confirmEliminar($event)" pButton type="button" icon="pi pi-trash" label="Eliminar" class="ui-button-danger"
+            style="margin-right: .35em;margin-bottom: 0.35em;"></button>
+
+
+        </div>
+
+      </p-toolbar>
+
+    </div>
+
+    <div class="ui-g-6 ui-lg-6 ui-md-7 ui-sm-12">
+      <p-panel header="Edicion De Compra" >
+
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-lg-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+              label="ID"></button>
+              <input disabled="true" type="text" pInputText [(ngModel)]="menu.idMenu"
+               placeholder="ID.." name="id">
+
+            </div>
+          </div>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-12 ui-lg-6 ui-md-12">
+                <div class="ui-inputgroup">
+                  <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+                  label=" Nombre"></button>
+                  <input [disabled]="disable" [(ngModel)]="menu.nombre" placeholder="Nombre ..."
+                   name="proveedor" pInputText required>
+                </div>
+              </div>
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+               label="Precio"></button>
+              <input [disabled]="disable" pInputText required [(ngModel)]="menu.precio" placeholder="Precio" name="precio">
+
+            </div>
+          </div>
+
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+               label="Detalle"></button>
+              <input [disabled]="disable" pInputText required  [(ngModel)]="menu.detalles"
+                 name="detalle" placeholder="detalles..s">
+
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+              <div class="ui-inputgroup">
+                <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+                 label="Tipo de Menu"></button>
+                 <p-autoComplete [disabled]="disable"  [(ngModel)]="categoriaMenu" [suggestions]="categorias"
+                 (completeMethod)="filtrarCategorias($event)" field="categoriaMenu" [minLength]="1"   [size]="30"[dropdown]="true" name="categoriaMenu"></p-autoComplete>
+
+              </div>
+            </div>
+
+        </div>
+        <p-footer *ngIf="!disable" >
+          <button style="margin-right: .35em; float: left" (click)="confirmActualizar($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
+          <button (click)="cancel($event)" pButton type="button" class="ui-button-danger" label="Cancelar"></button>
+
+        </p-footer>
+
+      </p-panel>
+    </div>
+
+
+  </form>
+
+</div>
+<p-confirmDialog></p-confirmDialog>
+<p-growl [value]="msgs"></p-growl>
