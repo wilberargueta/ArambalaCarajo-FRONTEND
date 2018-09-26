@@ -32,4 +32,7 @@ export class RecetaService {
   getRecetaById(id: number): Observable<Receta> {
     return this.client.get<Receta>(`${this.URL_API}/${id}`);
   }
+  getRecetaByNombre(nombre: string): Observable<Receta[]> {
+    return this.client.get<Receta[]>(`${this.URL_API}/busqueda/${nombre}`);
+  }
 }

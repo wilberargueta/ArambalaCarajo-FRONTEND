@@ -1,8 +1,9 @@
+import { Cabana } from './../../_model/cabana';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CabanaService } from './../../_services/cabana.service';
 import { MenuItem } from 'primeng/components/common/menuitem';
 import { Component, OnInit } from '@angular/core';
-import { Cabaña } from '../../_model/caba\u00F1a';
+
 
 @Component({
   selector: 'ac-tabla-cabana',
@@ -17,8 +18,8 @@ export class TablaCabanaComponent implements OnInit {
     private router: Router
   ) {}
 
-  cabanas: Cabaña[];
-  cabanaSelec: Cabaña;
+  cabanas: Cabana[];
+  cabanaSelec: Cabana;
   cols: any[];
 
   ngOnInit() {

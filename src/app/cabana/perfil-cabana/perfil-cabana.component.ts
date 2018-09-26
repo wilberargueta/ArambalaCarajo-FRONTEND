@@ -1,8 +1,9 @@
+import { Cabana } from './../../_model/cabana';
 import { ConfirmationService, Message } from 'primeng/api';
 import { CabanaService } from './../../_services/cabana.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Cabaña } from '../../_model/caba\u00F1a';
+
 
 @Component({
   selector: 'ac-perfil-cabana',
@@ -25,14 +26,14 @@ export class PerfilCabanaComponent implements OnInit {
   disable = true;
   msgs: Message[] = [];
   tipoPerfil = false;
-  cabana = new Cabaña('', '', '', null, '');
+  cabana = new Cabana('', '', '', null, '');
   options: any[] = [{label: 'Si', icon: 'pi pi-check', value: true},
   {label: 'No', icon: 'pi pi-times', value: false}];
 
   ngOnInit() {
     this.rout.params.subscribe((params: Params) => {
       if (params['id'] === 'nuevo') {
-        this.cabana = new Cabaña('', '', '', null, '');
+        this.cabana = new Cabana('', '', '', null, '');
         this.tipoPerfil = false;
         this.disable = false;
       } else {
@@ -40,7 +41,7 @@ export class PerfilCabanaComponent implements OnInit {
         this.codCabana = params['id'];
         this.servicio
           .getCabanaById(this.codCabana)
-          .subscribe((data: Cabaña) => {
+          .subscribe((data: Cabana) => {
             this.cabana = data;
           });
       }
@@ -68,11 +69,12 @@ export class PerfilCabanaComponent implements OnInit {
       // this.servicio.addEmpleado()
       console.log('Guardado..');
       this.servicio.addCabana(this.cabana).subscribe(data => {
+        this.cabana = data;
         this.msgs = [
           {
             severity: 'info',
             summary: 'Confirmado',
-            detail: data.message
+            detail: 'Cabaña Agregada Correctamente'
           }
         ];
         console.log(data);

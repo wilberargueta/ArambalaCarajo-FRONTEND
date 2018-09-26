@@ -1,3 +1,6 @@
+import { CategoriaService } from './../_services/categoria.service';
+import { MenuServicioService } from './../_services/menu-servicio.service';
+import { MenuCabanaService } from './../_services/menu-cabana.service';
 import { MenuCategoriaMenuService } from './../_services/menu-categoria-menu.service';
 import { MenuRecetaService } from './../_services/menu-receta.service';
 import { MenuService } from './../_services/menu.service';
@@ -25,6 +28,9 @@ import { CommonModule } from '@angular/common';
 import { MenuComponent } from './menu.component';
 import { PerfilMenuComponent } from './perfil-menu/perfil-menu.component';
 import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
+import { RecetaService } from '../_services/receta.service';
+import { PerfilMenuServicioComponent } from './perfil-menu-servicio/perfil-menu-servicio.component';
+import { PerfilMenuCabanaComponent } from './perfil-menu-cabana/perfil-menu-cabana.component';
 
 @NgModule({
   imports: [
@@ -49,7 +55,23 @@ import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
     ScrollPanelModule,
     DialogModule
   ],
-  declarations: [MenuComponent, PerfilMenuComponent, TablaMenuComponent],
-  providers: [MenuService, MenuRecetaService, MenuCategoriaMenuService]
+  declarations: [
+    MenuComponent,
+    PerfilMenuComponent,
+    TablaMenuComponent,
+    PerfilMenuServicioComponent,
+    PerfilMenuCabanaComponent
+  ],
+  providers: [
+    MenuService,
+    MenuRecetaService,
+    MenuCategoriaMenuService,
+    RecetaService,
+    MenuRecetaService,
+    MenuCabanaService,
+    MenuServicioService,
+    MenuCabanaService,
+    CategoriaService
+  ]
 })
-export class MenuModule { }
+export class MenuModule {}

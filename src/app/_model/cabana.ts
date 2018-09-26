@@ -1,4 +1,4 @@
-export class Cabaña {
+export class Cabana {
   constructor(
     public codCabana: string,
     public nombre: string,

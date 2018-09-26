@@ -1,16 +1,46 @@
-<div class="ui-g-12">
-    <p-toolbar>
-      <div class="ui-toolbar-group-left">
-        <div class="ui-inputgroup">
-        <button [routerLink]="'nuevo'" pButton type="button" label="Nueva" icon="pi pi-plus"></button>
-        </div>
-      </div>
-
-    </p-toolbar>
-  </div>
-  <div class="ui-g-12">
-    <p-table [columns]="cols" #dt [paginator]="true" [rows]="10" [value]="menus" [responsive]="true"
+  <div class="ui-g-12 ui-md-12 ui-sm-12">
+    <p-panel class="ui-g-6 ui-md-6 ui-sm-12">
+      <p-header>
+        Menu de Comida
+        <button style="margin-left: 1em;" pButton type="button" label="Agregar Menu"
+        icon="pi pi-plus" [routerLink]="'nuevo'"></button>
+      </p-header>
+    <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="menus" [responsive]="true"
     selectionMode="single" [(selection)]="menuSelec" dataKey="idReceta">
+      <ng-template pTemplate="caption">
+        <div style="text-align: center">
+            <button pButton icon="pi pi-search"></button>
+            <input type="text" pInputText size="30" placeholder="Filtrado "
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+             style="width:auto">
+        </div>
+    </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let colsMenu of columns">
+              {{colsMenu.header}}
+          </th>
+      </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-menu let-columns="columns">
+        <tr [pSelectableRow]="rowData" [routerLink]="rowData.idMenu">
+
+          <td class="ui-p-1">{{rowData.nombre}}</td>
+          <td class="ui-p-1">${{rowData.precio}}</td>
+          <td class="ui-p-2">{{rowData.detalles}}</td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+  <p-panel class="ui-g-6 ui-md-6 ui-sm-12">
+      <p-header>
+        Menu Servicios
+        <button style="margin-left: 1em;" pButton type="button" label="Agregar Servicio"
+        icon="pi pi-plus" [routerLink]="'servicio/nuevo'"></button>
+      </p-header>
+    <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="servicios" [responsive]="true"
+    selectionMode="single" [(selection)]="menuSelec" dataKey="idMenu">
       <ng-template pTemplate="caption">
         <div style="text-align: center">
             <button pButton icon="pi pi-search"></button>
@@ -27,7 +57,7 @@
       </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-menu let-columns="columns">
-        <tr [pSelectableRow]="rowData" [routerLink]="rowData.idMenu">
+        <tr [pSelectableRow]="rowData" [routerLink]="'servicio/'+rowData.idMenu">
 
           <td class="ui-p-1">{{rowData.nombre}}</td>
           <td class="ui-p-1">${{rowData.precio}}</td>
@@ -36,4 +66,39 @@
         </tr>
       </ng-template>
     </p-table>
+  </p-panel>
+  <p-panel class="ui-g-6 ui-md-6 ui-sm-12">
+    <p-header>
+      Menu Cabañas
+      <button style="margin-left: 1em;" pButton type="button" label="Agregar Cabaña"
+      icon="pi pi-plus" [routerLink]="'cabaña/nuevo'"></button>
+    </p-header>
+  <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="cabana" [responsive]="true"
+  selectionMode="single" [(selection)]="menuSelec" dataKey="idMenu">
+    <ng-template pTemplate="caption">
+      <div style="text-align: center">
+          <button pButton icon="pi pi-search"></button>
+          <input type="text" pInputText size="30" placeholder="Filtrado "
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+           style="width:auto">
+      </div>
+  </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+            {{col.header}}
+        </th>
+    </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-menu let-columns="columns">
+      <tr [pSelectableRow]="rowData" [routerLink]="'cabaña/'+rowData.idMenu">
+
+        <td class="ui-p-1">{{rowData.nombre}}</td>
+        <td class="ui-p-1">${{rowData.precio}}</td>
+        <td class="ui-p-2">{{rowData.detalles}}</td>
+
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>
   </div>

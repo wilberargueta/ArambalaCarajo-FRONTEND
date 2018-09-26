@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Cabaña } from '../_model/caba\u00F1a';
+import { Cabana } from '../_model/cabana';
 import { Observable } from 'rxjs';
 import { Backend } from '../_constantes/backend';
 import { Message } from '../_model/message';
@@ -11,20 +11,23 @@ export class CabanaService {
   private URL_API = `${this.backend.URL_BACKEND}/api/cabanas`;
   constructor(private client: HttpClient) {}
 
-  getCabanas(): Observable<Cabaña[]> {
-    return this.client.get<Cabaña[]>(this.URL_API);
+  getCabanas(): Observable<Cabana[]> {
+    return this.client.get<Cabana[]>(this.URL_API);
   }
-  getCabanaById(cod: string): Observable<Cabaña> {
-    return this.client.get<Cabaña>(`${this.URL_API}/${cod}`);
+  getCabanaById(cod: string): Observable<Cabana> {
+    return this.client.get<Cabana>(`${this.URL_API}/${cod}`);
   }
-  addCabana(cabana: Cabaña): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, cabana);
+  getCabanaByNombre(nombre: string): Observable<Cabana[]> {
+    return this.client.get<Cabana []>(`${this.URL_API}/busqueda/${nombre}`);
   }
-  updateCabana(cabana: Cabaña): Observable<Message> {
+  addCabana(cabana: Cabana): Observable<Cabana> {
+    return this.client.post<Cabana>(this.URL_API, cabana);
+  }
+  updateCabana(cabana: Cabana): Observable<Message> {
     return this.client.put<Message>(this.URL_API, cabana);
   }
-  deleteCabana(cabana: Cabaña): Observable<Message> {
+  deleteCabana(cabana: Cabana): Observable<Message> {
 
-    return this.client.delete<Message>(`${this.URL_API}/${cabana.codCabana}`);
+    return this.client.put<Message>(`${this.URL_API}/delete`, cabana);
   }
 }

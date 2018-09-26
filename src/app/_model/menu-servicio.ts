@@ -2,10 +2,10 @@ import { Servicio } from './servicio';
 import { Menu } from './menu';
 export class MenuServicio {
   constructor(
-    private idMenuServicio: number,
-    private menu: Menu,
-    private servicio: Servicio,
-    private cantidad: number
+    public idMenuServicio: number,
+    public menu: Menu,
+    public servicio: Servicio,
+    public cantidad: number
   ) {}
 
   getIdMenuServicio(): number {

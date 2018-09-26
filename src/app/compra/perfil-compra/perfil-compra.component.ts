@@ -11,6 +11,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../_model/producto';
 
+
 @Component({
   selector: 'ac-perfil-compra',
   templateUrl: './perfil-compra.component.html',

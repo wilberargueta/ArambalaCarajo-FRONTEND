@@ -6,11 +6,14 @@
           <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-secondary"
           (click)="regresar($event)" label="Regresar"
             style="margin-right: .35em; margin-bottom: 0.35em;"></button>
-          <button *ngIf="tipoPerfil" (click)="update($event)" pButton type="button" icon="pi pi-pencil" label="Editar" class="ui-button-success"
+          <button *ngIf="tipoPerfil" (click)="update($event)"
+          pButton type="button" icon="pi pi-pencil" label="Editar" class="ui-button-success"
             style="margin-right: .35em;margin-bottom: 0.35em;"></button>
-          <button *ngIf="tipoPerfil" (click)="confirmEliminar($event)" pButton type="button" icon="pi pi-trash" label="Eliminar" class="ui-button-danger"
+          <button *ngIf="tipoPerfil" (click)="confirmEliminar($event)"
+          pButton type="button" icon="pi pi-trash" label="Eliminar" class="ui-button-danger"
             style="margin-right: .35em;margin-bottom: 0.35em;"></button>
-            <button  *ngIf="tipoPerfil"  pButton type="button" icon="pi pi-plus" label="Nuevo" class="ui-button-primary"
+            <button  *ngIf="tipoPerfil"  pButton type="button" icon="pi pi-plus"
+             label="Nuevo" class="ui-button-primary"
             style="margin-right: .35em;margin-bottom: 0.35em;" [routerLink]="'../nuevo'"></button>
 
 
@@ -29,7 +32,7 @@
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
               label="ID"></button>
               <input disabled="true" type="text" pInputText [(ngModel)]="menu.idMenu"
-               placeholder="ID.." name="id">
+               placeholder="ID" name="id">
 
             </div>
           </div>
@@ -39,7 +42,7 @@
                 <div class="ui-inputgroup">
                   <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                   label=" Nombre"></button>
-                  <input [disabled]="disable" [(ngModel)]="menu.nombre" placeholder="Nombre ..."
+                  <input [disabled]="disable" [(ngModel)]="menu.nombre" placeholder="Nombre"
                    name="proveedor" pInputText required>
                 </div>
               </div>
@@ -47,7 +50,8 @@
             <div class="ui-inputgroup">
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                label="Precio"></button>
-              <input [disabled]="disable" pInputText required [(ngModel)]="menu.precio" placeholder="Precio" name="precio">
+              <input [disabled]="disable" pInputText required [(ngModel)]="menu.precio" placeholder="Precio"
+               name="precio">
 
             </div>
           </div>
@@ -59,20 +63,10 @@
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                label="Detalle"></button>
               <input [disabled]="disable" pInputText required  [(ngModel)]="menu.detalles"
-                 name="detalle" placeholder="detalles..">
+                 name="detalle" placeholder="detalles">
 
             </div>
           </div>
-          <div class="p-xl-6 p-lg-4 p-md-12 p-sm-12">
-              <div class="ui-inputgroup">
-                <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
-                 label="Tipo de Menu"></button>
-                 <p-autoComplete [disabled]="disable"  [(ngModel)]="categoriaMenu" [suggestions]="categorias"
-                 (completeMethod)="filtrarCategorias($event)" field="categoriaMenu" [minLength]="1"   [size]="20"[dropdown]="false" name="categoriaMenu"></p-autoComplete>
-
-              </div>
-            </div>
-
         </div>
         <p-footer *ngIf="!disable" >
           <button style="margin-right: .35em; float: left" (click)="confirmActualizar($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
@@ -84,21 +78,22 @@
     </div>
     <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
       <!-- <p-scrollPanel [style]="{width: '100%', height: '200px'}">-->
-      <p-panel *ngIf="mostrarReceta" header="Lista de Recetas">
+      <p-panel *ngIf="mostrarServicio" header="Lista de Servicios">
         <p-toolbar>
-          <button (click)="openModalReceta()" pButton type="button" icon="pi pi-plus" label="Agregar Receta"
+          <button (click)="openModalServicio()" pButton type="button" icon="pi pi-plus"
+          label="Agregar Servicio"
           class="ui-button-warning"></button></p-toolbar>
-        <p-table [value]="menuRecetaLista" [scrollable]="true" scrollHeight="200px">
+        <p-table [value]="menuServicioLista" [scrollable]="true" scrollHeight="200px">
           <ng-template pTemplate="header">
             <tr>
-              <th>Receta</th>
+              <th>Servicio</th>
               <th>Detalle</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-MR>
-            <tr [pSelectableRow]="MR" (click)="openModalReceta(MR)">
-              <td>{{MR.receta.nombre}}</td>
-              <td>{{MR.receta.detalle}}</td>
+            <tr [pSelectableRow]="MR" (click)="openModalServicio(MR)">
+              <td>{{MR.servicio.nombre}}</td>
+              <td>{{MR.servicio.detalle}}</td>
             </tr>
           </ng-template>
         </p-table>
@@ -109,23 +104,26 @@
 
 <p-confirmDialog></p-confirmDialog>
 <p-growl [value]="msgs"></p-growl>
-<p-dialog  [contentStyle]="{'overflow':'visible'}" header="Agregar receta al menu" [(visible)]="addReceta">
+<p-dialog  [contentStyle]="{'overflow':'visible'}" header="Agregar servicio al menu" [(visible)]="addServicio">
 
   <div class="p-grid">
     <div class="p-col">
       <div  class="ui-inputgroup">
         <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
-        label="Receta"></button>
-        <p-autoComplete [(ngModel)]="receta" [suggestions]="recetaListaFiltrado" (completeMethod)="filtradorReceta($event)"
-          field="nombre" [size]="30" placeholder="Receta" [minLength]="1" [dropdown]="true" name="nombre"></p-autoComplete>
+        label="Servicio"></button>
+        <p-autoComplete [(ngModel)]="servicio" [suggestions]="servicioListaFiltrado"
+        (completeMethod)="filtradorServicio($event)" field="nombre" [size]="30" p
+        laceholder="Servicio" [minLength]="1" [dropdown]="true" name="nombre"></p-autoComplete>
       </div>
     </div>
   </div>
   <p-footer>
-    <button *ngIf="tipoDeEdicionDeReceta" class="ui-button-warning" type="button" pButton icon="pi pi-trash" (click)="eliminarMenuReceta(menuRecetaTemporal)"
+    <button *ngIf="tipoDeEdicionDeServicio" class="ui-button-warning" type="button" pButton
+     icon="pi pi-trash" (click)="eliminarMenuServicio(menuServicioTemporal)"
       label="Eliminar"></button>
-    <button *ngIf="!tipoDeEdicionDeReceta" type="button" pButton icon="pi pi-check" (click)="addRecetaToMenu($event)"
+    <button *ngIf="!tipoDeEdicionDeServicio" type="button" pButton icon="pi pi-check"
+    (click)="addServicioToMenu($event)"
       label="Agregar"></button>
-    <button class="ui-button-danger" type="button" pButton icon="pi pi-close" (click)="addReceta=false" label="Cancelar"></button>
+    <button class="ui-button-danger" type="button" pButton icon="pi pi-close" (click)="addServicio=false" label="Cancelar"></button>
   </p-footer>
 </p-dialog>

@@ -2,9 +2,9 @@ import { Receta } from './receta';
 import { Menu } from './menu';
 export class MenuReceta {
   constructor(
-    private idMenuReceta: number,
-    private receta: Receta,
-    private menu: Menu
+    public idMenuReceta: number,
+    public receta: Receta,
+    public menu: Menu
   ) {}
 
   getIdMenuReceta(): number {

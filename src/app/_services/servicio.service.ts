@@ -19,6 +19,9 @@ export class ServicioService {
   getServicioById(id: number): Observable<Servicio> {
     return this.client.get<Servicio>(`${this.URL_API}/${id}`);
   }
+  getServicioByNombre(nombre: string): Observable<Servicio[]> {
+    return this.client.get<Servicio[]>(`${this.URL_API}/busqueda/${nombre}`);
+  }
   addServicio(servicio: Servicio): Observable<Servicio> {
     return this.client.post<Servicio>(this.URL_API, servicio);
   }
