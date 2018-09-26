@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
               icon: 'fa fa-close',
               routerLink: ['categorias']
             },
-            { label: 'Categorias', icon: 'fa fa-close', routerLink: ['categorias'] },
+            { label: 'Menus', icon: 'fa fa-close', routerLink: ['menu'] },
             { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
           ]
         }
