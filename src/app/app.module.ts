@@ -17,6 +17,7 @@ import { RecetaModule } from './receta/receta.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { MenuModule } from './menu/menu.module';
 import { ServicioModule } from './servicio/servicio.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ServicioModule } from './servicio/servicio.module';
     RecetaModule,
     CategoriaModule,
     MenuModule,
-    ServicioModule
+    ServicioModule,
+    UsuarioModule
   ],
   providers: [EmpleadoService],
   bootstrap: [AppComponent]

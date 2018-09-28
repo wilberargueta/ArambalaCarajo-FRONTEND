@@ -1,3 +1,5 @@
+import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
+import { UsuarioComponent } from './usuario/usuario.component';
 import { PerfilServicioComponent } from './servicio/perfil-servicio/perfil-servicio.component';
 import { PerfilMenuCabanaComponent } from './menu/perfil-menu-cabana/perfil-menu-cabana.component';
 import { ServicioComponent } from './servicio/servicio.component';
@@ -31,6 +33,7 @@ import { TablaCompraComponent } from './compra/tabla-compra/tabla-compra.compone
 import { PerfilCompraComponent } from './compra/perfil-compra/perfil-compra.component';
 import { TablaServicioComponent } from './servicio/tabla-servicio/tabla-servicio.component';
 import { PerfilMenuServicioComponent } from './menu/perfil-menu-servicio/perfil-menu-servicio.component';
+import { TablaUsuarioComponent } from './usuario/tabla-usuario/tabla-usuario.component';
 
 
 const routes: Routes = [
@@ -119,6 +122,15 @@ const routes: Routes = [
       { path: '', component: TablaServicioComponent },
       { path: ':id', component: PerfilServicioComponent },
       { path: 'nuevo', component: PerfilServicioComponent }
+    ]
+  },
+  {
+    path: 'usuarios',
+    component: UsuarioComponent,
+    children: [
+      { path: '', component: TablaUsuarioComponent },
+      { path: ':id', component: PerfilUsuarioComponent },
+      { path: 'nuevo', component: PerfilUsuarioComponent }
     ]
   },
 

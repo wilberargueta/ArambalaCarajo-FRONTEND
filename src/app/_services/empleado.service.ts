@@ -32,4 +32,8 @@ export class EmpleadoService {
   getEmpleadoByCod(cod: string): Observable<Empleado> {
     return this.client.get<Empleado>(`${this.URL_API}/${cod}`);
   }
+
+  getEmpleadoByNombre(nombre: string): Observable<Empleado[]> {
+    return this.client.get<Empleado[]>(`${this.URL_API}/nombre/${nombre}`);
+  }
 }

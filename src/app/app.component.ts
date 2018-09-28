@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
       this.items = [
         {
           icon: 'pi pi-bars',
+          routerLink: ['empleados'],
           items: [
             { label: 'Home', icon: 'fa fa-refresh', routerLink: [''] },
             {
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit {
             },
             { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
             { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
+            { label: 'Usuarios', icon: 'fa fa-close', routerLink: ['usuarios'] },
           ]
         }
       ];
@@ -65,6 +67,7 @@ export class AppComponent implements OnInit {
         { label: 'Categorias', icon: 'fa fa-close', routerLink: ['categorias'] },
         { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
         { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
+        { label: 'Usuarios', icon: 'fa fa-close', routerLink: ['usuarios'] },
       ];
     }
   }
