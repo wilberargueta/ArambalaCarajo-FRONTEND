@@ -16,14 +16,11 @@ export class RecetaService {
     return this.client.post<Receta>(this.URL_API, receta);
   }
   updateReceta(receta: Receta): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, receta);
+    return this.client.post<Message>(`${this.URL_API}/update`, receta);
   }
   deleteReceta(receta: Receta): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: receta
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+
+    return this.client.post<Message>(`${this.URL_API}/delete`, receta);
   }
 
   getReceta(): Observable<Receta[]> {

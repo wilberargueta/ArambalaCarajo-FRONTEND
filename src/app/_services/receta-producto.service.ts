@@ -17,21 +17,15 @@ export class RecetaProductoService {
     return this.client.post<RecetaProducto>(this.URL_API, rp);
   }
   updateRecetaProducto(rp: RecetaProducto): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, rp);
+    return this.client.post<Message>(`${this.URL_API}/update`, rp);
   }
   deleteRecetaProducto(rp: RecetaProducto): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: rp
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+
+    return this.client.post<Message>(`${this.URL_API}/delete`, rp);
   }
   deleteRecetaProductoByReceta(rp: Receta): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: rp
-    };
-    return this.client.delete<Message>(`${this.URL_API}/delete`, httpOptions);
+
+    return this.client.post<Message>(`${this.URL_API}/delete/receta`, rp);
   }
   getRecetaProducto(): Observable<RecetaProducto[]> {
     return this.client.get<RecetaProducto[]>(this.URL_API);
@@ -40,7 +34,6 @@ export class RecetaProductoService {
     return this.client.get<RecetaProducto>(`${this.URL_API}/${id}`);
   }
   getRecetaProductoByReceta(receta: Receta): Observable<RecetaProducto[]> {
-    return this.client.post<RecetaProducto[]>(
-      `${this.URL_API}/receta`, receta);
+    return this.client.post<RecetaProducto[]>(`${this.URL_API}/receta`, receta);
   }
 }

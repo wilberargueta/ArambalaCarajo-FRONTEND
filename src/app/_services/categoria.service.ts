@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Categoria } from './../_model/categoria';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Backend } from '../_constantes/backend';
 

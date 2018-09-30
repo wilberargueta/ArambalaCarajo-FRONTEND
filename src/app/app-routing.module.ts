@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { PerfilServicioComponent } from './servicio/perfil-servicio/perfil-servicio.component';
@@ -26,7 +27,7 @@ import { TablaProveedorComponent } from './proveedor/tabla-proveedor/tabla-prove
 import { ProveedorComponent } from './proveedor/proveedor.component';
 import { TablaEmpleadoComponent } from './empleado/tabla-empleado/tabla-empleado.component';
 import { EmpleadoComponent } from './empleado/empleado.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmpleadoPerfilComponent } from './empleado/empleado-perfil/empleado-perfil.component';
 import { TablaCompraComponent } from './compra/tabla-compra/tabla-compra.component';
@@ -34,7 +35,6 @@ import { PerfilCompraComponent } from './compra/perfil-compra/perfil-compra.comp
 import { TablaServicioComponent } from './servicio/tabla-servicio/tabla-servicio.component';
 import { PerfilMenuServicioComponent } from './menu/perfil-menu-servicio/perfil-menu-servicio.component';
 import { TablaUsuarioComponent } from './usuario/tabla-usuario/tabla-usuario.component';
-
 
 const routes: Routes = [
   {
@@ -133,7 +133,14 @@ const routes: Routes = [
       { path: 'nuevo', component: PerfilUsuarioComponent }
     ]
   },
-
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'logout',
+    component: LoginComponent
+  }
 ];
 
 @NgModule({

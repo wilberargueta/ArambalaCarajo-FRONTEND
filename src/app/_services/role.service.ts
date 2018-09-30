@@ -1,5 +1,5 @@
 import { Role } from './../_model/role';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class RoleService {
   private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/role`;
+
   constructor(private client: HttpClient) {}
 
   getRole(): Observable<Role[]> {

@@ -17,15 +17,10 @@ export class EmpleadoVentaService {
     return this.client.post<Message>(this.URL_API, ev);
   }
   updateEmpleadoVenta(ev: EmpleadoVentas): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, ev);
+    return this.client.post<Message>(`${this.URL_API}/update`, ev);
   }
   deleteEmpleadoVenta(ev: EmpleadoVentas): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: ev
-    };
-
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+    return this.client.post<Message>(`${this.URL_API}/delete`, ev);
   }
   getEmpleadoVenta(): Observable<EmpleadoVentas[]> {
     return this.client.get<EmpleadoVentas[]>(this.URL_API);
@@ -37,7 +32,9 @@ export class EmpleadoVentaService {
 
   getEmpleadoVentaByEmpleado(empleado: Empleado): Observable<EmpleadoVentas[]> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: empleado
     };
     return this.client.get<EmpleadoVentas[]>(

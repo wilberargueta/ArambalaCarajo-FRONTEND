@@ -10,22 +10,17 @@ import { Producto } from '../_model/producto';
 export class ExistenciaService {
   private backend: Backend;
   private URL_API = `${this.backend.URL_BACKEND}/api/existencias`;
-  constructor(private client: HttpClient) { }
+
+  constructor(private client: HttpClient) {}
 
   addExistencias(existencias: Existencia): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, existencias)
+    return this.client.post<Message>(this.URL_API, existencias);
   }
   updateExistencias(existencia: Existencia): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, existencia);
+    return this.client.post<Message>(`${this.URL_API}/update`, existencia);
   }
   deleteExistencias(existencia: Existencia): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: existencia
-    };
-
-    return this.client.delete<Message>(this.URL_API, httpOptions);
-
+    return this.client.post<Message>(`${this.URL_API}/delete`, existencia);
   }
 
   getExistencias(): Observable<Existencia[]> {
@@ -38,7 +33,9 @@ export class ExistenciaService {
 
   getExistenciaByProducto(producto: Producto): Observable<Existencia> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: producto
     };
 

@@ -10,20 +10,18 @@ import { Factura } from '../_model/factura';
 export class FacturaVentaService {
   private backend: Backend;
   private URL_API = `${this.backend}/api/facturaVenta`;
-  constructor(private client: HttpClient) { }
+
+  constructor(private client: HttpClient) {}
 
   addFacturaVenta(fv: FacturaVenta): Observable<Message> {
     return this.client.post<Message>(this.URL_API, fv);
   }
   updateFacturaVenta(fv: FacturaVenta): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, fv);
+    return this.client.post<Message>(`${this.URL_API}/update`, fv);
   }
   deleteFacturaVenta(fv: FacturaVenta): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: fv
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+
+    return this.client.post<Message>(`${this.URL_API}/delete`, fv);
   }
 
   getFacturaVenta(): Observable<FacturaVenta[]> {
@@ -36,10 +34,14 @@ export class FacturaVentaService {
 
   getFacturaVentaByFactura(factura: Factura): Observable<FacturaVenta[]> {
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: factura
     };
-    return this.client.get<FacturaVenta[]>(`${this.URL_API}/factura`, httpOptions);
+    return this.client.get<FacturaVenta[]>(
+      `${this.URL_API}/factura`,
+      httpOptions
+    );
   }
-
 }

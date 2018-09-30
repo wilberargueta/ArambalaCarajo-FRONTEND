@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/components/common/menuitem';
 
@@ -13,8 +14,11 @@ export class AppComponent implements OnInit {
   float = '';
   items: MenuItem[];
   show = false;
-
+  constructor(private rout: ActivatedRoute, private router: Router) {}
   ngOnInit() {
+    if (localStorage.getItem('token') === null) {
+      this.router.navigate(['/login'], { relativeTo: this.rout });
+    }
     if (window.screen.width <= 600) {
       this.items = [
         {
@@ -25,7 +29,8 @@ export class AppComponent implements OnInit {
             {
               label: 'Empleado',
               icon: 'fa fa-refresh',
-              routerLink: ['empleados']
+              routerLink: ['empleados'],
+
             },
             {
               label: 'Proveedores',
@@ -46,9 +51,23 @@ export class AppComponent implements OnInit {
               routerLink: ['categorias']
             },
             { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
-            { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
-            { label: 'Usuarios', icon: 'fa fa-close', routerLink: ['usuarios'] },
+            {
+              label: 'Servicios',
+              icon: 'fa fa-close',
+              routerLink: ['servicios']
+            },
+            {
+              label: 'Usuarios',
+              icon: 'fa fa-close',
+              routerLink: ['usuarios']
+            },
+            { label: 'Login', icon: 'fa fa-close', routerLink: ['login'] }
           ]
+        },
+        {
+          icon: 'pi pi-bars',
+          routerLink: ['logout'],
+
         }
       ];
     } else {
@@ -64,10 +83,15 @@ export class AppComponent implements OnInit {
         { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
         { label: 'Productos', icon: 'fa fa-close', routerLink: ['productos'] },
         { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] },
-        { label: 'Categorias', icon: 'fa fa-close', routerLink: ['categorias'] },
+        {
+          label: 'Categorias',
+          icon: 'fa fa-close',
+          routerLink: ['categorias']
+        },
         { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
         { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
         { label: 'Usuarios', icon: 'fa fa-close', routerLink: ['usuarios'] },
+        { label: 'Login', icon: 'fa fa-close', routerLink: ['login'] }
       ];
     }
   }

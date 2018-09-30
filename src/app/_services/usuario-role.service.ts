@@ -2,7 +2,7 @@ import { Role } from './../_model/role';
 import { Message } from './../_model/message';
 import { Observable } from 'rxjs';
 import { UsuarioRole } from './../_model/usuario-role';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../_model/usuario';
@@ -13,17 +13,18 @@ import { Usuario } from '../_model/usuario';
 export class UsuarioRoleService {
   private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/usuarioRole`;
+
   constructor(private client: HttpClient) {}
 
   addUsuarioRole(u: UsuarioRole): Observable<UsuarioRole> {
     return this.client.post<UsuarioRole>(this.URL_API, u);
   }
   updateUsuarioRole(u: UsuarioRole): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, u);
+    return this.client.post<Message>(`${this.URL_API}/update`, u);
   }
 
- deleteUsuarioRole(u: UsuarioRole): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, u);
+  deleteUsuarioRole(u: UsuarioRole): Observable<Message> {
+    return this.client.post<Message>(`${this.URL_API}/delete`, u);
   }
   getUsuarioRole(): Observable<UsuarioRole[]> {
     return this.client.get<UsuarioRole[]>(this.URL_API);

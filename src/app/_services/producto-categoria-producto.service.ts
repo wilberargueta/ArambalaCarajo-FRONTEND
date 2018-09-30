@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ProductoCategoriaProducto } from './../_model/producto-categoria-producto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 
@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class ProductoCategoriaProductoService {
   private api = new Backend('');
   private URL_API = `${this.api.URL_BACKEND}/api/productoCategoriaProducto`;
+
   constructor(private client: HttpClient) {}
 
   addCategoria(
@@ -20,12 +21,15 @@ export class ProductoCategoriaProductoService {
   updateCategoria(
     categoria: ProductoCategoriaProducto
   ): Observable<ProductoCategoriaProducto> {
-    return this.client.put<ProductoCategoriaProducto>(this.URL_API, categoria);
+    return this.client.post<ProductoCategoriaProducto>(
+      `${this.URL_API}/update`,
+      categoria
+    );
   }
   deleteCategoria(
     categoria: ProductoCategoriaProducto
   ): Observable<ProductoCategoriaProducto> {
-    return this.client.put<ProductoCategoriaProducto>(
+    return this.client.post<ProductoCategoriaProducto>(
       `${this.URL_API}/delete`,
       categoria
     );
@@ -37,5 +41,4 @@ export class ProductoCategoriaProductoService {
   getCategoriaById(id: number): Observable<ProductoCategoriaProducto> {
     return this.client.get<ProductoCategoriaProducto>(`${this.URL_API}/${id}`);
   }
-
 }

@@ -8,24 +8,19 @@ import { Venta } from '../_model/venta';
 
 @Injectable()
 export class VentaMenuService {
-
   private backend: Backend;
   private URL_API = `${this.backend.URL_BACKEND}/api/ventaMenus`;
 
-  constructor(private client: HttpClient) { }
+  constructor(private client: HttpClient) {}
 
   addVentaMenu(mv: MenuVenta): Observable<Message> {
     return this.client.post<Message>(this.URL_API, mv);
   }
   updateVentaMenu(mv: MenuVenta): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, mv);
+    return this.client.post<Message>(`${this.URL_API}/update`, mv);
   }
   deleteVentaMenu(mv: MenuVenta): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
-      body: mv
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+    return this.client.post<Message>(`${this.URL_API}/delete`, mv);
   }
   getVentaMenu(): Observable<MenuVenta[]> {
     return this.client.get<MenuVenta[]>(this.URL_API);
@@ -35,7 +30,9 @@ export class VentaMenuService {
   }
   getVentaMenuByVenta(venta: Venta): Observable<MenuVenta[]> {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: venta
     };
     return this.client.get<MenuVenta[]>(this.URL_API, httpOptions);

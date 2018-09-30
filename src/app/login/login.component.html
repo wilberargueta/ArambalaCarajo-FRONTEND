@@ -1,0 +1,38 @@
+<div>
+  <form>
+    <div class="ui-g-12 ui-lg-8 ui-md-5">
+      <p-panel>
+        <p-header> <h3 align="center" class="first">Inicio de Session</h3></p-header>
+
+       <div class="ui-g ui-fluid">
+         <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+           <div class="ui-inputgroup">
+             <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+             label="Usuario"></button>
+             <input class="ui-g-12  ui-lg-6 ui-md-12" type="text" pInputText [(ngModel)]="user.nick"
+             name="nick" placeholder="Usuario">
+           </div>
+         </div>
+         <div class="ui-g-6 ui-lg-6 ui-md-12 ui-sm-12">
+           <div class="ui-inputgroup">
+             <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
+             label="Contraseña"></button>
+             <input class="ui-g-12  ui-lg-6 ui-md-12" type="password" pInputText
+              [(ngModel)]="user.pass" name="pass" placeholder="Contraseña">
+           </div>
+         </div>
+
+       </div>
+       <p-footer>
+        <div align="center">
+              <button (click)="ingresar()" pButton style="margin-right:1em;" label="Ingresar" class="ui-button-success"></button>
+              <button pButton label="Cancelar" class="ui-button-danger"></button>
+            </div>
+       </p-footer>
+       </p-panel>
+     </div>
+
+  </form>
+  <p-toast position="top-center"></p-toast>
+</div>
+

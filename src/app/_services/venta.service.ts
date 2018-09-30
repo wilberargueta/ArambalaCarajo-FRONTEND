@@ -16,14 +16,11 @@ export class VentaService {
     return this.client.post<Message>(this.URL_API, venta);
   }
   updateVenta(venta: Venta): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, venta);
+    return this.client.post<Message>(`${this.URL_API}/update`, venta);
   }
   deleteVenta(venta: Venta): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: venta
-    };
-    return this.client.delete<Message>(this.URL_API, httpOptions);
+
+    return this.client.post<Message>(`${this.URL_API}/delete`, venta);
   }
 
   getVenta(): Observable<Venta[]> {

@@ -16,10 +16,10 @@ export class MenuService {
     return this.client.post<Menu>(this.URL_API, menu);
   }
   updateMenu(menu: Menu): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, menu);
+    return this.client.post<Message>(`${this.URL_API}/update`, menu);
   }
   deleteMenu(menu: Menu): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, menu);
+    return this.client.post<Message>(`${this.URL_API}/delete`, menu);
   }
 
   getMenu(): Observable<Menu[]> {

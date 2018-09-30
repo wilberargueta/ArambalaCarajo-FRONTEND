@@ -1,6 +1,6 @@
 import { Categoria } from './../_model/categoria';
 import { MenuCategoria } from './../_model/menu-categoria';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,18 +21,18 @@ export class MenuCategoriaService {
   }
 
   updateMenuCategoria(mc: MenuCategoria): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, mc);
+    return this.client.post<Message>(`${this.URL_API}/update`, mc);
   }
 
   deleteMenuCategoria(mc: MenuCategoria): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, mc);
+    return this.client.post<Message>(`${this.URL_API}/delete`, mc);
   }
   getMenuCategoria(): Observable<MenuCategoria[]> {
     return this.client.get<MenuCategoria[]>(this.URL_API);
   }
 
   getMenuCategoriaByCategoria(cat: Categoria): Observable<MenuCategoria[]> {
-    return this.client.put<MenuCategoria[]>(
+    return this.client.post<MenuCategoria[]>(
       `${this.URL_API}/busqueda/categoria`,
       cat
     );

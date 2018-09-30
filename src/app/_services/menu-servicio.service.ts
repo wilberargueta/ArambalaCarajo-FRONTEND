@@ -10,6 +10,7 @@ import { Menu } from '../_model/menu';
 export class MenuServicioService {
   private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/menuServicio`;
+
   constructor(private client: HttpClient) {}
 
   getMenuServicio(): Observable<MenuServicio[]> {
@@ -20,19 +21,19 @@ export class MenuServicioService {
   }
 
   getMenuServicioByMenu(menu: Menu): Observable<MenuServicio[]> {
-    return this.client.put<MenuServicio[]>(`${this.URL_API}/menu`, menu);
+    return this.client.post<MenuServicio[]>(`${this.URL_API}/menu`, menu);
   }
   addMenuServicio(ms: MenuServicio): Observable<MenuServicio> {
     return this.client.post<MenuServicio>(this.URL_API, ms);
   }
   updateMenuServicio(ms: MenuServicio): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, ms);
+    return this.client.post<Message>(`${this.URL_API}/update`, ms);
   }
   deleteMenuServicio(ms: MenuServicio): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, ms);
+    return this.client.post<Message>(`${this.URL_API}/delete`, ms);
   }
 
   deleteMenuServicioByMenu(ms: Menu): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete/menu`, ms);
+    return this.client.post<Message>(`${this.URL_API}/delete/menu`, ms);
   }
 }

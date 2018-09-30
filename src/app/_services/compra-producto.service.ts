@@ -10,30 +10,19 @@ import { Compra } from '../_model/compra';
 export class CompraProductoService {
   private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/compraProducto`;
+
   constructor(private client: HttpClient) {}
   addCompraProducto(cp: CompraProducto): Observable<CompraProducto> {
     return this.client.post<CompraProducto>(this.URL_API, cp);
   }
   updateCompraProducto(cp: CompraProducto): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, cp);
+    return this.client.post<Message>(`${this.URL_API}/update`, cp);
   }
   deleteCompraProducto(cp: CompraProducto): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Conten-Type': 'application/json' }),
-      body: cp
-    };
-    return this.client.delete<Message>(
-      `${this.URL_API}`, httpOptions
-    );
+    return this.client.post<Message>(`${this.URL_API}/delete`, cp);
   }
   deleteCompraProductoByCompra(cp: Compra): Observable<Message> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Conten-Type': 'application/json' }),
-      body: cp
-    };
-    return this.client.delete<Message>(
-      `${this.URL_API}/delete`, httpOptions
-    );
+    return this.client.post<Message>(`${this.URL_API}/delete/compra`, cp);
   }
   getCompraProducto(): Observable<CompraProducto[]> {
     return this.client.get<CompraProducto[]>(this.URL_API);

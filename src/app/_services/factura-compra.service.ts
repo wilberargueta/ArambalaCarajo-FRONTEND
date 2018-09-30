@@ -9,24 +9,19 @@ import { Compra } from '../_model/compra';
 
 @Injectable()
 export class FacturaCompraService {
-
   private backend: Backend;
   private URL_API = `${this.backend.URL_BACKEND}/api/facturaCompra`;
-  constructor(private client: HttpClient) { }
+
+  constructor(private client: HttpClient) {}
 
   addFacturaCompra(fc: FacturaCompra): Observable<Message> {
     return this.client.post<Message>(this.URL_API, fc);
   }
   updateFacturaCompra(fc: FacturaCompra): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, fc);
+    return this.client.post<Message>(`${this.URL_API}/update`, fc);
   }
   deleteFacturaCompra(fc: FacturaCompra): Observable<Message> {
-    const htttOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      body: fc
-    };
-
-    return this.client.delete<Message>(this.URL_API, htttOptions);
+    return this.client.post<Message>(`${this.URL_API}/delete`, fc);
   }
   getFacturaCompra(): Observable<FacturaCompra[]> {
     return this.client.get<FacturaCompra[]>(this.URL_API);
@@ -37,14 +32,18 @@ export class FacturaCompraService {
   }
   getFacturaCompraByFactura(factura: Factura): Observable<FacturaCompra> {
     const htttOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: factura
     };
     return this.client.get<FacturaCompra>(this.URL_API, htttOptions);
   }
   getFacturaCompraByCompra(compra: Compra): Observable<FacturaCompra> {
     const htttOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
       body: compra
     };
     return this.client.get<FacturaCompra>(this.URL_API, htttOptions);

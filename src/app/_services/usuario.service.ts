@@ -1,7 +1,7 @@
 import { Respuesta } from './../_model/respuesta';
 import { Message } from './../_model/message';
 import { Usuario } from './../_model/usuario';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -20,10 +20,10 @@ export class UsuarioService {
   }
 
   updateUsuario(u: Usuario): Observable<Respuesta> {
-    return this.client.put<Respuesta>(this.URL_API, u);
+    return this.client.post<Respuesta>(`${this.URL_API}/update`, u);
   }
   deleteUsuario(u: Usuario): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, u);
+    return this.client.post<Message>(`${this.URL_API}/delete`, u);
   }
 
   getUsuario(): Observable<Usuario[]> {
@@ -35,5 +35,4 @@ export class UsuarioService {
   getUsuarioByNick(nick: string): Observable<Usuario[]> {
     return this.client.get<Usuario[]>(`${this.URL_API}/nick/${nick}`);
   }
-
 }

@@ -1,6 +1,6 @@
 import { Message } from './../_model/message';
 import { CategoriaMenu } from './../_model/categoria-menu';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Backend } from './../_constantes/backend';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class CategoriaMenuService {
   private api = new Backend('');
   private URL_API = `${this.api.URL_BACKEND}/api/categoriaMenu`;
+
   constructor(private client: HttpClient) {}
 
   addCategoria(categoria: CategoriaMenu): Observable<CategoriaMenu> {
@@ -18,10 +19,10 @@ export class CategoriaMenuService {
   }
 
   updateCategoria(categoria: CategoriaMenu): Observable<CategoriaMenu> {
-    return this.client.put<CategoriaMenu>(this.URL_API, categoria);
+    return this.client.post<CategoriaMenu>(`${this.URL_API}/update`, categoria);
   }
   deleteCategoria(categoria: CategoriaMenu): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, categoria);
+    return this.client.post<Message>(`${this.URL_API}/delete`, categoria);
   }
 
   getCategoria(): Observable<CategoriaMenu[]> {
@@ -32,6 +33,8 @@ export class CategoriaMenuService {
     return this.client.get<CategoriaMenu>(`${this.URL_API}/${id}`);
   }
   getCategoriaByBusqueda(busqueda: string): Observable<CategoriaMenu[]> {
-    return this.client.get<CategoriaMenu[]>(`${this.URL_API}/busqueda/${busqueda}`);
+    return this.client.get<CategoriaMenu[]>(
+      `${this.URL_API}/busqueda/${busqueda}`
+    );
   }
 }

@@ -8,7 +8,7 @@ import { Servicio } from '../_model/servicio';
 
 @Injectable()
 export class ServicioService {
-  private backend =new Backend('');
+  private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/servicios`;
 
   constructor(private client: HttpClient) {}
@@ -26,9 +26,9 @@ export class ServicioService {
     return this.client.post<Servicio>(this.URL_API, servicio);
   }
   updateServicio(servicio: Servicio): Observable<Message> {
-    return this.client.put<Message>(this.URL_API, servicio);
+    return this.client.post<Message>(`${this.URL_API}/update`, servicio);
   }
   deleteServicio(servicio: Servicio): Observable<Message> {
-    return this.client.put<Message>(`${this.URL_API}/delete`, servicio);
+    return this.client.post<Message>(`${this.URL_API}/delete`, servicio);
   }
 }
