@@ -26,6 +26,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { LoginComponent } from './login/login.component';
 import {PanelModule} from 'primeng/panel';
 import {ToastModule} from 'primeng/toast';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,11 @@ import {ToastModule} from 'primeng/toast';
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
-  }],
+  },
+  {
+    provide: LocationStrategy, useClass: HashLocationStrategy
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
