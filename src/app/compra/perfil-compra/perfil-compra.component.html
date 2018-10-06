@@ -22,20 +22,11 @@
       <p-panel header="Edicion De Compra" *ngIf="mostrar">
 
         <div class="ui-g ui-fluid">
-          <div class="ui-g-12 ui-lg-12 ui-md-12">
-            <div class="ui-inputgroup">
-              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Codigo"></button>
-              <input disabled="true" type="text" pInputText [(ngModel)]="compra.idCompra" placeholder="Codigo.." name="ompraProducto">
-
-            </div>
-          </div>
-        </div>
-        <div class="ui-g ui-fluid">
           <div class="ui-g-12 ui-lg-6 ui-md-12">
             <div class="ui-inputgroup">
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nº Registro"></button>
-              <p-inputMask [disabled]="tipoPerfil" class="ui-g-12  ui-lg-6 ui-md-12" [disabled]="disable" type="text"
-                pInputText [(ngModel)]="compra.registroCompra" name="registroCompra" mask="R-99999" placeholder="Nombre"></p-inputMask>
+              <input disabled="true"  class="ui-g-12  ui-lg-6 ui-md-12"  type="text"
+                pInputText [(ngModel)]="compra.registroCompra" name="compra.registroCompra"  placeholder="Registro">
             </div>
           </div>
           <div class="ui-g-12 ui-lg-6 ui-md-12">
@@ -102,7 +93,7 @@
 </div>
 <p-confirmDialog></p-confirmDialog>
 <p-growl [value]="msgs"></p-growl>
-<p-dialog  [contentStyle]="{'overflow':'visible'}" header="Agregar producto a la compra" [(visible)]="addProducto">
+<p-dialog [contentStyle]="{'overflow':'visible'}" header="Agregar producto a la compra" [(visible)]="addProducto">
 
   <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-lg-12 ui-md-12">

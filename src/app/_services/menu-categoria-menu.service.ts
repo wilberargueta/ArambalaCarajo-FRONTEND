@@ -1,3 +1,4 @@
+import { CategoriaMenu } from './../_model/categoria-menu';
 import { Message } from './../_model/message';
 import { MenuCategoriaMenu } from './../_model/menu-categoria-menu';
 import { Observable } from 'rxjs';
@@ -19,7 +20,10 @@ export class MenuCategoriaMenuService {
     return this.client.post<MenuCategoriaMenu>(this.URL_API, categoria);
   }
   updateCategoria(categoria: MenuCategoriaMenu): Observable<MenuCategoriaMenu> {
-    return this.client.post<MenuCategoriaMenu>(`${this.URL_API}/update`, categoria);
+    return this.client.post<MenuCategoriaMenu>(
+      `${this.URL_API}/update`,
+      categoria
+    );
   }
   deleteCategoria(categoria: MenuCategoriaMenu): Observable<Message> {
     return this.client.post<Message>(`${this.URL_API}/delete`, categoria);
@@ -33,5 +37,13 @@ export class MenuCategoriaMenuService {
   }
   getCategoriaByMenu(menu: Menu): Observable<MenuCategoriaMenu> {
     return this.client.post<MenuCategoriaMenu>(`${this.URL_API}/menu`, menu);
+  }
+  getCategoriaByCategoriaMenu(
+    categoria: CategoriaMenu
+  ): Observable<MenuCategoriaMenu[]> {
+    return this.client.post<MenuCategoriaMenu[]>(
+      `${this.URL_API}/categoria`,
+      categoria
+    );
   }
 }

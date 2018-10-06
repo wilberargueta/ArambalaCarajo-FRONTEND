@@ -35,4 +35,7 @@ export class UsuarioService {
   getUsuarioByNick(nick: string): Observable<Usuario[]> {
     return this.client.get<Usuario[]>(`${this.URL_API}/nick/${nick}`);
   }
+  getUsuarioByOneNick(nick: string): Observable<Usuario> {
+    return this.client.get<Usuario>(`${this.URL_API}/${nick}`);
+  }
 }

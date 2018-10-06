@@ -1,0 +1,15 @@
+<p-dataView paginator="true" layout="grid" #dv [value]="opciones" [paginator]="true" [rows]="10"
+ paginatorPosition="both">
+  <p-header>
+    <div align="center"> Opciones</div>
+
+  </p-header>
+  <ng-template let-op pTemplate="gridItem">
+    <div  *ngIf="op.mostrar"  style="padding:.5em" class="ui-g-6 ui-md-6">
+      <p-card (click)="cambio(op.cambio)" >
+        {{op.nombre}}
+      </p-card>
+
+    </div>
+  </ng-template>
+</p-dataView>

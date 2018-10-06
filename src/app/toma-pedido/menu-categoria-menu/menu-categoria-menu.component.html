@@ -1,0 +1,14 @@
+<p-dataView paginator="true" layout="grid" #dv [value]="categoriasMenu" [paginator]="true" [rows]="10"
+  paginatorPosition="both">
+  <p-header>
+    Categorias de Comidas
+    <button pButton type="button" (click)="regresarFunc()" label="Regresar"></button>
+  </p-header>
+  <ng-template let-menu pTemplate="gridItem">
+    <div (click)="click(menu.idCategoriaMenu)" style="padding:.5em" class="ui-g-6 ui-md-6">
+      <p-card align="center">
+       {{menu.categoriaMenu}}
+      </p-card>
+    </div>
+  </ng-template>
+</p-dataView>

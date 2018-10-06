@@ -1,3 +1,9 @@
+import { CajeroComponent } from './cajero/cajero.component';
+import { MenuServicioComponent } from './toma-pedido/menu-servicio/menu-servicio.component';
+import { TomaPedidoComponent } from './toma-pedido/toma-pedido.component';
+import { HomeComponent } from './home/home.component';
+import { LoginGuardService } from './_services/login-guard.service';
+import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PerfilUsuarioComponent } from './usuario/perfil-usuario/perfil-usuario.component';
 import { UsuarioComponent } from './usuario/usuario.component';
@@ -38,13 +44,24 @@ import { TablaUsuarioComponent } from './usuario/tabla-usuario/tabla-usuario.com
 
 const routes: Routes = [
   {
+    path: '',
+    component: AppComponent,
+    canActivate: [LoginGuardService]
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [LoginGuardService]
+  },
+  {
     path: 'empleados',
     component: EmpleadoComponent,
     children: [
       { path: '', component: TablaEmpleadoComponent },
       { path: ':id', component: EmpleadoPerfilComponent },
       { path: 'nuevo', component: EmpleadoPerfilComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'proveedores',
@@ -53,7 +70,8 @@ const routes: Routes = [
       { path: '', component: TablaProveedorComponent },
       { path: ':id', component: PerfilProveedorComponent },
       { path: 'nuevo', component: PerfilProveedorComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'cabañas',
@@ -62,7 +80,8 @@ const routes: Routes = [
       { path: '', component: TablaCabanaComponent },
       { path: ':id', component: PerfilCabanaComponent },
       { path: 'nuevo', component: PerfilCabanaComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'compras',
@@ -71,7 +90,8 @@ const routes: Routes = [
       { path: '', component: TablaCompraComponent },
       { path: ':id', component: PerfilCompraComponent },
       { path: 'nuevo', component: PerfilCompraComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'productos',
@@ -80,7 +100,8 @@ const routes: Routes = [
       { path: '', component: TablaProductoComponent },
       { path: ':id', component: PerfilProductoComponent },
       { path: 'nuevo', component: PerfilProductoComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'recetas',
@@ -89,7 +110,8 @@ const routes: Routes = [
       { path: '', component: TablaRecetaComponent },
       { path: ':id', component: PerfilRecetaComponent },
       { path: 'nuevo', component: PerfilRecetaComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'categorias',
@@ -100,7 +122,8 @@ const routes: Routes = [
       { path: 'menu/nuevo', component: PerfilMenuCategoriaComponent },
       { path: 'producto/:id', component: PerfilProductoCategoriaComponent },
       { path: 'producto/nuevo', component: PerfilProductoCategoriaComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'menus',
@@ -113,7 +136,8 @@ const routes: Routes = [
       { path: 'servicio/nuevo', component: PerfilMenuServicioComponent },
       { path: 'cabaña/:id', component: PerfilMenuCabanaComponent },
       { path: 'cabaña/nuevo', component: PerfilMenuCabanaComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'servicios',
@@ -122,7 +146,8 @@ const routes: Routes = [
       { path: '', component: TablaServicioComponent },
       { path: ':id', component: PerfilServicioComponent },
       { path: 'nuevo', component: PerfilServicioComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'usuarios',
@@ -131,7 +156,8 @@ const routes: Routes = [
       { path: '', component: TablaUsuarioComponent },
       { path: ':id', component: PerfilUsuarioComponent },
       { path: 'nuevo', component: PerfilUsuarioComponent }
-    ]
+    ],
+    canActivate: [LoginGuardService]
   },
   {
     path: 'login',
@@ -139,8 +165,19 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: LoginComponent
-  }
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tomapedido',
+    component: TomaPedidoComponent,
+    canActivate: [LoginGuardService]
+  },
+  {
+    path: 'cajero',
+    component: CajeroComponent,
+    canActivate: [LoginGuardService]
+  },
 ];
 
 @NgModule({

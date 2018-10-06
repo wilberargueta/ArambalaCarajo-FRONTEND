@@ -1,3 +1,4 @@
+import { LoginParamService } from './../_services/login-param.service';
 import { UsuarioEmpleadoService } from './../_services/usuario-empleado.service';
 import { UsuarioRoleService } from './../_services/usuario-role.service';
 import { UsuarioService } from './../_services/usuario.service';
@@ -53,6 +54,6 @@ import {DropdownModule} from 'primeng/dropdown';
     DropdownModule
   ],
   declarations: [UsuarioComponent, PerfilUsuarioComponent, TablaUsuarioComponent],
-  providers: [UsuarioService, UsuarioRoleService, UsuarioEmpleadoService]
+  providers: [UsuarioService, UsuarioRoleService, UsuarioEmpleadoService, LoginParamService]
 })
 export class UsuarioModule { }

@@ -13,8 +13,8 @@ export class CompraService {
 
   constructor(private client: HttpClient) {}
 
-  addCompra(compra: Compra): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, compra);
+  addCompra(compra: Compra): Observable<Compra> {
+    return this.client.post<Compra>(this.URL_API, compra);
   }
 
   updateCompra(compra: Compra): Observable<Message> {
@@ -26,9 +26,7 @@ export class CompraService {
   getCompras(): Observable<Compra[]> {
     return this.client.get<Compra[]>(this.URL_API);
   }
-  getComprasById(id: number): Observable<Compra> {
-    return this.client.get<Compra>(`${this.URL_API}/${id}`);
-  }
+
   getComprasByRC(reg: string): Observable<Compra> {
     return this.client.get<Compra>(`${this.URL_API}/registro/${reg}`);
   }

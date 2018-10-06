@@ -1,0 +1,122 @@
+<p-overlayPanel [style]="{'width':'500px'}" #op>
+  <ac-cuentas (cuenta)="cargarCuenta($event)"></ac-cuentas>
+</p-overlayPanel>
+<p-messages [value]="msgs"></p-messages>
+<div class="p-grid">
+  <div class="p-col-6" style="height: 480px;">
+    <p-card [style]="{'height':'430px'}">
+      <p-table [value]="menuCuenta" [scrollable]="true" scrollHeight="320px">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Producto</th>
+            <th>Presio</th>
+            <th>Cantidad</th>
+            <th>Sub-Total</th>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-menu>
+          <tr [pSelectableRow]="menu" (click)="displayCuentaMenu(menu)">
+            <td>{{menu.menu.nombre}}</td>
+            <td>${{menu.menu.precio}}</td>
+            <td>{{menu.cantidad}}</td>
+            <td>${{(-menu.cantidad) * (-menu.menu.precio)}}</td>
+
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+
+    <p-card>
+      Total <p style="display: inline; margin-left: 5em;" align="rigth">${{total}}</p>
+    </p-card>
+  </div>
+
+  <div class="p-col-6" style="height: 480px;">
+    <div style="margin-top: 0.5em;" class="p-grid">
+      <div class="p-col-12">
+        <div class="ui-inputgroup">
+          <button pButton type="button" label="Cantida"></button>
+          <input size="10" pInputText type="text" name="cantidad" [(ngModel)]="cantidad">
+        </div>
+      </div>
+    </div>
+    <ac-caja-principal *ngIf="cambioMenuPrincipal" (cambioServicio)="menuServicio()" (cambioComidas)="menuComida()"
+      (cambioCabanas)="menuCabana()" (cambioCategoriaMenu)="menuCategoriaMenu()"></ac-caja-principal>
+
+    <ac-caja-servicio (menuSeleccionado)="agregarMenu($event)" *ngIf="cambioServicio" (regresar)="menuPrincipal()"></ac-caja-servicio>
+    <ac-caja-categoria-menu *ngIf="cambioCategoriaMenu" (regresar)="menuPrincipal()" (categoria)="menuComida($event)"></ac-caja-categoria-menu>
+    <ac-caja-cabana (menuSeleccionado)="agregarMenu($event)" *ngIf="cambioCabana" (regresar)="menuPrincipal()"></ac-caja-cabana>
+    <ac-caja-comida (menuSeleccionado)="agregarMenu($event)" [idCategoriaMenu]="idCategoriaMenu" *ngIf="cambioComida"
+      (regresar)="menuPrincipal()"></ac-caja-comida>
+  </div>
+  <div class="p-col-12">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton type="button" (click)="displayCuenta()" label="Nueva Cuenta" icon="pi pi-plus" style="margin-right: 1em;"></button>
+        <button pButton type="button" label="Borrar Cuenta" icon="pi pi-trash" style="margin-right: 1em;" class="ui-button-danger"
+          (click)="displayBorrarCuenta()"></button>
+        <button pButton type="button" label="Lista Cuenta" icon="pi pi-bars" style="margin-right: 1em;" class="ui-button-secondary"
+          (click)="op.toggle($event); cargaLista = true;"></button>
+
+      </div>
+    </p-toolbar>
+
+  </div>
+</div>
+<p-dialog *ngIf="cuenta !== null" modal="true" [(visible)]="addCuenta">
+  <p-header>
+    Agregar Cuenta
+  </p-header>
+  <form>
+    <div>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nombre"></button>
+            <input class="ui-g-12  ui-lg-6 ui-md-12" type="text" pInputText [(ngModel)]="cuenta.nombre" name="nombre"
+              placeholder="Nombre">
+          </div>
+        </div>
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Mesa"></button>
+            <input class="ui-g-12  ui-lg-6 ui-md-12" type="number" pInputNumber [(ngModel)]="cuenta.mesa" name="mesa"
+              placeholder="Mesa">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <button (click)="agregarCuenta()" pButton type="button" label="Agregar Cuenta" icon="pi pi-plus" style="margin-right: 1em;"
+      class="ui-button-success"></button>
+    <button (click)="addCuenta=false; cuenta=null" pButton type="button" label="Cancelar" icon="pi pi-times-circle"
+      style="margin-right: 1em;" class="ui-button-danger"></button>
+  </p-footer>
+</p-dialog>
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+<p-dialog dismissableMask="true" [modal]="true" *ngIf="cuentaMenuEdicion!==null" [(visible)]="displayEdicionMenuCuenta">
+  <p-header>
+    Editar Menu
+  </p-header>
+
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p>{{cuentaMenuEdicion.menu.nombre}}</p>
+    </div>
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Cantidad"></button>
+        <input type="text" name="cantidad" [(ngModel)]="cuentaMenuEdicion.cantidad">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="editarCuentaMenu()" pButton type="button" label="Editar" icon="pi pi-plus" style="margin-right: 1em;"
+      class="ui-button-success"></button>
+    <button (click)="borrarCuentaMenu()" pButton type="button" label="Eliminar" icon="pi pi-times-circle" style="margin-right: 1em;"
+      class="ui-button-danger"></button>
+  </p-footer>
+</p-dialog>

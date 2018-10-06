@@ -27,7 +27,7 @@
     </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-compra let-columns="columns">
-      <tr [pSelectableRow]="rowData" [routerLink]="rowData.idCompra">
+      <tr [pSelectableRow]="rowData" [routerLink]="rowData.registroCompra">
 
         <td class="ui-p-1">{{rowData.registroCompra}}</td>
         <td class="ui-p-2">{{rowData.fechaCompra}}</td>

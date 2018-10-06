@@ -1,3 +1,4 @@
+import { LoginParamService } from './../_services/login-param.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,26 +12,16 @@ import {
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private rout: ActivatedRoute, private router: Router) {}
+  constructor(
+    private rout: ActivatedRoute,
+    private router: Router,
+    private parametros: LoginParamService
+  ) {}
   helper = new JwtHelperService();
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (sessionStorage.getItem('token') === null) {
-      request = request.clone({
-        setHeaders: {}
-      });
-      this.router.navigate(['/login'], { relativeTo: this.rout });
-      return next.handle(request);
-    } else if (this.helper.isTokenExpired(sessionStorage.getItem('token'))) {
-      request = request.clone({
-        setHeaders: {}
-      });
-
-      this.router.navigate(['/login'], { relativeTo: this.rout });
-      return next.handle(request);
-    }
     request = request.clone({
       setHeaders: {
         Authorization: `${sessionStorage.getItem('token')}`

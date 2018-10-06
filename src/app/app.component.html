@@ -1,14 +1,36 @@
-<div >
-  <header [class]="header+headerFloat">
-    <h1>Arambala Carajo</h1>
-  </header>
+<div *ngIf="sesion.sessionActiva">
+  <div>
+    <p-toolbar>
+      <div class="p-grid">
+        <div class="p-col">
+          <div class="ui-toolbar-group-left">
+              <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+            <button (click)="display=true" pButton type="button" label="menu" icon="pi pi-bars" iconPos="right"></button>
+            <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+          </div>
+        </div>
+        <div class="p-col">
+          <h3 style="margin-top:0;margin-bottom:0;">Arambala Carajo</h3>
+        </div>
+        <div class="p-col">
+          <div class="ui-toolbar-group-right">
 
-    <div class="ui-g-12">
-      <p-menubar [model]="items">
-      </p-menubar>
+            <button style="margin-right:1em; margin-bottom: 0.5em;" pButton type="button" [label]="nombreCompleto"></button>
+            <p-splitButton [routerLink]="'usuarios/'+usuarioEmpleado.idUsuarioEmpleado" label="Perfil" icon="pi pi-info-circle"
+              [model]="itemsPerfil" styleClass="ui-button-primary"></p-splitButton>
+          </div>
+        </div>
+      </div>
+
+
+    </p-toolbar>
+  </div>
+  <p-sidebar [(visible)]="display">
+    <div>
+      <h4>Arambala Carajo</h4>
     </div>
+    <p-panelMenu [model]="items" [style]="{'width':'250px','margin-top':'2em'}" [multiple]="false"></p-panelMenu>
 
-
-    <router-outlet></router-outlet>
-
+  </p-sidebar>
 </div>
+<router-outlet></router-outlet>

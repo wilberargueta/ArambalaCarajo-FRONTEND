@@ -83,7 +83,7 @@
           <button (click)="openModalServicio()" pButton type="button" icon="pi pi-plus"
           label="Agregar Servicio"
           class="ui-button-warning"></button></p-toolbar>
-        <p-table [value]="menuServicioLista" [scrollable]="true" scrollHeight="200px">
+        <p-table [responsive]="true" [scrollable]="true" scrollHeight="200px" [value]="menuServicioLista" >
           <ng-template pTemplate="header">
             <tr>
               <th>Servicio</th>

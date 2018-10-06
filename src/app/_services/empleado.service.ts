@@ -12,8 +12,8 @@ export class EmpleadoService {
 
   constructor(private client: HttpClient) {}
 
-  addEmpleado(empleado: Empleado): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, empleado  );
+  addEmpleado(empleado: Empleado): Observable<Empleado> {
+    return this.client.post<Empleado>(this.URL_API, empleado  );
   }
   updateEmpleado(empleado: Empleado): Observable<Message> {
     return this.client.post<Message>(`${this.URL_API}/update`, empleado  );

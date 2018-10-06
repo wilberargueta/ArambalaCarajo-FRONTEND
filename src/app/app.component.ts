@@ -1,121 +1,163 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioRole } from './_model/usuario-role';
+import { UsuarioEmpleado } from './_model/usuario-empleado';
+import { Usuario } from './_model/usuario';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { UsuarioRoleService } from './_services/usuario-role.service';
+import { UsuarioEmpleadoService } from './_services/usuario-empleado.service';
+import { UsuarioService } from './_services/usuario.service';
+import { LoginParamService } from './_services/login-param.service';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
   selector: 'ac-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  providers: [LoginParamService]
 })
 export class AppComponent implements OnInit {
-  responsive = 'menu';
-  header = 'header';
-  headerFloat = '';
-  float = '';
   items: MenuItem[];
-  show = false;
-  constructor(private rout: ActivatedRoute, private router: Router) {}
+  itemsPerfil: MenuItem[];
+  display;
+  helper = new JwtHelperService();
+  nombreUsuario;
+  nombreCompleto;
+  usuario: Usuario = new Usuario(null, null, null);
+  usuarioEmpleado: UsuarioEmpleado = new UsuarioEmpleado(null, null, null);
+  usuarioRole: UsuarioRole = new UsuarioRole(null, null, null);
+  constructor(
+    public sesion: LoginParamService,
+    private usuarioService: UsuarioService,
+    private usuarioEmpleadoService: UsuarioEmpleadoService,
+    private usuarioRoleService: UsuarioRoleService,
+    private router: Router
+  ) {}
   ngOnInit() {
-    if (localStorage.getItem('token') === null) {
-      this.router.navigate(['/login'], { relativeTo: this.rout });
-    }
-    if (window.screen.width <= 600) {
-      this.items = [
-        {
-          icon: 'pi pi-bars',
-          routerLink: ['empleados'],
-          items: [
-            { label: 'Home', icon: 'fa fa-refresh', routerLink: [''] },
-            {
-              label: 'Empleado',
-              icon: 'fa fa-refresh',
-              routerLink: ['empleados'],
+    this.nombreUsuario = null;
+    this.nombreCompleto = null;
 
-            },
-            {
-              label: 'Proveedores',
-              icon: 'fa fa-close',
-              routerLink: ['proveedores']
-            },
-            { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
-            { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
-            {
-              label: 'Productos',
-              icon: 'fa fa-close',
-              routerLink: ['productos']
-            },
-            { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] },
-            {
-              label: 'Categorias',
-              icon: 'fa fa-close',
-              routerLink: ['categorias']
-            },
-            { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
-            {
-              label: 'Servicios',
-              icon: 'fa fa-close',
-              routerLink: ['servicios']
-            },
-            {
-              label: 'Usuarios',
-              icon: 'fa fa-close',
-              routerLink: ['usuarios']
-            },
-            { label: 'Login', icon: 'fa fa-close', routerLink: ['login'] }
-          ]
-        },
-        {
-          icon: 'pi pi-bars',
-          routerLink: ['logout'],
+    this.usuarioEmpleado = new UsuarioEmpleado(null, null, null);
+    this.usuarioRole = new UsuarioRole(null, null, null);
 
-        }
-      ];
-    } else {
-      this.items = [
-        { label: 'Empleado', icon: 'fa fa-refresh', routerLink: ['empleados'] },
-        { label: 'Home', icon: 'fa fa-close', routerLink: [''] },
-        {
-          label: 'Proveedores',
-          icon: 'fa fa-close',
-          routerLink: ['proveedores']
-        },
-        { label: 'Cabañas', icon: 'fa fa-close', routerLink: ['cabañas'] },
-        { label: 'Compras', icon: 'fa fa-close', routerLink: ['compras'] },
-        { label: 'Productos', icon: 'fa fa-close', routerLink: ['productos'] },
-        { label: 'Recetas', icon: 'fa fa-close', routerLink: ['recetas'] },
-        {
-          label: 'Categorias',
-          icon: 'fa fa-close',
-          routerLink: ['categorias']
-        },
-        { label: 'Menus', icon: 'fa fa-close', routerLink: ['menus'] },
-        { label: 'Servicios', icon: 'fa fa-close', routerLink: ['servicios'] },
-        { label: 'Usuarios', icon: 'fa fa-close', routerLink: ['usuarios'] },
-        { label: 'Login', icon: 'fa fa-close', routerLink: ['login'] }
-      ];
+    if (sessionStorage.getItem('token') !== null) {
+      this.nombreUsuario = this.helper.decodeToken(
+        sessionStorage.getItem('token')
+      ).sub;
+      this.usuarioService
+        .getUsuarioByOneNick(this.nombreUsuario)
+        .subscribe(u => {
+          this.usuario = u;
+          this.usuarioEmpleadoService
+            .getUsuarioEmpleadoByUsuario(this.usuario)
+            .subscribe(ue => {
+              this.usuarioEmpleado = ue;
+              this.nombreCompleto = `${this.usuarioEmpleado.empleado.nombre} ${
+                this.usuarioEmpleado.empleado.apellido
+              }`;
+              this.itemsPerfil = [
+                {
+                  label: 'Salir',
+                  routerLink: ['logout']
+                }
+              ];
+              this.items = [
+                {
+                  label: 'Inicio',
+                  icon: 'pi pi-circle-off',
+                  routerLink: ['home']
+                },
+
+                {
+                  label: 'Empleado',
+                  icon: 'pi pi-user',
+                  routerLink: ['empleados'],
+                  items: [
+                    {
+                      label: 'Nuevo',
+                      icon: 'pi pi-plus',
+                      routerLink: ['empleados/nuevo']
+                    }
+                  ]
+                },
+                {
+                  label: 'Proveedores',
+                  icon: 'pi pi-users',
+                  routerLink: ['proveedores']
+                },
+                {
+                  label: 'Cabañas',
+                  icon: 'pi pi-home',
+                  routerLink: ['cabañas']
+                },
+                {
+                  label: 'Compras',
+                  icon: 'pi pi-arrow-circle-right',
+                  routerLink: ['compras']
+                },
+                {
+                  label: 'Productos',
+                  icon: 'pi pi-calendar-plus',
+                  routerLink: ['productos']
+                },
+                {
+                  label: 'Recetas',
+                  icon: 'pi pi-pencil',
+                  routerLink: ['recetas']
+                },
+                {
+                  label: 'Categorias',
+                  icon: 'pi pi-align-justify',
+                  routerLink: ['categorias']
+                },
+                {
+                  label: 'Menus',
+                  icon: 'pi pi-align-right',
+                  routerLink: ['menus']
+                },
+                {
+                  label: 'Servicios',
+                  icon: 'pi pi-circle-on',
+                  routerLink: ['servicios']
+                },
+                {
+                  label: 'Usuarios',
+                  icon: 'pi pi-info',
+                  routerLink: ['/usuarios']
+                },
+                {
+                  label: 'Toma Pedido',
+                  icon: 'pi pi-info',
+                  routerLink: ['/tomapedido']
+                },
+                {
+                  label: 'Caja',
+                  icon: 'pi pi-inbox',
+                  routerLink: ['/cajero']
+                },
+                {
+                  label: 'Caja',
+                  icon: 'pi pi-inbox',
+                  routerLink: ['/cajero']
+                }
+              ];
+            });
+          this.usuarioRoleService
+            .getUsuarioRoleByUsuario(this.usuario)
+            .subscribe(ur => {
+              this.usuarioRole = ur;
+            });
+        });
+        this.sesion.sessionActiva = true;
+      this.router.navigate(['home']);
+    } else if (!this.sesion.sessionActiva) {
+
+      this.nombreUsuario = null;
+      this.nombreCompleto = null;
+      this.usuario = new Usuario(null, null, null);
+      this.usuarioEmpleado = new UsuarioEmpleado(null, null, null);
+      this.usuarioRole = new UsuarioRole(null, null, null);
+      // this.sesion.sessionActiva = false;
     }
   }
-
-  click() {
-    console.log(window.screen.width.toString());
-    if (this.responsive === 'menu') {
-      this.responsive += ' responsive';
-    } else {
-      this.responsive = 'menu';
-    }
-  }
-  /*
-  @HostListener('window:scroll', ['$event'])
-   shot(event) {
-  //  console.log('scrollTop: ' + event.target.scrollingElement.scrollTop);
-  if (event.target.scrollingElement.scrollTop > 60) {
-      this.float = ' float';
-      this.headerFloat = '';
-
-    } else if (event.target.scrollingElement.scrollTop < 70) {
-      this.float = '';
-      this.headerFloat = '';
-
-    }
-  }*/
 }

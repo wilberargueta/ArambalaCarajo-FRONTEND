@@ -1,0 +1,26 @@
+<p-dataView paginator="true" layout="grid" #dv [value]="menus" [paginator]="true" [rows]="10"
+      paginatorPosition="both">
+      <p-header>
+        Comidas
+        <button pButton type="button" (click)="regresarFunc()" label="Regresar" [routerLink]="'/tomapedido'"></button>
+      </p-header>
+      <ng-template let-menu pTemplate="gridItem">
+        <div style="padding:.5em" class="ui-g-6 ui-md-6">
+          <p-panel [header]="menu.menu.nombre" [style]="{'text-align':'center'}">
+
+            <div class="car-detail">
+                {{menu.menu.detalles}}
+            </div>
+            <hr class="ui-widget-content" style="border-top:0">
+            <div class="car-detail">
+
+                ${{menu.menu.precio}}
+             </div>
+             <hr class="ui-widget-content" style="border-top:0">
+             <div class="car-detail">
+             <button pButton type="button" (click)="select(menu.menu)" label="Seleccionar" class="ui-button-success"></button>
+            </div>
+            </p-panel>
+        </div>
+      </ng-template>
+    </p-dataView>

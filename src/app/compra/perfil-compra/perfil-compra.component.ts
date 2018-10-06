@@ -70,8 +70,9 @@ export class PerfilCompraComponent implements OnInit {
         this.desabilitarModalProductos = true;
         this.tipoPerfil = true;
         const str = params['id'];
-        this.compraServicio.getComprasById(str).subscribe(data => {
+        this.compraServicio.getComprasByRC(str).subscribe(data => {
           this.compra = data;
+
           this.compraProductoServicio
             .getCompraProductoByCompra(this.compra)
             .subscribe(data1 => {
@@ -110,11 +111,12 @@ export class PerfilCompraComponent implements OnInit {
       this.compra.proveedor = this.proveedor;
       this.compraServicio.addCompra(this.compra).subscribe(data => {
         this.desabilitarModalProductos = true;
+        this.compra = data;
         this.msgs = [
           {
             severity: 'info',
             summary: 'Confirmado',
-            detail: data.message
+            detail: 'Compra Ingresada Correctamente'
           }
         ];
       });

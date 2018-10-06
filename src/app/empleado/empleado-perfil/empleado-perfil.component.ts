@@ -72,16 +72,16 @@ export class EmpleadoPerfilComponent implements OnInit {
       });
     } else {
       // this.servicio.addEmpleado()
-      console.log('Guardado..');
+      console.log(this.empleado);
       this.servicio.addEmpleado(this.empleado).subscribe(data => {
+        this.empleado = data;
         this.msgs = [
           {
             severity: 'info',
             summary: 'Confirmado',
-            detail: data.message
+            detail: 'Agregado Correctamente'
           }
         ];
-        console.log(data);
       });
     }
     this.tipoPerfil = true;
