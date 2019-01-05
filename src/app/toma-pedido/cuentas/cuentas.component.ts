@@ -6,6 +6,7 @@ import { UsuarioService } from './../../_services/usuario.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as moment from 'moment';
 import { Cuenta } from '../../_model/cuenta';
+import { CuentaService } from '../../_services/cuenta.service';
 
 @Component({
   selector: 'ac-cuentas',
@@ -15,7 +16,8 @@ import { Cuenta } from '../../_model/cuenta';
 export class CuentasComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
-    private cuentaUsuarioService: CuentaUsuarioService
+    private cuentaUsuarioService: CuentaUsuarioService,
+    private cuentaServicio: CuentaService
   ) {}
 
   @Input()
@@ -37,7 +39,10 @@ export class CuentasComponent implements OnInit {
         .subscribe(cu => {
           this.cuentasUsuario = [];
           cu.forEach(val => {
-            if (val.cuenta.fechaCuenta === moment().format('YYYY-M-DD')) {
+            if (
+              val.cuenta.fechaCuenta === moment().format('YYYY-M-DD') &&
+              val.cuenta.cobrada === false
+            ) {
               this.cuentasUsuario.push(val);
             }
           });
@@ -50,7 +55,6 @@ export class CuentasComponent implements OnInit {
       .getCuentaUsuarioByUsuario(this.usuario)
       .subscribe(cu => {
         this.cuentasUsuario = [];
-        console.log(cu);
         cu.forEach(val => {
           if (
             val.cuenta.fechaCuenta === moment().format('YYYY-M-DD') &&
@@ -65,5 +69,8 @@ export class CuentasComponent implements OnInit {
   cargarCuenta(event: Cuenta) {
     this.cuenta.emit(event);
   }
-  cobrarCuenta(event) {}
+  cobrarCuenta(event: Cuenta) {
+    event.cobrable = true;
+    this.cuentaServicio.updateCuenta(event).subscribe(resul => {});
+  }
 }

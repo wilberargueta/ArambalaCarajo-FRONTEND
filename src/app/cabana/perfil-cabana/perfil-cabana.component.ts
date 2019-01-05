@@ -3,7 +3,12 @@ import { ConfirmationService, Message } from 'primeng/api';
 import { CabanaService } from './../../_services/cabana.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
+import {
+  Validators,
+  FormControl,
+  FormGroup,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
   selector: 'ac-perfil-cabana',
@@ -12,25 +17,35 @@ import { Component, OnInit } from '@angular/core';
   providers: [ConfirmationService]
 })
 export class PerfilCabanaComponent implements OnInit {
-
   constructor(
     private rout: ActivatedRoute,
     private router: Router,
     private servicio: CabanaService,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private fb: FormBuilder
   ) {}
 
   es: any;
+  userform: FormGroup;
 
   codCabana: string;
   disable = true;
   msgs: Message[] = [];
   tipoPerfil = false;
   cabana = new Cabana('', '', '', null, '');
-  options: any[] = [{label: 'Si', icon: 'pi pi-check', value: true},
-  {label: 'No', icon: 'pi pi-times', value: false}];
+  options: any[] = [
+    { label: 'Si', icon: 'pi pi-check', value: true },
+    { label: 'No', icon: 'pi pi-times', value: false }
+  ];
 
   ngOnInit() {
+    this.userform = this.fb.group({
+      '1': new FormControl(''),
+      'nombre': new FormControl('', Validators.required),
+      'disponible': new FormControl('', Validators.required),
+      'precio': new FormControl('', Validators.required),
+      'detalle': new FormControl('', Validators.required)
+  });
     this.rout.params.subscribe((params: Params) => {
       if (params['id'] === 'nuevo') {
         this.cabana = new Cabana('', '', '', null, '');
@@ -129,5 +144,4 @@ export class PerfilCabanaComponent implements OnInit {
     }, 1500);
     console.log('Eliminado');
   }
-
 }

@@ -12,14 +12,13 @@ export class ProveedorService {
 
   constructor(private client: HttpClient) {}
 
-  addProveedor(proveedor: Proveedor): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, proveedor);
+  addProveedor(proveedor: Proveedor): Observable<Proveedor> {
+    return this.client.post<Proveedor>(this.URL_API, proveedor);
   }
   updateProveedor(proveedor: Proveedor): Observable<Message> {
     return this.client.post<Message>(`${this.URL_API}/update`, proveedor);
   }
   deleteProveedor(proveedor: Proveedor): Observable<Message> {
-
     return this.client.post<Message>(`${this.URL_API}/delete`, proveedor);
   }
   getProveedor(): Observable<Proveedor[]> {

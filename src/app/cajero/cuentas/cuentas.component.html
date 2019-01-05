@@ -1,6 +1,6 @@
 <p-table selectionMode="single"  [value]="cuentasUsuario" [responsive]="true">
   <ng-template pTemplate="caption">
-      Lista de cuentas para: <p>{{usuario.nick}}</p>
+      Lista de cuentas sin cobrar
       <button type="button" pButton label="Recargar" icon="pi pi-refresh" (click)="cargarCuentas()"></button>
   </ng-template>
   <ng-template pTemplate="header">
@@ -8,7 +8,7 @@
           <th>ID:</th>
           <th>Nombre: </th>
           <th>Mesa: </th>
-          <th>Acciones:</th>
+          <th>Empleado:</th>
       </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -16,11 +16,7 @@
           <td>{{rowData.cuenta.idCuenta}}</td>
           <td>{{rowData.cuenta.nombre}}</td>
           <td>{{rowData.cuenta.mesa}}</td>
-          <td>
-            <button type="button" pButton label="Cobrar" class="ui-button-success" >
-
-            </button>
-          </td>
+          <td>{{rowData.usuario.nick}} </td>
       </tr>
 
     </ng-template>

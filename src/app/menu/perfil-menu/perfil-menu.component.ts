@@ -153,7 +153,6 @@ export class PerfilMenuComponent implements OnInit {
                 console.log(dataMC);
               });
           });
-
       });
       this.mostrarReceta = true;
     }
@@ -227,10 +226,17 @@ export class PerfilMenuComponent implements OnInit {
   }
 
   filtrarCategorias(event) {
-    const query = event.query;
-    this.categoriaMenuService.getCategoriaByBusqueda(query).subscribe(data => {
-      this.categorias = data;
-    });
+    if (event.query === '') {
+      this.categoriaMenuService
+        .getCategoria()
+        .subscribe(cate => (this.categorias = cate));
+    } else {
+      this.categoriaMenuService
+        .getCategoriaByBusqueda(event.query)
+        .subscribe(data => {
+          this.categorias = data;
+        });
+    }
   }
   openModalReceta(event) {
     // Abriendo Modal para agregar productos a la compra.
@@ -281,9 +287,15 @@ export class PerfilMenuComponent implements OnInit {
     }
   }
   filtradorReceta(event) {
-    this.recetaService.getRecetaByNombre(event.query).subscribe(data => {
-      this.recetaListaFiltrado = data;
-    });
+    if (event.query === '') {
+      this.recetaService.getReceta().subscribe(data => {
+        this.recetaListaFiltrado = data;
+      });
+    } else {
+      this.recetaService.getRecetaByNombre(event.query).subscribe(data => {
+        this.recetaListaFiltrado = data;
+      });
+    }
   }
   eliminarMenuReceta(event) {
     this.menuRecetaService.deleteMenuReceta(event).subscribe(data => {

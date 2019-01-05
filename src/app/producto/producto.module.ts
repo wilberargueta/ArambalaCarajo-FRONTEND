@@ -20,6 +20,8 @@ import { ProductoComponent } from './producto.component';
 import { PerfilProductoComponent } from './perfil-producto/perfil-producto.component';
 import { TablaProductoComponent } from './tabla-producto/tabla-producto.component';
 import {DropdownModule} from 'primeng/dropdown';
+import { Existencia } from '../_model/existencia';
+import { ExistenciaService } from '../_services/existencia.service';
 
 
 @NgModule({
@@ -43,6 +45,6 @@ import {DropdownModule} from 'primeng/dropdown';
     DropdownModule
   ],
   declarations: [ProductoComponent, PerfilProductoComponent, TablaProductoComponent],
-  providers: [ProductoService]
+  providers: [ProductoService, ExistenciaService]
 })
 export class ProductoModule { }

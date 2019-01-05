@@ -16,9 +16,11 @@ export class TablaEmpleadoComponent implements OnInit {
 
   empleados: Empleado[];
   empleadoSelec: Empleado;
+
   cols: any[];
 
   ngOnInit() {
+
     this.servicio.getEmpleado().subscribe(data => {
       this.empleados = data;
     });
@@ -32,4 +34,6 @@ export class TablaEmpleadoComponent implements OnInit {
       { field: 'dui', header: 'Dui' }
     ];
   }
+
+
 }

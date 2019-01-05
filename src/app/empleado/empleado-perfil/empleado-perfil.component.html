@@ -24,8 +24,7 @@
         <div class="ui-g-12 ui-lg-12 ui-md-12">
           <div class="ui-inputgroup">
             <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Codigo"></button>
-            <p-inputMask [disabled]="tipoPerfil"   mask="E-999"  type="text" pInputText [(ngModel)]="empleado.codEmpleado" placeholder="Codigo.." name="cod">
-              </p-inputMask>
+            <input pInputText [disabled]="true"type="text" pInputText [(ngModel)]="empleado.codEmpleado" name="cod">
           </div>
         </div>
       </div>

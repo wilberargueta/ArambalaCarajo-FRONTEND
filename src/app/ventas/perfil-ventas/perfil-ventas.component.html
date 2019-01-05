@@ -1,0 +1,64 @@
+<div class="p-grid">
+  <div class="p-col-12">
+    <p-toolbar [style]="{'margin-top':'1em'}">
+      <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Regresar" (click)="regresar()" class="ui-button-success" icon="pi pi-arrow-left"></button>
+      </div>
+    </p-toolbar>
+  </div>
+
+  <div class="p-g-6 p-md-6 p-lg-6 p-ms-12">
+    <p-card>
+      <div class="p-grid">
+        <div class="p-g-6 p-md-12 p-lg-6 p-ms-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" label="Empleado"></button>
+            <input pInputText type="text" disabled [value]="cajaVenta.caja.usuario.nick" name="empleado">
+          </div>
+        </div>
+        <div class="p-g-6 p-md-12 p-lg-6 p-ms-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" label="Fecha:"></button>
+            <input pInputDate type="date" disabled [value]="cajaVenta.venta.fecha" name="fecha">
+          </div>
+        </div>
+        <div class="p-g-6 p-md-12 p-lg-6 p-ms-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" label="Detalle:"></button>
+            <input pInputText type="text" disabled [value]="cajaVenta.venta.detalle" name="fecha">
+          </div>
+        </div>
+        <div class="p-g-6 p-md-12 p-lg-6 p-ms-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-danger" label="Total:"></button>
+            <input pInputText type="text" disabled [value]="'$'+total" name="fecha">
+          </div>
+        </div>
+      </div>
+    </p-card>
+  </div>
+  <div class="p-g-6 p-md-6 p-lg-6 p-ms-12">
+    <p-card>
+      <div class="p-grid">
+        <div class="p-col-12">
+          <p-table [columns]="cols" [paginator]="true" [rows]="10" [value]="cuentaMenu" dataKey="idCuentaMenu">
+
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns">{{col.header}}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-menus let-columns>
+              <tr>
+                <td>{{menus.menu.nombre}}</td>
+                <td>${{menus.menu.precio}}</td>
+                <td>{{menus.cantidad}}</td>
+                <td>${{menus.cantidad *menus.menu.precio }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

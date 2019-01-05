@@ -66,11 +66,12 @@ export class PerfilProveedorComponent implements OnInit {
       // this.servicio.addEmpleado()
       console.log('Guardado..');
       this.servicio.addProveedor(this.proveedor).subscribe(data => {
+        this.proveedor = data;
         this.msgs = [
           {
             severity: 'info',
             summary: 'Confirmado',
-            detail: data.message
+            detail: 'Proveedor guardado'
           }
         ];
         console.log(data);

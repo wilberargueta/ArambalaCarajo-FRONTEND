@@ -5,6 +5,7 @@ export class Cuenta {
     public descuento: string,
     public nombre: string,
     public mesa: number,
-    public cobrada: boolean
+    public cobrada: boolean,
+    public cobrable: boolean
   ) {}
 }

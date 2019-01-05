@@ -1,3 +1,4 @@
+import { CuentaService } from './../../_services/cuenta.service';
 import { Usuario } from './../../_model/usuario';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Cuenta } from './../../_model/cuenta';
@@ -13,10 +14,10 @@ import * as moment from 'moment';
   styleUrls: ['./cuentas.component.scss']
 })
 export class CuentasComponent implements OnInit {
-
   constructor(
     private usuarioService: UsuarioService,
-    private cuentaUsuarioService: CuentaUsuarioService
+    private cuentaUsuarioService: CuentaUsuarioService,
+    private cuentaService: CuentaService
   ) {}
 
   @Input()
@@ -27,45 +28,38 @@ export class CuentasComponent implements OnInit {
 
   cuentasUsuario: CuentaUsuario[] = [];
   helper = new JwtHelperService();
-  usuario: Usuario = new Usuario(null, null, null);
 
   ngOnInit() {
-    const nick = this.helper.decodeToken(sessionStorage.getItem('token')).sub;
-    this.usuarioService.getUsuarioByOneNick(nick).subscribe(user => {
-      this.usuario = user;
-      this.cuentaUsuarioService
-        .getCuentaUsuarioByUsuario(this.usuario)
-        .subscribe(cu => {
-          this.cuentasUsuario = [];
-          cu.forEach(val => {
-            if (val.cuenta.fechaCuenta === moment().format('YYYY-M-DD')) {
-              this.cuentasUsuario.push(val);
-            }
-          });
-        });
+    this.cuentaUsuarioService.getCuentaUsuario().subscribe(cu => {
+      this.cuentasUsuario = [];
+      cu.forEach(val => {
+        if (
+          val.cuenta.fechaCuenta === moment().format('YYYY-MM-DD') &&
+          val.cuenta.cobrada === false &&
+          val.cuenta.cobrable === true
+        ) {
+          this.cuentasUsuario.push(val);
+        }
+      });
     });
   }
 
   cargarCuentas() {
-    this.cuentaUsuarioService
-      .getCuentaUsuarioByUsuario(this.usuario)
-      .subscribe(cu => {
-        this.cuentasUsuario = [];
-        console.log(cu);
-        cu.forEach(val => {
-          if (
-            val.cuenta.fechaCuenta === moment().format('YYYY-M-DD') &&
-            val.cuenta.cobrada === false
-          ) {
-            this.cuentasUsuario.push(val);
-          }
-        });
+    this.cuentaUsuarioService.getCuentaUsuario().subscribe(cu => {
+      this.cuentasUsuario = [];
+      cu.forEach(val => {
+        if (
+          val.cuenta.fechaCuenta === moment().format('YYYY-MM-DD') &&
+          val.cuenta.cobrada === false &&
+          val.cuenta.cobrable === true
+        ) {
+          this.cuentasUsuario.push(val);
+        }
       });
+    });
   }
 
   cargarCuenta(event: Cuenta) {
     this.cuenta.emit(event);
   }
-  cobrarCuenta(event) {}
-
 }

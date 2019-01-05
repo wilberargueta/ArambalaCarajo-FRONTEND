@@ -58,7 +58,6 @@ export class EmpleadoPerfilComponent implements OnInit {
     this.empleado.fechaNacimiento = this.fechaNacimiento;
 
     if (this.tipoPerfil) {
-      console.log('Editado..');
       // console.log(this.empleado);
       this.servicio.updateEmpleado(this.empleado).subscribe(data => {
         this.msgs = [
@@ -68,11 +67,10 @@ export class EmpleadoPerfilComponent implements OnInit {
             detail: data.message
           }
         ];
-        console.log(data);
       });
     } else {
       // this.servicio.addEmpleado()
-      console.log(this.empleado);
+
       this.servicio.addEmpleado(this.empleado).subscribe(data => {
         this.empleado = data;
         this.msgs = [
@@ -119,7 +117,6 @@ export class EmpleadoPerfilComponent implements OnInit {
   }
   delete() {
     this.servicio.deleteEmpleado(this.empleado).subscribe(data => {
-      console.log(data);
       this.msgs = [
         {
           severity: 'info',
@@ -131,6 +128,5 @@ export class EmpleadoPerfilComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/empleados'], { relativeTo: this.rout });
     }, 1500);
-    console.log('Eliminado');
   }
 }

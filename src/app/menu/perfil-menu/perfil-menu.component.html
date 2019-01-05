@@ -68,7 +68,8 @@
                 <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                  label="Tipo de Menu"></button>
                  <p-autoComplete [disabled]="disable"  [(ngModel)]="categoriaMenu" [suggestions]="categorias"
-                 (completeMethod)="filtrarCategorias($event)" field="categoriaMenu" [minLength]="1"   [size]="20"[dropdown]="false" name="categoriaMenu"></p-autoComplete>
+                 (completeMethod)="filtrarCategorias($event)" field="categoriaMenu" [minLength]="1"   [size]="20"
+                 name="categoriaMenu" [dropdown]="true"></p-autoComplete>
 
               </div>
             </div>

@@ -8,7 +8,7 @@ import { Producto } from '../_model/producto';
 
 @Injectable()
 export class ExistenciaService {
-  private backend: Backend;
+  private backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/existencias`;
 
   constructor(private client: HttpClient) {}
@@ -32,13 +32,7 @@ export class ExistenciaService {
   }
 
   getExistenciaByProducto(producto: Producto): Observable<Existencia> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      body: producto
-    };
 
-    return this.client.get<Existencia>(`${this.URL_API}/producto`, httpOptions);
+    return this.client.post<Existencia>(`${this.URL_API}/producto`, producto);
   }
 }

@@ -6,7 +6,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputMaskModule } from 'primeng/inputmask';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
@@ -39,7 +39,9 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     ToolbarModule,
     SplitButtonModule,
     GrowlModule,
-    SelectButtonModule
+    SelectButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [CabanaComponent, TablaCabanaComponent, PerfilCabanaComponent],
   providers: [CabanaService]

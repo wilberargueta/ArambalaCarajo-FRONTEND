@@ -1,3 +1,6 @@
+import { CajaService } from './../_services/caja.service';
+import { VentaService } from './../_services/venta.service';
+import { CajaVentaService } from './../_services/caja-venta.service';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MenuModule } from './../menu/menu.module';
 import { DataViewModule } from 'primeng/dataview';
@@ -30,6 +33,7 @@ import { CajaCategoriaMenuComponent } from './caja-categoria-menu/caja-categoria
 import { CajaComidaComponent } from './caja-comida/caja-comida.component';
 import { CajaPrincipalComponent } from './caja-principal/caja-principal.component';
 import { CajaServicioComponent } from './caja-servicio/caja-servicio.component';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -56,7 +60,8 @@ import { CajaServicioComponent } from './caja-servicio/caja-servicio.component';
     DataScrollerModule,
     DataViewModule,
     MenuModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    ToastModule
   ],
   declarations: [
     CajeroComponent,
@@ -66,6 +71,7 @@ import { CajaServicioComponent } from './caja-servicio/caja-servicio.component';
     CajaComidaComponent,
     CajaPrincipalComponent,
     CajaServicioComponent
-  ]
+  ],
+  providers: [CajaVentaService, VentaService, CajaService]
 })
 export class CajeroModule {}

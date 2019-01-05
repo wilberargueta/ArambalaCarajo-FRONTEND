@@ -21,12 +21,13 @@ import { CommonModule } from '@angular/common';
 import { CompraComponent } from './compra.component';
 import { PerfilCompraComponent } from './perfil-compra/perfil-compra.component';
 import { TablaCompraComponent } from './tabla-compra/tabla-compra.component';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ProveedorService } from '../_services/proveedor.service';
 import { DateConvert } from '../_class/date-convert';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
-import {DialogModule} from 'primeng/dialog';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { DialogModule } from 'primeng/dialog';
 import { ProductoService } from '../_services/producto.service';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -49,9 +50,16 @@ import { ProductoService } from '../_services/producto.service';
     SelectButtonModule,
     AutoCompleteModule,
     ScrollPanelModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   declarations: [CompraComponent, PerfilCompraComponent, TablaCompraComponent],
-  providers: [CompraService, CompraProductoService, ProveedorService, DateConvert, ProductoService]
+  providers: [
+    CompraService,
+    CompraProductoService,
+    ProveedorService,
+    DateConvert,
+    ProductoService
+  ]
 })
-export class CompraModule { }
+export class CompraModule {}

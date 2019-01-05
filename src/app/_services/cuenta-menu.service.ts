@@ -17,6 +17,9 @@ export class CuentaMenuService {
   addCuentaMenu(cuentaMenu: CuentaMenu): Observable<CuentaMenu> {
     return this.client.post<CuentaMenu>(this.URL_API, cuentaMenu);
   }
+  addListCuentaMenu(cuentaMenu: CuentaMenu []): Observable<Message> {
+    return this.client.post<Message>(`${this.URL_API}/all`, cuentaMenu);
+  }
 
   updateCuentaMenu(cuentaMenu: CuentaMenu): Observable<Message> {
     return this.client.post<Message>(`${this.URL_API}/update`, cuentaMenu);

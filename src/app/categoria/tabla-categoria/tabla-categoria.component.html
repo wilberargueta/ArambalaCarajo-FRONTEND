@@ -8,7 +8,7 @@
       <button style="margin-left: 1em;" pButton type="button" label="Agregar Categoria"
       icon="pi pi-plus" [routerLink]="'menu/nuevo'"></button>
     </p-header>
-    <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="menuCategorias" [responsive]="true"
+    <p-table [columns]="colsMenu" #dt [paginator]="true" [rows]="10" [value]="menuCategorias"
     selectionMode="single" [(selection)]="menuCategoriaSelec" dataKey="id">
       <ng-template pTemplate="caption">
         <div style="text-align: center">
@@ -42,7 +42,7 @@
       icon="pi pi-plus" [routerLink]="'producto/nuevo'"></button>
     </p-header>
     <p-table [columns]="colsProducto" #dt [paginator]="true" [rows]="10" [value]="productoCategorias"
-     [responsive]="true"
+
     selectionMode="single" [(selection)]="productoCategoriaSelec" dataKey="id">
       <ng-template pTemplate="caption">
         <div style="text-align: center">

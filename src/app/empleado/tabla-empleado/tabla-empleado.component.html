@@ -24,10 +24,10 @@
         </th>
     </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-empleado let-columns="columns">
-      <tr [pSelectableRow]="rowData" [routerLink]="rowData.codEmpleado">
+    <ng-template pTemplate="body"  let-empleado let-columns="columns">
+      <tr [pSelectableRow]="empleado" [routerLink]="empleado.codEmpleado">
 
-        <td  *ngFor="let col of columns" class="ui-p-1">{{rowData[col.field]}}</td>
+        <td  *ngFor="let col of columns" class="ui-p-1">{{empleado[col.field]}}</td>
       </tr>
     </ng-template>
   </p-table>

@@ -24,6 +24,8 @@ import { CommonModule } from '@angular/common';
 import { RecetaComponent } from './receta.component';
 import { PerfilRecetaComponent } from './perfil-receta/perfil-receta.component';
 import { TablaRecetaComponent } from './tabla-receta/tabla-receta.component';
+import {ToastModule} from 'primeng/toast';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -46,7 +48,9 @@ import { TablaRecetaComponent } from './tabla-receta/tabla-receta.component';
     SelectButtonModule,
     AutoCompleteModule,
     ScrollPanelModule,
-    DialogModule
+    DialogModule,
+    ToastModule,
+    DropdownModule
   ],
   declarations: [RecetaComponent, PerfilRecetaComponent, TablaRecetaComponent],
   providers: [RecetaService, RecetaProductoService]

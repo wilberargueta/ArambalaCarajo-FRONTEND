@@ -31,6 +31,9 @@ import { TablaMenuComponent } from './tabla-menu/tabla-menu.component';
 import { RecetaService } from '../_services/receta.service';
 import { PerfilMenuServicioComponent } from './perfil-menu-servicio/perfil-menu-servicio.component';
 import { PerfilMenuCabanaComponent } from './perfil-menu-cabana/perfil-menu-cabana.component';
+import {ToastModule} from 'primeng/toast';
+
+
 
 @NgModule({
   imports: [
@@ -53,7 +56,8 @@ import { PerfilMenuCabanaComponent } from './perfil-menu-cabana/perfil-menu-caba
     SelectButtonModule,
     AutoCompleteModule,
     ScrollPanelModule,
-    DialogModule
+    DialogModule,
+    ToastModule
   ],
   declarations: [
     MenuComponent,

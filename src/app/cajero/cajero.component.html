@@ -1,7 +1,6 @@
 <p-overlayPanel [style]="{'width':'500px'}" #op>
   <ac-cuentas (cuenta)="cargarCuenta($event)"></ac-cuentas>
 </p-overlayPanel>
-<p-messages [value]="msgs"></p-messages>
 <div class="p-grid">
   <div class="p-col-6" style="height: 480px;">
     <p-card [style]="{'height':'430px'}">
@@ -28,9 +27,15 @@
       </p-table>
     </p-card>
 
-    <p-card>
-      Total <p style="display: inline; margin-left: 5em;" align="rigth">${{total}}</p>
-    </p-card>
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button type="button" pButton class="ui-button-raised ui-button-success" label="TOTAL"></button>
+      </div>
+      <div class="ui-toolbar-group-right">
+        <button style="font-size: 16px;" type="button" [label]="'$'+total" pButton class="ui-button-raised ui-button-rounded ui-button-danger"></button>
+      </div>
+
+    </p-toolbar>
   </div>
 
   <div class="p-col-6" style="height: 480px;">
@@ -54,48 +59,21 @@
   <div class="p-col-12">
     <p-toolbar>
       <div class="ui-toolbar-group-left">
-        <button pButton type="button" (click)="displayCuenta()" label="Nueva Cuenta" icon="pi pi-plus" style="margin-right: 1em;"></button>
-        <button pButton type="button" label="Borrar Cuenta" icon="pi pi-trash" style="margin-right: 1em;" class="ui-button-danger"
-          (click)="displayBorrarCuenta()"></button>
-        <button pButton type="button" label="Lista Cuenta" icon="pi pi-bars" style="margin-right: 1em;" class="ui-button-secondary"
-          (click)="op.toggle($event); cargaLista = true;"></button>
 
+        <button pButton type="button" label="Cobrar" icon="pi pi-arrow-circle-up" style="margin-right: 1em;" class="ui-button-success"
+          (click)="displayCobrarCuenta()"></button>
+        <button pButton type="button" label="Cuentas por cobrar" icon="pi pi-bars" style="margin-right: 1em;" class="ui-button-warning"
+          (click)="op.toggle($event); cargaLista = true;"></button>
+        <button pButton type="button" label="Limpiar menu" icon="pi pi-replay" style="margin-right: 1em;" (click)="limpiarCuenta()"></button>
+        <p-selectButton [options]="comprobantes" [(ngModel)]="comprobante"></p-selectButton>
+         <button pButton type="button" label="Tarjeta" icon="pi pi-arrow-circle-up" style="margin-left: 1em;" class="ui-button-success"
+          (click)="displayCobrarCuenta()"></button>
       </div>
     </p-toolbar>
 
   </div>
 </div>
-<p-dialog *ngIf="cuenta !== null" modal="true" [(visible)]="addCuenta">
-  <p-header>
-    Agregar Cuenta
-  </p-header>
-  <form>
-    <div>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nombre"></button>
-            <input class="ui-g-12  ui-lg-6 ui-md-12" type="text" pInputText [(ngModel)]="cuenta.nombre" name="nombre"
-              placeholder="Nombre">
-          </div>
-        </div>
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Mesa"></button>
-            <input class="ui-g-12  ui-lg-6 ui-md-12" type="number" pInputNumber [(ngModel)]="cuenta.mesa" name="mesa"
-              placeholder="Mesa">
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-  <p-footer>
-    <button (click)="agregarCuenta()" pButton type="button" label="Agregar Cuenta" icon="pi pi-plus" style="margin-right: 1em;"
-      class="ui-button-success"></button>
-    <button (click)="addCuenta=false; cuenta=null" pButton type="button" label="Cancelar" icon="pi pi-times-circle"
-      style="margin-right: 1em;" class="ui-button-danger"></button>
-  </p-footer>
-</p-dialog>
+
 <p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
 <p-dialog dismissableMask="true" [modal]="true" *ngIf="cuentaMenuEdicion!==null" [(visible)]="displayEdicionMenuCuenta">
   <p-header>
@@ -116,7 +94,46 @@
   <p-footer>
     <button (click)="editarCuentaMenu()" pButton type="button" label="Editar" icon="pi pi-plus" style="margin-right: 1em;"
       class="ui-button-success"></button>
-    <button (click)="borrarCuentaMenu()" pButton type="button" label="Eliminar" icon="pi pi-times-circle" style="margin-right: 1em;"
+    <button (click)="borrarCuentaMenu()" pButton type="button" label="Eliminar" icon="pi pi-trash" style="margin-right: 1em;"
       class="ui-button-danger"></button>
   </p-footer>
 </p-dialog>
+<p-dialog [closeOnEscape]="false" [dismissableMask]="false" [closable]="false" *ngIf="caja !== null" modal="true"
+  [(visible)]="addCaja">
+  <p-header>
+    Iniciar caja
+  </p-header>
+  <form>
+    <div>
+      <div class="ui-g ui-fluid">
+        <div class="ui-g-12 ui-lg-6 ui-md-12">
+          <div class="ui-inputgroup">
+            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Monto de Apertura($)"></button>
+            <input class="ui-g-12  ui-lg-6 ui-md-12" type="text" pInputText [(ngModel)]="caja.aperturaCaja" name="apertura"
+              placeholder="Monto($)">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-footer>
+    <button (click)="agregarCaja()" pButton type="button" label="Iniciar Caja" icon="pi pi-plus" style="margin-right: 1em;"
+      class="ui-button-success"></button>
+    <button pButton type="button" class="ui-button-danger" (click)="addCaja=false;caja=null" label="Cancelar"></button>
+  </p-footer>
+</p-dialog>
+<p-dialog modal="true" [(visible)]="addCobrarCuenta">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="PAGA CON($):"></button>
+        <input type="text" name="pago" placeholder="Pago $" [(ngModel)]="pago">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="cobrarCuenta()" pButton type="button" label="Cobrar" style="margin-right: 1em;" class="ui-button-success"></button>
+    <button pButton type="button" class="ui-button-danger" (click)="addCobrarCuenta=false" label="Cancelar"></button>
+  </p-footer>
+</p-dialog>
+<p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>

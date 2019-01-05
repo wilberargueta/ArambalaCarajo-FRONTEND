@@ -25,8 +25,8 @@
           <div class="ui-g-12 ui-lg-6 ui-md-12">
             <div class="ui-inputgroup">
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nº Registro"></button>
-              <input disabled="true"  class="ui-g-12  ui-lg-6 ui-md-12"  type="text"
-                pInputText [(ngModel)]="compra.registroCompra" name="compra.registroCompra"  placeholder="Registro">
+              <input disabled="true" class="ui-g-12  ui-lg-6 ui-md-12" type="text" pInputText [(ngModel)]="compra.registroCompra"
+                name="compra.registroCompra" placeholder="Registro">
             </div>
           </div>
           <div class="ui-g-12 ui-lg-6 ui-md-12">
@@ -34,7 +34,7 @@
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Proveedor"></button>
               <p-autoComplete [disabled]="disable" [(ngModel)]="proveedor" [suggestions]="proveedorFiltrado"
                 (completeMethod)="filtradorProveedor($event)" field="razonSocial" [size]="30" placeholder="Proveedor"
-                [minLength]="1" name="proveedor"></p-autoComplete>
+                [minLength]="1" name="proveedor" [dropdown]="true"></p-autoComplete>
             </div>
           </div>
         </div>
@@ -78,12 +78,14 @@
           <tr>
             <th>Producto</th>
             <th>Cantidad</th>
+            <th>Medida</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-CP>
           <tr [pSelectableRow]="CP" (click)="openModalProducto(CP)">
             <td>{{CP.productos.nombre}}</td>
-            <td>{{CP.cantidad}}</td>
+            <td>{{CP.cantidad.toFixed(2)}}</td>
+            <td>{{CP.productos.medida.tipoMedida}}</td>
           </tr>
         </ng-template>
       </p-table>
@@ -100,22 +102,27 @@
       <div class="ui-inputgroup">
         <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Producto"></button>
         <p-autoComplete [(ngModel)]="producto" [suggestions]="productoFiltrado" (completeMethod)="filtradorProducto($event)"
-          field="nombre" [size]="30" placeholder="Producto" [minLength]="1" name="nombre"></p-autoComplete>
+          field="nombre" [size]="30" placeholder="Producto" [minLength]="1" name="nombre" [dropdown]="true"></p-autoComplete>
 
       </div>
     </div>
   </div>
   <div class="ui-g ui-fluid">
-    <div class="ui-g-12 ui-lg-12 ui-md-12">
+    <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
       <div class="ui-inputgroup" *ngIf="compraProductoTemporal">
         <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Cantidad"></button>
-        <input type="text" pInputText [(ngModel)]="compraProductoTemporal.cantidad" placeholder="Cantidad.." name="ompraProducto">
+        <input type="number" pInputNumber [(ngModel)]="compraProductoTemporal.cantidad" placeholder="Cantidad.." name="ompraProducto">
+      </div>
+    </div>
+    <div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
+      <div class="ui-inputgroup" *ngIf="compraProductoTemporal">
+        <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Medida"></button>
+        <p-dropdown placeholder="Seleccione medida" optionLabel="tipoMedida" [showClear]="true" name="tipoMedida"
+          [options]="medidas" [(ngModel)]="medidaTemporal"></p-dropdown>
       </div>
     </div>
   </div>
   <p-footer>
-    <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-success" type="button" pButton icon="pi pi-pencil" (click)="editarCompraProducto(compraProductoTemporal)"
-      label="Modificar"></button>
     <button *ngIf="tipoDeEdicionDeProducto" class="ui-button-warning" type="button" pButton icon="pi pi-trash" (click)="eliminarCompraProducto(compraProductoTemporal)"
       label="Eliminar"></button>
     <button *ngIf="!tipoDeEdicionDeProducto" type="button" pButton icon="pi pi-check" (click)="addProductoToCompra($event)"

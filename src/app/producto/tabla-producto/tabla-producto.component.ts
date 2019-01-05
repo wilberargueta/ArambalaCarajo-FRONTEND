@@ -25,7 +25,7 @@ export class TablaProductoComponent implements OnInit {
 
     this.cols = [
       { field: 'nombre', header: 'Nombre' },
-      { field: 'medida', header: 'Medida' }
+      { field: 'medida.tipoMedida', header: 'Medida' }
     ];
   }
 

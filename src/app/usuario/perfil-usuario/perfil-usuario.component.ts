@@ -87,18 +87,16 @@ export class PerfilUsuarioComponent implements OnInit {
       // Editando un servicio
       this.usuarioRole.role = this.role;
       this.usuarioRole.usuario = this.usuario;
+
       this.usuarioRoleService
         .updateUsuarioRole(this.usuarioRole)
-        .subscribe(rol => {
-          console.log(rol);
-        });
+        .subscribe(rol => {});
       this.usuarioEmpleado.empleado = this.empleado;
       this.usuarioEmpleado.usuario = this.usuario;
+
       this.usuarioEmpleadoService
         .updateUsuarioEmpleado(this.usuarioEmpleado)
-        .subscribe(em => {
-          console.log(em);
-        });
+        .subscribe(em => {});
 
       this.usuarioService.updateUsuario(this.usuario).subscribe(data => {
         this.Respuesta = data;
@@ -110,7 +108,6 @@ export class PerfilUsuarioComponent implements OnInit {
               detail: this.Respuesta.message.message
             }
           ];
-
         } else {
           this.msgs = [
             {
@@ -119,14 +116,13 @@ export class PerfilUsuarioComponent implements OnInit {
               detail: this.Respuesta.message.message
             }
           ];
-
         }
       });
     } else {
       // Guardando un servicio
       this.usuarioService.addUsuario(this.usuario).subscribe(data => {
         this.Respuesta = data;
-        console.log(this.Respuesta);
+
         if (this.Respuesta.valor === null) {
           this.msgs = [
             {
@@ -135,7 +131,6 @@ export class PerfilUsuarioComponent implements OnInit {
               detail: this.Respuesta.message.message
             }
           ];
-
         } else {
           this.usuario = this.Respuesta.valor;
           this.msgs = [
@@ -147,21 +142,18 @@ export class PerfilUsuarioComponent implements OnInit {
           ];
           this.usuarioRole.role = this.role;
           this.usuarioRole.usuario = this.usuario;
-          // console.log(this.usuarioRole);
+
           this.usuarioRoleService
             .addUsuarioRole(this.usuarioRole)
-            .subscribe(rol => {
-              console.log(rol);
-            });
+            .subscribe(rol => {});
+
           this.usuarioEmpleado.empleado = this.empleado;
           this.usuarioEmpleado.usuario = this.usuario;
           this.usuarioEmpleadoService
             .addUsuarioEmpleado(this.usuarioEmpleado)
-            .subscribe(em => {
-              console.log(em);
-            });
-            this.tipoPerfil = true;
-            this.disable = true;
+            .subscribe(em => {});
+          this.tipoPerfil = true;
+          this.disable = true;
         }
       });
     }
@@ -202,13 +194,11 @@ export class PerfilUsuarioComponent implements OnInit {
     this.usuarioRoleService
       .deleteUsuarioRole(this.usuarioRole)
       .subscribe(rol => {
-        console.log(rol);
         this.usuarioEmpleado.empleado = this.empleado;
         this.usuarioEmpleado.usuario = this.usuario;
         this.usuarioEmpleadoService
           .deleteUsuarioEmpleado(this.usuarioEmpleado)
           .subscribe(em => {
-            console.log(em);
             this.usuarioService.deleteUsuario(this.usuario).subscribe(data => {
               this.msgs = [
                 {
@@ -223,7 +213,6 @@ export class PerfilUsuarioComponent implements OnInit {
     setTimeout(() => {
       this.router.navigate(['/usuarios'], { relativeTo: this.rout });
     }, 1000);
-    console.log('Eliminado');
   }
   filtradorEmpleado(event) {
     this.empleadoService.getEmpleadoByNombre(event.query).subscribe(data => {

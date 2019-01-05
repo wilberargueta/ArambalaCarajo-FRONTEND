@@ -28,9 +28,15 @@
       </p-table>
     </p-card>
 
-    <p-card>
-      Total <p style="display: inline; margin-left: 5em;" align="rigth">${{total}}</p>
-    </p-card>
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button type="button" pButton class="ui-button-raised ui-button-success" label="TOTAL"></button>
+      </div>
+      <div class="ui-toolbar-group-right">
+        <button style="font-size: 16px;" type="button" [label]="'$'+total" pButton class="ui-button-raised ui-button-rounded ui-button-warning"></button>
+      </div>
+
+    </p-toolbar>
   </div>
 
   <div class="p-col-6" style="height: 480px;">
@@ -55,8 +61,7 @@
     <p-toolbar>
       <div class="ui-toolbar-group-left">
         <button pButton type="button" (click)="displayCuenta()" label="Nueva Cuenta" icon="pi pi-plus" style="margin-right: 1em;"></button>
-        <button pButton type="button" label="Borrar Cuenta" icon="pi pi-trash" style="margin-right: 1em;" class="ui-button-danger"
-          (click)="displayBorrarCuenta()"></button>
+
         <button pButton type="button" label="Lista Cuenta" icon="pi pi-bars" style="margin-right: 1em;" class="ui-button-secondary"
           (click)="op.toggle($event); cargaLista = true;"></button>
 

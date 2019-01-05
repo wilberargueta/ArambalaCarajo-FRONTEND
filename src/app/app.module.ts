@@ -41,9 +41,12 @@ import { TomaPedidoModule } from './toma-pedido/toma-pedido.module';
 import { CajeroModule } from './cajero/cajero.module';
 
 import {TieredMenuModule} from 'primeng/tieredmenu';
+import { MenusComponent } from './menus/menus.component';
+import { VentasModule } from './ventas/ventas.module';
+import { ExistenciasModule } from './existencias/existencias.module';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent, MenusComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -71,7 +74,9 @@ import {TieredMenuModule} from 'primeng/tieredmenu';
     PanelMenuModule,
     TomaPedidoModule,
     CajeroModule,
-    TieredMenuModule
+    TieredMenuModule,
+    VentasModule,
+    ExistenciasModule
   ],
   providers: [
     EmpleadoService,

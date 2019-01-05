@@ -21,9 +21,9 @@
             <div class="ui-inputgroup">
               <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                label="Codigo"></button>
-              <p-inputMask [disabled]="tipoPerfil" mask="P-9999" type="text" pInputText
+              <input  [disabled]="true" type="text" pInputText
                [(ngModel)]="producto.codProducto" placeholder="Codigo.." name="cod">
-              </p-inputMask>
+
             </div>
           </div>
         </div>
@@ -40,7 +40,8 @@
             <div class="ui-inputgroup">
                 <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info"
                 label="Medida"></button>
-              <p-dropdown  [disabled]="disable" [showClear]="true" name="medida" [options]="medidas" [(ngModel)]="producto.medida"
+              <p-dropdown placeholder="Seleccione medida" [disabled]="disable" optionLabel="tipoMedida" [showClear]="true"
+               name="tipoMedida" [options]="medidas" [(ngModel)]="medida"
                 ></p-dropdown>
 
             </div>

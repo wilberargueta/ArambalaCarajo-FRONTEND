@@ -1,3 +1,5 @@
+import { CajaService } from './../_services/caja.service';
+import { UsuarioService } from './../_services/usuario.service';
 import { MenuCategoriaService } from './../_services/menu-categoria.service';
 import { MenuService } from './../_services/menu.service';
 import { DialogModule } from 'primeng/dialog';
@@ -32,7 +34,7 @@ import { MenuComidaComponent } from './menu-comida/menu-comida.component';
 import { MenuCabanaComponent } from './menu-cabana/menu-cabana.component';
 import { MenuCategoriaMenuComponent } from './menu-categoria-menu/menu-categoria-menu.component';
 import { CuentasComponent } from './cuentas/cuentas.component';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   imports: [
@@ -70,6 +72,12 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     MenuCategoriaMenuComponent,
     CuentasComponent
   ],
-  providers: [MenuService, MenuCategoriaService, CategoriaService]
+  providers: [
+    MenuService,
+    MenuCategoriaService,
+    CategoriaService,
+    UsuarioService,
+    CajaService
+  ]
 })
 export class TomaPedidoModule {}

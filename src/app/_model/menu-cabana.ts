@@ -6,8 +6,8 @@ export class MenuCabana {
     public idCabanaMenu: number,
     public cabana: Cabana,
     public menu: Menu,
-    public fechaInicio: Date,
-    public fechaFinal: Date
+    public fechaInicio: string,
+    public fechaFinal: string
   ) {}
 
 }

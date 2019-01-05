@@ -145,11 +145,12 @@ export class TomaPedidoComponent implements OnInit {
   }
   displayCuenta() {
     this.menuCuenta = [];
-    this.cuenta = new Cuenta(null, null, null, null, null, null);
+    this.cuenta = new Cuenta(null, null, null, null, null, null, null);
     this.addCuenta = true;
   }
 
   agregarCuenta() {
+    this.cuenta.cobrada = false;
     this.cuenta.cobrada = false;
     this.cuenta.fechaCuenta = moment().format('YYYY-M-DD');
     this.cuenta.descuento = '0';
@@ -186,61 +187,13 @@ export class TomaPedidoComponent implements OnInit {
       });
   }
 
-  displayBorrarCuenta() {
-    if (this.cuenta === null) {
-      this.displayCuenta();
-      return;
-    }
-    this.confirmationService.confirm({
-      message: 'Estas Seguro de eliminar la cuenta?',
-      accept: () => {
-        this.cuentaMenuService
-          .deleteCuentaMenuByCuenta(this.cuenta)
-          .subscribe(re => {
-            this.cuentaUsuarioService
-              .deleteCuentaUsuarioByCuenta(this.cuenta)
-              .subscribe(re1 => {
-                this.cuentaService.deleteCuenta(this.cuenta).subscribe(data => {
-                  this.menuCuenta = [];
-                  this.cuenta = null;
-                  this.msgs = [
-                    {
-                      severity: 'info',
-                      summary: 'Eliminado',
-                      detail: 'Cuenta eliminada exitosamente'
-                    }
-                  ];
-                });
-              });
-          });
-      }
-    });
-  }
+
   displayCuentaMenu(event: CuentaMenu) {
     this.cuentaMenuEdicion = new CuentaMenu(null, null, null, null);
     this.cuentaMenuEdicion = event;
     this.displayEdicionMenuCuenta = true;
   }
 
-  borrarCuentaMenu() {
-    this.displayEdicionMenuCuenta = false;
-    this.total -=
-      this.cuentaMenuEdicion.cantidad * +this.cuentaMenuEdicion.menu.precio;
-    this.cuentaMenuService
-      .deleteCuentaMenu(this.cuentaMenuEdicion)
-      .subscribe(r => {
-        this.cuentaMenuService
-          .getCuentaMenuByCuenta(this.cuentaMenuEdicion.cuenta)
-          .subscribe(cm => {
-            this.menuCuenta = cm;
-            this.total = 0;
-            this.menuCuenta.forEach(lamda => {
-              this.total += lamda.cantidad * +lamda.menu.precio;
-            });
-            this.cuentaMenuEdicion = null;
-          });
-      });
-  }
   editarCuentaMenu() {
     this.displayEdicionMenuCuenta = false;
     this.total -=
@@ -257,6 +210,7 @@ export class TomaPedidoComponent implements OnInit {
               this.total += lamda.cantidad * +lamda.menu.precio;
             });
             this.cuentaMenuEdicion = null;
+
           });
       });
   }

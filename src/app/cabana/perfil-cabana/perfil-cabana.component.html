@@ -1,14 +1,14 @@
 <div class="ui-g-12">
-  <form>
+  <form [formGroup]="userform">
     <div class="ui-g-12">
       <p-toolbar>
         <div class="ui-toolbar-group-left">
           <button pButton type="button" icon="pi pi-arrow-left" class="ui-button-secondary" (click)="regresar($event)"
-           label="Regresar" style="margin-right: .25em;"></button>
+            label="Regresar" style="margin-right: .25em;"></button>
           <button *ngIf="tipoPerfil" (click)="update($event)" pButton type="button" icon="pi pi-align-center" label="Editar"
-           class="ui-button-success" style="margin-right: .25em;"></button>
-          <button *ngIf="tipoPerfil" (click)="confirm($event)" pButton type="button"  icon="pi pi-trash" label="Eliminar"
-          class="ui-button-danger"></button>
+            class="ui-button-success" style="margin-right: .25em;"></button>
+          <button *ngIf="tipoPerfil" (click)="confirm($event)" pButton type="button" icon="pi pi-trash" label="Eliminar"
+            class="ui-button-danger"></button>
         </div>
 
       </p-toolbar>
@@ -16,64 +16,64 @@
     </div>
 
     <div class="ui-g-12 ui-lg-8 ui-md-5">
-     <p-panel>
-      <h3 class="first">Edicion De Cabaña</h3>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-lg-12 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Codigo"></button>
-            <p-inputMask [disabled]="tipoPerfil"   mask="C-999"  type="text" pInputText [(ngModel)]="cabana.codCabana"
-             placeholder="Codigo.." name="cod">
-              </p-inputMask>
-          </div>
-        </div>
-      </div>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nombre"></button>
-            <input class="ui-g-12  ui-lg-6 ui-md-12" [disabled]="disable" type="text" pInputText [(ngModel)]="cabana.nombre"
-             name="nombre" placeholder="Nombre">
-          </div>
-        </div>
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Disponible"></button>
-            <p-selectButton [disabled]="disable" [options]="options" [(ngModel)]="cabana.disponible" name="disponible"></p-selectButton>
-          </div>
-        </div>
-      </div>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Precio"></button>
-            <input [disabled]="disable" [(ngModel)]="cabana.precio" placeholder="Precio" name="nit">
+      <p-panel>
+        <h3 class="first">Edicion De Cabaña</h3>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-lg-12 ui-md-12">
+            <div class="ui-inputgroup">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Codigo"></button>
+              <input formControlName="1" disabled type="text" pInputText [(ngModel)]="cabana.codCabana"
+                placeholder="Codigo.." name="cod">
 
+            </div>
           </div>
         </div>
-        <div class="ui-g-12 ui-lg-6 ui-md-12">
-          <div class="ui-inputgroup">
-            <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Detalle"></button>
-            <input [disabled]="disable" pInputText type="text" [(ngModel)]="cabana.detalle" name="detalle">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup"  [formGroup]="userform">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Nombre"></button>
+              <input class="ui-g-12  ui-lg-6 ui-md-12" [disabled]="disable" type="text" pInputText [(ngModel)]="cabana.nombre"
+                name="nombre" placeholder="Nombre" formControlName="nombre">
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup"  [formGroup]="userform">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Disponible"></button>
+              <p-selectButton formControlName="disponible" [disabled]="disable" [options]="options" [(ngModel)]="cabana.disponible" name="disponible"></p-selectButton>
+            </div>
           </div>
         </div>
-        <div class="ui-g-12 ui-fluid" *ngIf="!disable">
-          <p-toolbar>
-            <div class="ui-toolbar-group-left">
-              <div class="ui-g-6 ui-lg-6 ui-md-6">
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup"  [formGroup]="userform">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Precio"></button>
+              <input [disabled]="disable" formControlName="precio" [(ngModel)]="cabana.precio" placeholder="Precio" name="nit">
 
-                  <button (click)="confirm2($event)" pButton type="button" label="Guardar" class="ui-button-success"></button>
+            </div>
+          </div>
+          <div class="ui-g-12 ui-lg-6 ui-md-12">
+            <div class="ui-inputgroup" [formGroup]="userform">
+              <button pButton type="button" class="ui-button-rounded ui-button-raised ui-button-info" label="Detalle"></button>
+              <input [disabled]="disable" formControlName="detalle"  pInputText type="text" [(ngModel)]="cabana.detalle" name="detalle">
+            </div>
+          </div>
+          <div class="ui-g-12 ui-fluid" *ngIf="!disable">
+            <p-toolbar>
+              <div class="ui-toolbar-group-left">
+                <div class="ui-g-6 ui-lg-6 ui-md-6">
 
-              </div>
-              <div class="ui-g-6 ui-lg-6 ui-md-6">
+                  <button (click)="confirm2($event)" [disabled]="!userform.valid"  pButton type="button" label="Guardar" class="ui-button-success"></button>
+
+                </div>
+                <div class="ui-g-6 ui-lg-6 ui-md-6">
 
                   <button (click)="cancel($event)" pButton type="button" class="ui-button-danger" label="Cancelar"></button>
 
+                </div>
               </div>
-            </div>
-          </p-toolbar>
+            </p-toolbar>
+          </div>
         </div>
-      </div>
 
       </p-panel>
     </div>
