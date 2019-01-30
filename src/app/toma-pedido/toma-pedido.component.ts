@@ -152,7 +152,7 @@ export class TomaPedidoComponent implements OnInit {
   agregarCuenta() {
     this.cuenta.cobrada = false;
     this.cuenta.cobrada = false;
-    this.cuenta.fechaCuenta = moment().format('YYYY-M-DD');
+    this.cuenta.fechaCuenta = moment().format('YYYY-MM-DD');
     this.cuenta.descuento = '0';
     this.addCuenta = false;
 

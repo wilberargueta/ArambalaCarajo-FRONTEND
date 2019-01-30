@@ -15,9 +15,8 @@ import * as moment from 'moment';
 })
 export class CuentasComponent implements OnInit {
   constructor(
-    private usuarioService: UsuarioService,
     private cuentaUsuarioService: CuentaUsuarioService,
-    private cuentaService: CuentaService
+
   ) {}
 
   @Input()

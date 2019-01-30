@@ -1,3 +1,7 @@
+import { TipoComprobanteService } from './../_services/tipo-comprobante.service';
+import { Factura } from './../_model/factura';
+import { TicketVenta } from './../_model/ticket-venta';
+import { TicketVentaService } from './../_services/ticket-venta.service';
 import { CajaVentaService } from './../_services/caja-venta.service';
 import { CajaService } from './../_services/caja.service';
 import { Caja } from './../_model/caja';
@@ -23,6 +27,7 @@ import { RecetaProductoService } from '../_services/receta-producto.service';
 import { ExistenciaService } from '../_services/existencia.service';
 import { ConvertidorMedidasService } from '../_services/convertidor-medidas.service';
 import { ActualizarExistencias } from '../_class/actualizar-existencias';
+import { Ticket } from '../_model/ticket';
 
 @Component({
   selector: 'ac-cajero',
@@ -61,6 +66,8 @@ export class CajeroComponent implements OnInit {
   comprobantes: SelectItem[];
   addVuelto = false;
   actualizarExistencia: ActualizarExistencias = new ActualizarExistencias();
+  modalFactura = false;
+  factura: Factura = new Factura(null, null, null, null, null, null, null);
   constructor(
     private cuentaService: CuentaService,
     private cuentaUsuarioService: CuentaUsuarioService,
@@ -74,13 +81,15 @@ export class CajeroComponent implements OnInit {
     private menuRecetaService: MenuRecetaService,
     private recetaProductoService: RecetaProductoService,
     private exitenciaService: ExistenciaService,
-    private convertidorService: ConvertidorMedidasService
+    private convertidorService: ConvertidorMedidasService,
+    private ticketVentaService: TicketVentaService,
+    private tipoComprobanteService: TipoComprobanteService
   ) {}
 
   ngOnInit() {
     this.comprobantes = [
-      { label: 'Tikect', value: 'Ticket' },
-      { label: 'Factura', value: 'Factrua' },
+      { label: 'Ticket', value: 'Ticket' },
+      { label: 'Factura', value: 'Factura' },
       { label: 'Credito Fiscal', value: 'Credito' }
     ];
     const nick = this.helper.decodeToken(sessionStorage.getItem('token')).sub;
@@ -380,6 +389,7 @@ export class CajeroComponent implements OnInit {
         this.cuenta = cuenta;
 
         const menusTempora: CuentaMenu[] = [];
+        console.log(this.menuCuenta);
         this.menuCuenta.forEach(c => {
           c.cuenta = this.cuenta;
           menusTempora.push(c);
@@ -443,6 +453,7 @@ export class CajeroComponent implements OnInit {
             .getCuentaMenuByCuenta(this.cuenta)
             .subscribe(cs => {
               const CS = cs;
+              console.log(CS);
               CS.forEach(c => {
                 this.actualizarExistencia.actualizarProducto(
                   c,
@@ -476,14 +487,29 @@ export class CajeroComponent implements OnInit {
         });
       });
     }
+
+    switch (this.comprobante) {
+      case 'Ticket':
+        let ticket: TicketVenta = new TicketVenta(
+          null,
+          new Ticket(null, null),
+          this.venta
+        );
+        this.ticketVentaService.addTicketVenta(ticket).subscribe(t => {
+          ticket = t;
+        });
+        break;
+      case 'Factura':
+        this.modalFactura = true;
+        break;
+      default:
+        break;
+    }
   }
   limpiarCuenta() {
-    this.cuentaMenuService
-      .deleteCuentaMenuByCuenta(this.cuenta)
-      .subscribe(re => {
-        this.menuCuenta = [];
-        this.total = 0;
-      });
+    this.cuenta = null;
+    this.menuCuenta = [];
+    this.total = 0;
   }
   displayCobrarCuenta() {
     if (this.caja === null) {
@@ -501,4 +527,6 @@ export class CajeroComponent implements OnInit {
       });
     }
   }
+
+  cobrarFactura() {}
 }

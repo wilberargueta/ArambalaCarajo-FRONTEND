@@ -136,4 +136,24 @@
     <button pButton type="button" class="ui-button-danger" (click)="addCobrarCuenta=false" label="Cancelar"></button>
   </p-footer>
 </p-dialog>
+<p-dialog modal="true" [(visible)]="modalFactura">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Numero Factura:"></button>
+        <input type="text" name="numFactura" placeholder="Numero" [(ngModel)]="factura.numeroFactura">
+      </div>
+    </div>
+      <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Razon Social"></button>
+        <input type="text" name="razonSocial" placeholder="Nombre" [(ngModel)]="factura.razonSocial">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="cobrarFactura()" pButton type="button" label="Cobrar" style="margin-right: 1em;" class="ui-button-success"></button>
+    <button pButton type="button" class="ui-button-danger" (click)="modalFactura=false" label="Cancelar"></button>
+  </p-footer>
+</p-dialog>
 <p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>

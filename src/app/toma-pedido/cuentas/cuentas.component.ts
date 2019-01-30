@@ -40,7 +40,7 @@ export class CuentasComponent implements OnInit {
           this.cuentasUsuario = [];
           cu.forEach(val => {
             if (
-              val.cuenta.fechaCuenta === moment().format('YYYY-M-DD') &&
+              val.cuenta.fechaCuenta === moment().format('YYYY-MM-DD') &&
               val.cuenta.cobrada === false
             ) {
               this.cuentasUsuario.push(val);
@@ -57,7 +57,7 @@ export class CuentasComponent implements OnInit {
         this.cuentasUsuario = [];
         cu.forEach(val => {
           if (
-            val.cuenta.fechaCuenta === moment().format('YYYY-M-DD') &&
+            val.cuenta.fechaCuenta === moment().format('YYYY-MM-DD') &&
             val.cuenta.cobrada === false
           ) {
             this.cuentasUsuario.push(val);
