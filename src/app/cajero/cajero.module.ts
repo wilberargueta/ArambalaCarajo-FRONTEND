@@ -1,3 +1,5 @@
+import { FacturaService } from './../_services/factura.service';
+import { FacturaVentaService } from './../_services/factura-venta.service';
 import { TipoComprobanteService } from './../_services/tipo-comprobante.service';
 import { CajaService } from './../_services/caja.service';
 import { VentaService } from './../_services/venta.service';
@@ -36,6 +38,7 @@ import { CajaPrincipalComponent } from './caja-principal/caja-principal.componen
 import { CajaServicioComponent } from './caja-servicio/caja-servicio.component';
 import { ToastModule } from 'primeng/toast';
 import { TicketVentaService } from '../_services/ticket-venta.service';
+import { ModalComprobanteComponent } from './modal-comprobante/modal-comprobante.component';
 
 @NgModule({
   imports: [
@@ -72,14 +75,17 @@ import { TicketVentaService } from '../_services/ticket-venta.service';
     CajaCategoriaMenuComponent,
     CajaComidaComponent,
     CajaPrincipalComponent,
-    CajaServicioComponent
+    CajaServicioComponent,
+    ModalComprobanteComponent
   ],
   providers: [
     CajaVentaService,
     VentaService,
     CajaService,
     TicketVentaService,
-    TipoComprobanteService
+    TipoComprobanteService,
+    FacturaVentaService,
+    FacturaService
   ]
 })
 export class CajeroModule {}

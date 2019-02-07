@@ -7,16 +7,16 @@ import { Message } from '../_model/message';
 
 @Injectable()
 export class FacturaService {
-  private backend: Backend;
+  private backend: Backend = new Backend('');
   private URL_API = `${this.backend.URL_BACKEND}/api/facturas`;
 
   constructor(private client: HttpClient) {}
 
-  addFactura(factura: Factura): Observable<Message> {
-    return this.client.post<Message>(this.URL_API, factura);
+  addFactura(factura: Factura): Observable<Factura> {
+    return this.client.post<Factura>(this.URL_API, factura);
   }
-  udpateFactura(factura: Factura): Observable<Message> {
-    return this.client.post<Message>(`${this.URL_API}/update`, factura);
+  udpateFactura(factura: Factura): Observable<Factura> {
+    return this.client.post<Factura>(`${this.URL_API}/update`, factura);
   }
   deleteFactura(factura: Factura): Observable<Message> {
     return this.client.post<Message>(`${this.URL_API}/delete`, factura);

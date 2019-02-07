@@ -1,3 +1,7 @@
+import { FacturaService } from './../_services/factura.service';
+import { FacturaVentaService } from './../_services/factura-venta.service';
+import { FacturaVenta } from './../_model/factura-venta';
+import { TipoComprobante } from './../_model/tipo-comprobante';
 import { TipoComprobanteService } from './../_services/tipo-comprobante.service';
 import { Factura } from './../_model/factura';
 import { TicketVenta } from './../_model/ticket-venta';
@@ -67,7 +71,22 @@ export class CajeroComponent implements OnInit {
   addVuelto = false;
   actualizarExistencia: ActualizarExistencias = new ActualizarExistencias();
   modalFactura = false;
-  factura: Factura = new Factura(null, null, null, null, null, null, null);
+  modalComprobante = false;
+  modalCredito = false;
+  modalComprobanteFinal = false;
+  factura: Factura = new Factura(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  );
+  vuelto = 0;
+  tipoComprobante: TipoComprobante;
+  ventaComprobante: FacturaVenta = new FacturaVenta(null, null, null);
   constructor(
     private cuentaService: CuentaService,
     private cuentaUsuarioService: CuentaUsuarioService,
@@ -83,7 +102,9 @@ export class CajeroComponent implements OnInit {
     private exitenciaService: ExistenciaService,
     private convertidorService: ConvertidorMedidasService,
     private ticketVentaService: TicketVentaService,
-    private tipoComprobanteService: TipoComprobanteService
+    private tipoComprobanteService: TipoComprobanteService,
+    private facturaVentaService: FacturaVentaService,
+    private facturaService: FacturaService
   ) {}
 
   ngOnInit() {
@@ -419,11 +440,8 @@ export class CajeroComponent implements OnInit {
                 .addCajaVenta(this.cajaVenta)
                 .subscribe(res => {
                   this.cuenta = null;
-                  const vuelto = this.pago - this.total;
-                  this.confirmationService.confirm({
-                    message: `Vuelto es: $${vuelto}`,
-                    accept: () => {}
-                  });
+                  this.vuelto = this.pago - this.total;
+                  this.cobrar();
 
                   this.cuenta = null;
                   this.menuCuenta = [];
@@ -469,11 +487,8 @@ export class CajeroComponent implements OnInit {
           this.cajaVenta.cuenta = this.cuenta;
           this.cajaVenta.venta = this.venta;
           this.cajaVentaService.addCajaVenta(this.cajaVenta).subscribe(res => {
-            const vuelto = this.total - this.pago;
-            this.confirmationService.confirm({
-              message: `Vuelto es: $${vuelto}`,
-              accept: () => {}
-            });
+            this.vuelto = +this.total - +this.pago;
+            this.cobrar();
             this.cuenta = null;
             this.menuCuenta = [];
             this.pago = 0;
@@ -486,24 +501,6 @@ export class CajeroComponent implements OnInit {
           });
         });
       });
-    }
-
-    switch (this.comprobante) {
-      case 'Ticket':
-        let ticket: TicketVenta = new TicketVenta(
-          null,
-          new Ticket(null, null),
-          this.venta
-        );
-        this.ticketVentaService.addTicketVenta(ticket).subscribe(t => {
-          ticket = t;
-        });
-        break;
-      case 'Factura':
-        this.modalFactura = true;
-        break;
-      default:
-        break;
     }
   }
   limpiarCuenta() {
@@ -528,5 +525,94 @@ export class CajeroComponent implements OnInit {
     }
   }
 
-  cobrarFactura() {}
+  cobrar() {
+    switch (this.comprobante) {
+      case 'Ticket':
+        let ticket: TicketVenta = new TicketVenta(
+          null,
+          new Ticket(null, null),
+          this.venta
+        );
+        this.ticketVentaService.addTicketVenta(ticket).subscribe(t => {
+          ticket = t;
+          this.confirmationService.confirm({
+            message: `Vuelto es: $${this.vuelto}`,
+            accept: () => {}
+          });
+        });
+        break;
+      case 'Factura':
+        this.modalFactura = true;
+        break;
+        case 'Credito':
+        this.modalFactura = true;
+        break;
+      default:
+        break;
+    }
+  }
+  cobrarFactura() {
+    this.modalFactura = false;
+    this.tipoComprobanteService
+      .getComprobanteByComprobante('Factura')
+      .subscribe(c => {
+        this.tipoComprobante = c;
+        this.factura.iva = 13;
+        this.factura.tipoComprobante = this.tipoComprobante;
+        this.facturaService.addFactura(this.factura).subscribe(f => {
+          this.factura = f;
+          const fv = new FacturaVenta(null, this.venta, this.factura);
+          this.facturaVentaService.addFacturaVenta(fv).subscribe(res => {
+            this.comprobante = 'Ticket';
+            this.modalComprobanteFinal = true;
+            /*this.factura = new Factura(
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            );*/
+
+          });
+        });
+      });
+    // console.log(this.factura.correlativoFactura);
+  }
+  cobrarCredito() {
+    this.modalFactura = false;
+    this.tipoComprobanteService
+      .getComprobanteByComprobante('Credito Fiscal')
+      .subscribe(c => {
+        this.tipoComprobante = c;
+        this.factura.iva = 13;
+        this.factura.tipoComprobante = this.tipoComprobante;
+        this.facturaService.addFactura(this.factura).subscribe(f => {
+          this.factura = f;
+          const fv = new FacturaVenta(null, this.venta, this.factura);
+          this.facturaVentaService.addFacturaVenta(fv).subscribe(res => {
+            this.comprobante = 'Factura';
+            this.modalComprobanteFinal = true;
+            /*this.factura = new Factura(
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            );*/
+
+          /*  this.confirmationService.confirm({
+              message: `Vuelto es: $${this.vuelto}`,
+              accept: () => {}
+            });*/
+          });
+        });
+      });
+    // console.log(this.factura.correlativoFactura);
+  }
 }

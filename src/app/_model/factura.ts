@@ -1,3 +1,4 @@
+import { TipoComprobante } from './tipo-comprobante';
 export class Factura {
   constructor(
     public idFactura: number,
@@ -5,7 +6,8 @@ export class Factura {
     public correlativoFactura: string,
     public razonSocial: string,
     public fechaFactura: Date,
-    public iva: string,
-    public detalle: string
+    public iva: number,
+    public detalle: string,
+    public tipoComprobante: TipoComprobante
   ) {}
 }

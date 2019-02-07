@@ -60,14 +60,16 @@
     <p-toolbar>
       <div class="ui-toolbar-group-left">
 
-        <button pButton type="button" label="Cobrar" icon="pi pi-arrow-circle-up" style="margin-right: 1em;" class="ui-button-success"
+        <button pButton type="button" label="Cobrar Efectivo" icon="pi pi-arrow-circle-up"
+        class="ui-button-success"  (click)="displayCobrarCuenta()"></button>
+            <button pButton type="button" label="Cobrar Tarjeta" icon="pi pi-arrow-circle-up" style="margin-left: 1em;margin-right: 1em;" class="ui-button-success"
           (click)="displayCobrarCuenta()"></button>
-        <button pButton type="button" label="Cuentas por cobrar" icon="pi pi-bars" style="margin-right: 1em;" class="ui-button-warning"
+            <p-selectButton [options]="comprobantes" [(ngModel)]="comprobante" ></p-selectButton>
+        <button pButton type="button" label="Cuentas por cobrar" icon="pi pi-bars" style="margin-left: 1em;" class="ui-button-warning"
           (click)="op.toggle($event); cargaLista = true;"></button>
-        <button pButton type="button" label="Limpiar menu" icon="pi pi-replay" style="margin-right: 1em;" (click)="limpiarCuenta()"></button>
-        <p-selectButton [options]="comprobantes" [(ngModel)]="comprobante"></p-selectButton>
-         <button pButton type="button" label="Tarjeta" icon="pi pi-arrow-circle-up" style="margin-left: 1em;" class="ui-button-success"
-          (click)="displayCobrarCuenta()"></button>
+        <button pButton type="button" label="Limpiar menu" icon="pi pi-replay" style="margin-left: 1em;" (click)="limpiarCuenta()"></button>
+
+
       </div>
     </p-toolbar>
 
@@ -141,7 +143,7 @@
     <div class="p-col-12">
       <div class="ui-inputgroup">
         <button type="button" pButton label="Numero Factura:"></button>
-        <input type="text" name="numFactura" placeholder="Numero" [(ngModel)]="factura.numeroFactura">
+        <input type="text" name="numFactura" placeholder="Numero" [(ngModel)]="factura.numFactura">
       </div>
     </div>
       <div class="p-col-12">
@@ -150,10 +152,72 @@
         <input type="text" name="razonSocial" placeholder="Nombre" [(ngModel)]="factura.razonSocial">
       </div>
     </div>
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Correlativo de Comprobante"></button>
+        <input type="text" name="correlativo" placeholder="Numero" [(ngModel)]="factura.correlativoFactura">
+      </div>
+    </div>
+     <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Detalles"></button>
+        <input type="text" name="detalle" placeholder="Detalles" [(ngModel)]="factura.detalle">
+      </div>
+    </div>
   </div>
+
   <p-footer>
     <button (click)="cobrarFactura()" pButton type="button" label="Cobrar" style="margin-right: 1em;" class="ui-button-success"></button>
     <button pButton type="button" class="ui-button-danger" (click)="modalFactura=false" label="Cancelar"></button>
   </p-footer>
 </p-dialog>
+<p-dialog modal="true" [(visible)]="modalCredito">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Numero Factura:"></button>
+        <input type="text" name="numFactura" placeholder="Numero" [(ngModel)]="factura.numFactura">
+      </div>
+    </div>
+      <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Razon Social"></button>
+        <input type="text" name="razonSocial" placeholder="Nombre" [(ngModel)]="factura.razonSocial">
+      </div>
+    </div>
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Correlativo de Comprobante"></button>
+        <input type="text" name="correlativo" placeholder="Numero" [(ngModel)]="factura.correlativoFactura">
+      </div>
+    </div>
+     <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Detalles"></button>
+        <input type="text" name="detalle" placeholder="Detalles" [(ngModel)]="factura.detalle">
+      </div>
+    </div>
+  </div>
+
+  <p-footer>
+    <button (click)="cobrarCredito()" pButton type="button" label="Cobrar" style="margin-right: 1em;" class="ui-button-success"></button>
+    <button pButton type="button" class="ui-button-danger" (click)="modalFactura=false" label="Cancelar"></button>
+  </p-footer>
+</p-dialog>
+<p-dialog modal="true" [(visible)]="modalComprobante">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="PAGA CON($):"></button>
+        <input type="text" name="pago" placeholder="Pago $" [(ngModel)]="pago">
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <button (click)="modalComprobante=false;" pButton type="button" label="Aceptar"  class="ui-button-success"></button>
+  </p-footer>
+</p-dialog>
 <p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>
+<ac-modal-comprobante *ngIf="modalComprobanteFinal"[factura]="factura" [tipoComprobante]="tipoComprobante" [mostrarModal]="modalComprobanteFinal">
+
+</ac-modal-comprobante>

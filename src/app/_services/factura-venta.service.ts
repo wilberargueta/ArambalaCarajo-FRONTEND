@@ -8,12 +8,13 @@ import { Factura } from '../_model/factura';
 
 @Injectable()
 export class FacturaVentaService {
-  private backend: Backend;
-  private URL_API = `${this.backend}/api/facturaVenta`;
+  private backend: Backend = new Backend('');
+  private URL_API = `${this.backend.URL_BACKEND}/api/facturaVenta`;
 
   constructor(private client: HttpClient) {}
 
   addFacturaVenta(fv: FacturaVenta): Observable<Message> {
+    console.log(this.URL_API);
     return this.client.post<Message>(this.URL_API, fv);
   }
   updateFacturaVenta(fv: FacturaVenta): Observable<Message> {
