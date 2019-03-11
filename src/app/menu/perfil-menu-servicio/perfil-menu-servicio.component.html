@@ -44,6 +44,18 @@
           [dropdown]="true" field="nombre"></p-autoComplete>
       </div>
     </div>
+     <div class="p-col-4">
+      <div class="ui-inputgroup">
+       <button pButton type="button" label="IVA "  style="margin-right: 1em;" class="ui-button-danger"></button>
+       <p-checkbox [(ngModel)]="iva" binary="true"  [style]="{'margin-top': '0.5em'}"></p-checkbox>
+      </div>
+    </div>
+    <div class="p-col-4">
+      <div class="ui-inputgroup">
+       <button pButton type="button" label="Impuesto Turismo " style="margin-right: 1em;" class="ui-button-warning"></button>
+       <p-checkbox [(ngModel)]="it" binary="true" [style]="{'margin-top': '0.5em'}"></p-checkbox>
+      </div>
+    </div>
   </div>
   <p-footer>
     <button pButton type="button" label="Agregar" icon="pi pi-plus" class="ui-button-success" (click)="guardarServicio()"></button>

@@ -43,6 +43,8 @@ export class PerfilMenuServicioComponent implements OnInit {
   menuCategoria: MenuCategoria;
   menuSelec: MenuCategoria;
   borrarMenuCategoria = false;
+  iva = false;
+  it = false;
   ngOnInit() {
     this.categoriaService.getCategoria().subscribe(cats => {
       this.categorias = cats;
@@ -87,7 +89,9 @@ export class PerfilMenuServicioComponent implements OnInit {
       null,
       this.servicio.nombre,
       this.servicio.detalle,
-      this.servicio.precio
+      this.servicio.precio,
+      this.iva,
+      this.it
     );
     this.menuService.addMenu(menu).subscribe(
       m => {

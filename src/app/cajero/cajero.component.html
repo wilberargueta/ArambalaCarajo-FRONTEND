@@ -63,7 +63,7 @@
         <button pButton type="button" label="Cobrar Efectivo" icon="pi pi-arrow-circle-up"
         class="ui-button-success"  (click)="displayCobrarCuenta()"></button>
             <button pButton type="button" label="Cobrar Tarjeta" icon="pi pi-arrow-circle-up" style="margin-left: 1em;margin-right: 1em;" class="ui-button-success"
-          (click)="displayCobrarCuenta()"></button>
+          (click)="displayCobrarCuentaTarjeta()"></button>
             <p-selectButton [options]="comprobantes" [(ngModel)]="comprobante" ></p-selectButton>
         <button pButton type="button" label="Cuentas por cobrar" icon="pi pi-bars" style="margin-left: 1em;" class="ui-button-warning"
           (click)="op.toggle($event); cargaLista = true;"></button>
@@ -221,3 +221,28 @@
 <ac-modal-comprobante *ngIf="modalComprobanteFinal"[factura]="factura" [tipoComprobante]="tipoComprobante" [mostrarModal]="modalComprobanteFinal">
 
 </ac-modal-comprobante>
+<p-dialog modal="true" [(visible)]="modalCobrarPorTarjeta">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <div class="ui-inputgroup">
+        <button type="button" pButton label="Nombre Propietario"></button>
+        <input type="text" name="np" placeholder="Nombre Completo" [(ngModel)]="tarjeta.nombrePropietario">
+      </div>
+    </div>
+    <div class="p-col-12">
+        <div class="ui-inputgroup">
+          <button type="button" pButton label="Numero Tarjeta"></button>
+          <input type="text" name="np" placeholder="Numero Tarjeta" [(ngModel)]="tarjeta.numeroTarjeta">
+        </div>
+      </div>
+      <div class="p-col-12">
+          <div class="ui-inputgroup">
+            <button type="button" pButton label="Codigo Aprovacion"></button>
+            <input type="text" name="np" placeholder="Cod Aprovacion" [(ngModel)]="tarjeta.codigoConfirmacion">
+          </div>
+        </div>
+  </div>
+  <p-footer>
+    <button (click)="modalCobrarPorTarjeta=false; tieneTarjeta = true; displayCobrarCuenta();" pButton type="button" label="Aceptar"  class="ui-button-success"></button>
+  </p-footer>
+</p-dialog>

@@ -90,7 +90,9 @@ export class PerfilMenuCabanaComponent implements OnInit {
       null,
       this.cabana.nombre,
       this.cabana.detalle,
-      this.cabana.precio
+      this.cabana.precio,
+      true,
+      true
     );
     this.menuService.addMenu(menu).subscribe(
       m => {

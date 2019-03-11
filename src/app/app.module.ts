@@ -44,6 +44,7 @@ import {TieredMenuModule} from 'primeng/tieredmenu';
 import { MenusComponent } from './menus/menus.component';
 import { VentasModule } from './ventas/ventas.module';
 import { ExistenciasModule } from './existencias/existencias.module';
+import { PruebasModule } from './pruebas/pruebas.module';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, HomeComponent, MenusComponent],
@@ -76,7 +77,8 @@ import { ExistenciasModule } from './existencias/existencias.module';
     CajeroModule,
     TieredMenuModule,
     VentasModule,
-    ExistenciasModule
+    ExistenciasModule,
+    PruebasModule
   ],
   providers: [
     EmpleadoService,

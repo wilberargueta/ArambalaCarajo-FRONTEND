@@ -1,3 +1,5 @@
+import { VentaTarjetaService } from './../_services/venta-tarjeta.service';
+import { TarjetaService } from './../_services/tarjeta.service';
 import { FacturaService } from './../_services/factura.service';
 import { FacturaVentaService } from './../_services/factura-venta.service';
 import { TipoComprobanteService } from './../_services/tipo-comprobante.service';
@@ -85,7 +87,9 @@ import { ModalComprobanteComponent } from './modal-comprobante/modal-comprobante
     TicketVentaService,
     TipoComprobanteService,
     FacturaVentaService,
-    FacturaService
+    FacturaService,
+    TarjetaService,
+    VentaTarjetaService
   ]
 })
 export class CajeroModule {}

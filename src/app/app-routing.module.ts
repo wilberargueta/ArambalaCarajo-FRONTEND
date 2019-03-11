@@ -1,3 +1,4 @@
+import { PruebasComponent } from './pruebas/pruebas.component';
 import { CajeroComponent } from './cajero/cajero.component';
 import { MenuServicioComponent } from './toma-pedido/menu-servicio/menu-servicio.component';
 import { TomaPedidoComponent } from './toma-pedido/toma-pedido.component';
@@ -203,6 +204,10 @@ const routes: Routes = [
       }
     ],
     canActivate: [AdminGuardService]
+  },
+  {
+    path: 'pruebas',
+    component: PruebasComponent
   }
 ];
 

@@ -91,7 +91,7 @@ export class TablaMenuComponent implements OnInit {
     this.servicio = new Servicio(null, null, null, null);
     this.addServicio = true;
   }
-  guardarServicio() {
+  /*guardarServicio() {
     this.categoria = new Categoria(null, null, null);
     this.categorias.forEach(c => {
       if (c.codCategoria === 'CS02') {
@@ -144,5 +144,5 @@ export class TablaMenuComponent implements OnInit {
       }
     );
     this.addServicio = false;
-  }
+  }*/
 }

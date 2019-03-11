@@ -73,6 +73,14 @@
 
               </div>
             </div>
+            <div class="p-xl-6 p-lg-4 p-md-12 p-sm-12">
+              <div class="ui-inputgroup">
+                  <button pButton type="button" label="IVA "  style="margin-right: 1em;" class="ui-button-warning"></button>
+                  <p-checkbox [(ngModel)]="menu.iva" binary="true"  [style]="{'margin-top': '0.5em'}" name="iva"></p-checkbox>
+
+
+              </div>
+            </div>
 
         </div>
         <p-footer *ngIf="!disable" >

@@ -32,6 +32,7 @@ import { RecetaService } from '../_services/receta.service';
 import { PerfilMenuServicioComponent } from './perfil-menu-servicio/perfil-menu-servicio.component';
 import { PerfilMenuCabanaComponent } from './perfil-menu-cabana/perfil-menu-cabana.component';
 import {ToastModule} from 'primeng/toast';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 
@@ -57,7 +58,8 @@ import {ToastModule} from 'primeng/toast';
     AutoCompleteModule,
     ScrollPanelModule,
     DialogModule,
-    ToastModule
+    ToastModule,
+    CheckboxModule
   ],
   declarations: [
     MenuComponent,

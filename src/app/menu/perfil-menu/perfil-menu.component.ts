@@ -49,7 +49,7 @@ export class PerfilMenuComponent implements OnInit {
   disable = true;
   msgs: Message[] = [];
   tipoPerfil = false;
-  menu = new Menu(null, null, null, null);
+  menu = new Menu(null, null, null, null, null, null);
   tipoDeEdicionDeReceta = true;
   addReceta = false;
   categoria = new Categoria(1, 'Alimentos', 'CA01');
@@ -63,7 +63,7 @@ export class PerfilMenuComponent implements OnInit {
     this.rout.params.subscribe((params: Params) => {
       if (params['id'] === 'nuevo') {
         // Inicializando cuando se realice una nueva compra
-        this.menu = new Menu(null, null, null, null);
+        this.menu = new Menu(null, null, null, null, null, null);
         this.tipoPerfil = false;
         this.disable = false;
         this.mostrar = true;
@@ -103,6 +103,8 @@ export class PerfilMenuComponent implements OnInit {
     this.router.navigate(['/menus'], { relativeTo: this.rout });
   }
   saveCompra($event) {
+
+    this.menu.it = false;
     if (this.tipoPerfil) {
       // Editando un menu ya existente
       this.menuService.updateMenu(this.menu).subscribe(data => {
@@ -123,6 +125,7 @@ export class PerfilMenuComponent implements OnInit {
         });
     } else {
       // Agregando un nuevo menu
+      this.menu.it = false;
 
       this.menuService.addMenu(this.menu).subscribe(data => {
         this.menu = data;

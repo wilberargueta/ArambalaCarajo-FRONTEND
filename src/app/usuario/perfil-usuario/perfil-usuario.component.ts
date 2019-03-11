@@ -116,6 +116,7 @@ export class PerfilUsuarioComponent implements OnInit {
               detail: this.Respuesta.message.message
             }
           ];
+          this.router.navigate(['/usuarios'], { relativeTo: this.rout });
         }
       });
     } else {
@@ -154,6 +155,7 @@ export class PerfilUsuarioComponent implements OnInit {
             .subscribe(em => {});
           this.tipoPerfil = true;
           this.disable = true;
+         // this.router.navigate(['/usuarios'], { relativeTo: this.rout });
         }
       });
     }

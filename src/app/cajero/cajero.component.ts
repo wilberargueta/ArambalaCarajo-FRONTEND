@@ -1,3 +1,6 @@
+import { VentaTarjetaService } from './../_services/venta-tarjeta.service';
+import { TarjetaService } from './../_services/tarjeta.service';
+import { Tarjeta } from './../_model/tarjeta';
 import { FacturaService } from './../_services/factura.service';
 import { FacturaVentaService } from './../_services/factura-venta.service';
 import { FacturaVenta } from './../_model/factura-venta';
@@ -32,6 +35,7 @@ import { ExistenciaService } from '../_services/existencia.service';
 import { ConvertidorMedidasService } from '../_services/convertidor-medidas.service';
 import { ActualizarExistencias } from '../_class/actualizar-existencias';
 import { Ticket } from '../_model/ticket';
+import { VentaTarjeta } from '../_model/venta-tarjeta';
 
 @Component({
   selector: 'ac-cajero',
@@ -74,6 +78,9 @@ export class CajeroComponent implements OnInit {
   modalComprobante = false;
   modalCredito = false;
   modalComprobanteFinal = false;
+  modalCobrarPorTarjeta = false;
+  tarjeta: Tarjeta = new Tarjeta(null, null, null, null);
+  tieneTarjeta = false;
   factura: Factura = new Factura(
     null,
     null,
@@ -104,7 +111,9 @@ export class CajeroComponent implements OnInit {
     private ticketVentaService: TicketVentaService,
     private tipoComprobanteService: TipoComprobanteService,
     private facturaVentaService: FacturaVentaService,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private tarjetaService: TarjetaService,
+    private ventaTarjetaService: VentaTarjetaService
   ) {}
 
   ngOnInit() {
@@ -193,7 +202,7 @@ export class CajeroComponent implements OnInit {
       return;
     }
     this.cuentaMenu = new CuentaMenu(null, null, null, null);
-    this.cuentaMenu.menu = new Menu(null, null, null, null);
+    this.cuentaMenu.menu = new Menu(null, null, null, null, null, null);
     this.cuentaMenu.menu = event;
     this.cuentaMenu.cantidad = this.cantidad;
     if (this.cuenta === null) {
@@ -453,6 +462,17 @@ export class CajeroComponent implements OnInit {
                     detail: 'Cuenta cobrada'
                   });
                 });
+
+              if (this.tieneTarjeta) {
+                this.tarjetaService.addTarjeta(this.tarjeta).subscribe(t => {
+                  this.ventaTarjetaService
+                    .addVentaTarjeta(new VentaTarjeta(null, this.venta, t))
+                    .subscribe(ventaTarjeta => {
+                      // console.log(ventaTarjeta);
+                      this.tieneTarjeta = false;
+                    });
+                });
+              }
             });
           });
       });
@@ -464,7 +484,7 @@ export class CajeroComponent implements OnInit {
           null,
           null,
           moment().format('YYYY-MM-DD'),
-          'Venta por tomapedido'
+          'Venta por caja'
         );
         this.ventaService.addVenta(this.venta).subscribe(venta => {
           this.cuentaMenuService
@@ -499,6 +519,16 @@ export class CajeroComponent implements OnInit {
               detail: 'Cuenta cobrada'
             });
           });
+          if (this.tieneTarjeta) {
+            this.tarjetaService.addTarjeta(this.tarjeta).subscribe(t => {
+              this.ventaTarjetaService
+                .addVentaTarjeta(new VentaTarjeta(null, this.venta, t))
+                .subscribe(ventaTarjeta => {
+                  // console.log(ventaTarjeta);
+                  this.tieneTarjeta = false;
+                });
+            });
+          }
         });
       });
     }
@@ -507,6 +537,21 @@ export class CajeroComponent implements OnInit {
     this.cuenta = null;
     this.menuCuenta = [];
     this.total = 0;
+  }
+  displayCobrarCuentaTarjeta() {
+    if (this.caja === null) {
+      this.displayCaja();
+      return;
+    }
+    if (this.menuCuenta.length !== 0) {
+      this.modalCobrarPorTarjeta = true;
+    } else {
+      this.mensaje.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Error tiene que agregar producto'
+      });
+    }
   }
   displayCobrarCuenta() {
     if (this.caja === null) {
@@ -544,7 +589,7 @@ export class CajeroComponent implements OnInit {
       case 'Factura':
         this.modalFactura = true;
         break;
-        case 'Credito':
+      case 'Credito':
         this.modalFactura = true;
         break;
       default:
@@ -575,7 +620,6 @@ export class CajeroComponent implements OnInit {
               null,
               null
             );*/
-
           });
         });
       });
@@ -606,7 +650,7 @@ export class CajeroComponent implements OnInit {
               null
             );*/
 
-          /*  this.confirmationService.confirm({
+            /*  this.confirmationService.confirm({
               message: `Vuelto es: $${this.vuelto}`,
               accept: () => {}
             });*/
