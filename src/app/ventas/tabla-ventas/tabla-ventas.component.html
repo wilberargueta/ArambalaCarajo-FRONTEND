@@ -1,6 +1,6 @@
 <div class="p-grid">
   <div class="p-col-12">
-    <p-table #dt [columns]="cols" [paginator]="true" [rows]="10" [value]="ventasLista"  selectionMode="single"
+    <p-table #dt [columns]="dcols" [paginator]="true" [rows]="10" [value]="ventasLista"  selectionMode="single"
       [(selection)]="ventaSelec" dataKey="idCajaVenta">
       <ng-template pTemplate="caption">
         <div style="text-align: center">
